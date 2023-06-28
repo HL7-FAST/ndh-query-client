@@ -1,0 +1,64 @@
+<div class='container-fluid'>
+  <h3 class='row text-white'>Search Providers</h3>
+  <div class='row'>
+    <div class='col-3'>
+      <label for="plan-select">Insurance Plan</label>
+      <select id="plan-select" class="custom-select bg-dark text-white"  data-networksByPlan="<%=@networks_by_plan.to_json %>" onchange="updateProviderNetworkList(event)">
+        <option value=""></option>
+
+        <% @plans.each do |param| %>
+          <option value="<%= param[:value] %>"><%= param[:name] %></option>
+        <% end %>
+      </select>
+
+      <label for="network-select">Network</label>
+      <select id="network-select" class="custom-select bg-dark text-white" onchange="updateProviderNetwork(event)"></select>
+        <option value=""></option>
+      </select>
+      <label for="specialty-select">Specialty</label>
+      <select id="specialty-select" class="custom-select bg-dark text-white" onchange="updateProviderSpecialty(event)">
+      <option value=""></option>
+        <% @specialties.each do |param| %>
+          <option value="<%= param[:value] %>"><%= param[:name] %></option>
+        <% end %>
+      </select>
+      <label for="zip-input">Zip Code</label>
+      <input id="zip-input" type="text" class="form-control bg-dark text-white" placeholder="06040" onkeyup="updateProviderZip(event)">
+      <label for="radius-input">Radius in Miles</label>
+      <input id="radius-input" type="text" class="form-control bg-dark text-white" placeholder="10 (default)" onkeyup="updateProviderRadius(event)">
+      <label for="city-input">City</label>
+      <input id="city-input" type="text" class="form-control bg-dark text-white" placeholder="Cambridge" onkeyup="updateProviderCity(event)">
+      <label for="name-input">Name</label>
+      <input id="name-input" type="text" class="form-control bg-dark text-white" onkeyup="updateProviderName(event)">
+      <label for="active-input">Active On</label>
+      <input id="active-input" type="date" class="form-control bg-dark text-white" onkeyup="updateProviderActiveDate(event)">
+      <label for="is-active-input">Show only currently active plans</label>
+      <input id="is-active-input" type="checkbox" value="true" onclick="updateProviderActive(event)">
+      <label for="new-patient-input">Accepting New Patients</label>
+      <select id="new-patient-select" class="custom-select bg-dark text-white" onchange="updateProviderNewPatient(event)">
+        <option value=""></option>
+        <option value="nopt">Not accepting patients</option>
+        <option value="newpt">Accepting patients</option>
+        <option value="existptonly">Accepting existing patients</option>
+        <option value="existptfam">Accepting existing patients and members of their families</option>
+      </select>
+      <!--TODO, need insurance plans selection that is activated supporting new patients from network - https://build.fhir.org/ig/HL7/fhir-us-ndh/SearchParameter-practitionerrole-new-patient-from-network.html -->
+      <!--<input id="new-patient-input" type="checkbox" value="true" onclick="updateProviderNewPatient(event)"> -->
+      <br>
+
+      <button id="provider-search-button", class="btn btn-outline-success" onclick="submitProviderSearch(event)">
+        Find
+      </button>
+    </div>
+    <div class='col-9'>
+      <div id="provider-query">
+      </div>
+      <div class='btn-group float-right mt-2' role='group'>
+        <button id="previous-button" class="btn btn-outline-primary disabled">Previous</button>
+        <button id="next-button" class="btn btn-outline-primary disabled">Next</button>
+      </div>
+      <table id="providers-table" class="table table-dark">
+      </table>
+    </div>
+  </div>
+</div>

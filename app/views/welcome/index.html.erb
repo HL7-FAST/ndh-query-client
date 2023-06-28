@@ -1,0 +1,37 @@
+<section class='container'>
+	<% if @client %>
+		<p class="text-success m-auto client-connected" style='text-align: center'>
+			Connected to <%= cookies[:server_url] -%>
+		</p>
+		<table class="table table-dark md-12">
+		<tr>
+		<td><%= @endpoints %>  <%= link_to "Endpoints", endpoints_path%></td>
+		<td><%=@healthCareServices%>  <%= link_to "Healthcare Services", healthcare_services_path%> </td>
+		<td><%=@insurancePlans%>  <%= link_to "Insurance Plans", insurance_plans_path%></td>
+		</tr>
+		<tr>
+		<td><%=@locations%>  <%= link_to "Locations", locations_path%></td>
+	 	<td><%=@networks%>  <%= link_to "Networks", networks_path%></td>
+		<td><%=@organizations%> <%= link_to "Organizations", organizations_path%></td>
+		</tr>			
+		<tr>
+		<td><%=@organizationAffiliations%>  <%= link_to "Organization Affiliations", organization_affiliations_path%></td>
+		<td><%=@practitioners%>  <%= link_to "Practitioners", practitioners_path%></td>
+		<td><%=@practitionerRoles%>  <%= link_to "PractitionerRoles", practitioner_roles_path%></td>
+		</tr>			
+		</table>
+	<%else%>
+		<p class="text-danger m-auto" style='text-align: center'>No Connection Established</p>
+	<% end %>
+     <section class='row col-12'>
+                <%= form_tag root_path, method: 'get', class: 'form-inline', id: 'server-form' do %>
+                        <div class='form-group col-md-10'>
+                                <%= text_field_tag :server_url, cookies[:server_url], class: 'form-control', placeholder: 'https://davinci-drug-formulary-ri.logicahealth.org/fhir' %>
+                        </div>
+
+                        <%= button_tag class: 'btn btn-primary col-md-2', id: 'server-url' do %>
+                                Lookup
+                        <% end %>
+                <% end %>
+    </section>
+</section>

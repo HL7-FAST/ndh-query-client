@@ -1,0 +1,70 @@
+<section class='container'>
+  <section class='row'>
+    <% unless @organization.nil? %>
+      <div class='col-12'>
+        <h2>Organization: <%= sanitize(@organization.name) %></h2>
+      </div>
+      
+      <div class='col-6' id='map'>
+       <%= render partial: 'partials/mapleaflet', locals: { lat: @organization.geolocation[0][:latitude] , long: @organization.geolocation[0][:longitude] }  if @organization.geolocation[0] %>
+      </div>
+      <div class='col-6'>
+        <table class='table table-dark'>
+          <tr>
+            <td>Phone/Fax:</td>
+            <td>
+              <% @organization.telecoms.each do |telecom| %>
+                <%= display_telecom(telecom) %><br />
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Type:</td>
+            <td>
+              <%= @organization.type.map(&:text).join(',') %>
+            </td>
+          </tr>
+          <tr>
+          <tr>
+            <td>Locations:</td>
+            <td>
+              <% @organization.addresses.each do |address| %>
+                <% address.line.each do |line| %>
+                  <%= sanitize(line) %><br />
+                <% end %>
+                <% if address.city || address.state || (address.postalCode && address.postalCode != "00000") %>
+                <%= sanitize(address.city) %>, 
+                <%= sanitize(address.state) %> 
+                <%= display_postal_code(address.postalCode) %><br />
+                <% end %>
+                <br />
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>GeoLocations:</td>
+            <td>
+              <% @organization.geolocation.each do |geoloc| %>
+               ( <%= geoloc[:longitude].to_s %> , <%= geoloc[:latitude].to_s %> )
+               <br />
+              <% end %>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Contact:</td>
+            <td>
+              <% @organization.contacts.each do |contact| %>
+                <%= display_human_name(contact.name) %><br />
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    <% else %>
+      Not available
+    <% end %>
+
+  </section>
+</section>
+
