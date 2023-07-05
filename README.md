@@ -1,5 +1,11 @@
 # FAST National Directory for Healthcare Reference Implementation
 
+## Live Instance
+
+**Live demo instance: https://ndh-query-client.fast.hl7.org**
+The HL7 FAST accelerator autobuilder and image repository: https://hub.docker.com/repository/docker/hlseven/fast-ndh-query-client
+
+
 ## Installation and Deployment
 
 The client reference implementation can installed and run locally on your machine.  Install the following dependencies first:
