@@ -76,6 +76,23 @@
             <td>Availability Exceptions:</td>
             <td><%= sanitize(@location.availability_exceptions) %></td>
           </tr>
+          <% @location.extensions.each do |extension| %>
+          <tr>
+            <td><%= extension_title(extension.url) %>:</td>
+            <td>
+              <% if extension.extension.present? %>
+              <!-- only going one level deep on extensions -->
+                <% extension.extension.each do |child_extension| %>
+                  <%= extension_title(child_extension.url) %>: <i><%= display_leaf_extension(child_extension) %></i>
+                  <br />
+                <% end %>
+              <% else %>
+                <%= display_leaf_extension(extension) %>
+              <% end %>
+              <br />
+            </td>
+          <tr>
+        <% end %>
           <tr>
             <td>Endpoints:</td>
             <td><%= display_list(@location.endpoints) %></td>

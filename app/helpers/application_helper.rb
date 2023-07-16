@@ -123,10 +123,13 @@ module ApplicationHelper
       result = 'None'
     else
       result = []
-      list.map(&:coding).each do |coding|
-        result << coding.map(&:display)
+      #result = list.map{|coding| display_coding(coding)}
+      list.map(&:coding).each do |item|
+        #result << coding.map(&:display)
+        item.each { |coding| result << display_coding(coding) }
+        #result << coding.code
+      
       end
-
       result = result.join(',<br />')
     end
 
@@ -278,6 +281,18 @@ module ApplicationHelper
   
 end
 
+def format_phone(phone)
+  phone.tr('^0-9', '')  
+  if phone.length == 10
+    "#({phone[0..2]}) #{phone[3..5]}-#{phone[6..9]}"
+  elsif phone.length == 11
+    "+#{phone[1]} (#{phone[1..3]}) #{phone[4..6]}-#{phone[7..10]}"
+  else
+    phone
+  end
+end
+
+
 
 
   #-----------------------------------------------------------------------------
@@ -294,18 +309,56 @@ end
       "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-verification-status" => "Verification Status",
       "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-network-reference" => "Network",
       "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-service-or-program-requirement" => "Service or Program Requirement",
-      "ratingType" => "Rating type",
-      "ratingValue" => "Rating value",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-org-description" => "Organization Description",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-qualification" => "Qualification",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-accessibility" => "Accessibility",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-associatedServers" => "Associated Servers",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-careteam-alias" => "Care Team Alias",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-combined-payload-and-mimetype" => "Payload and MIME Type",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-communication-proficiency" => "Communication Proficiency",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-contactpoint-availabletime" => "Contact Point Available TIme",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-digitalcertificate" => "Digital Certificate",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-dynamicRegistration" => "Dynamic Registration",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-endpointAccessControlMechanism" => "Access Control Mechanism",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-endpoint-connection-type-version" => "Connection Type Version",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-endpoint-ihe-specific-connection-type" => "IHE Connection Type",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-endpoint-non-fhir-usecase" => "Non-FHIR Use Case",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-ig-supported" => "IG Supported",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-healthcareservice-reference" => "Healthcare Service",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-endpoint-usecase" => "Use Cases",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-endpoint-reference" => "Endpoint",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-endpoint-rank" => "Endpoint Rank",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-fhir-ig" => "FHIR IG",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-identifier-status" => "Identifier Status",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-insuranceplan-reference" => "Insurance Plan",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-language-speak" => "Languages Spoken",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-location-reference" => "Location",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-logo" => "Logo",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-network-reference" => "Network",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-org-alias-period" => "Alias Period",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-org-alias-type" => "Alias Type",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-practitioner-qualification" => "Qualification",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-rating-details" => "Rating Details",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-secureExchangeArtifacts" => "Secure Exchange Artifacts",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-supported-ig-actor" => "Supported IG Actor",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-trustFramework" => "Trust Framework",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-restrictFhirPath" => "Restrict FHIR Path",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-via-intermediary" => "Intermediary",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-secureEndpoint" => "Secure Endpoint",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-igsSupported" => "IGs Supported",
+      "ratingType" => "Type",
+      "ratingValue" => " Value",
+      "ratingSystem" => "System",
       "acceptingPatients" => "Accepting new patients",
       "fromNetwork" => "Accepting patients from network",
       "characteristics" => "Characteristics",
       "deliveryMethodtype" => "Delivery method type",
       "virtualModalities" => "Virtual modalities",
-      "requiredDocumentId" => "Require document ID",
+      "requiredDocumentId" => "ID",
       "document" => "Document",
-      "fundingSourceId" => "Funding source ID",
-      "fundingOrganization" => "Funding organization",
-      "fundingSource" => "Funding source",
+      "fundingSourceId" => "ID",
+      "fundingOrganization" => "Organization",
+      "fundingSource" => "Source",
       "age-range" => "Age range requirement",
       "age-group" => "Age group requirement",
       "birthsex" => "Birth sex requirement",
@@ -313,12 +366,37 @@ end
       "employment-status" => "Employment status requirement",
       "insurance-status" => "Insurance status requirement",
       "va-status" => "VA status requirement",
-      "preferred-language" => "Preferred language requirement"
+      "preferred-language" => "Preferred language requirement",
+      "whereValid" => "Where valid",
+      "associatedServersType" => "Type",
+      "serverURL" => "URL",
+      "mimeType" => "MIME type",
+      "daysOfWeek" => "Days of week",
+      "allDay" => "All day",
+      "availableStartTime" => "Start time",
+      "availableEndTime" => "End time",
+      "expirationDate" => "Expiration date",
+      "trustProfile" => "Trust profile",
+      "endpointUsecasetype" => "Use case type",
+      "ig-publication" => "Publication",
+      "ig-name" => "Name",
+      "ig-version" => "Version",
+      "endpointUsecasetype" => "Use case type",
+      "secureExchangeArtifactsType" => "Type",
+      "ig-actor-name" => "Actor name",
+      "ig-actor" => "Actor",
+      "trustFrameworkType" => "Type",
+      "signedArtifact" => "Signed artifact",
+      "publicCertificate" => "Public certificate"
     }
     if titles.key?(url)
       result = titles[url]
     else
-      result = url
+      if(url.start_with?('http'))
+        result = url
+      else
+        result = url.capitalize
+      end
     end
 
   end 

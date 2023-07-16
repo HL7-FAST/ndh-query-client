@@ -14,7 +14,7 @@ class Endpoint < Resource
   attr_accessor :id, :meta, :implicit_rules, :language, :text, :identifier,
                 :active, :connection_type, :name, :managing_organization,
                 :contacts, :period, :payload_types, :payload_mime_types,
-                :headers
+                :headers, :extensions
 
   #-----------------------------------------------------------------------------
 
@@ -28,6 +28,7 @@ class Endpoint < Resource
     @payload_types = endpoint.payloadType
     @payload_mime_types = endpoint.payloadMimeType
     @headers = endpoint.header
+    @extensions = endpoint.extension
   end
 
   #-----------------------------------------------------------------------------

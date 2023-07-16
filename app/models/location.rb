@@ -15,7 +15,7 @@ class Location < Resource
                 :active, :operational_status, :name, :aliases, :description,
                 :mode, :type, :telecoms, :address, :physical_type, :position,
                 :managing_organization, :part_of, :hours_of_operations,
-                :availability_exceptions, :endpoints, :checked
+                :availability_exceptions, :endpoints, :checked, :extensions
 
   #-----------------------------------------------------------------------------
 
@@ -37,6 +37,7 @@ class Location < Resource
     @hours_of_operations      = location.hoursOfOperation
     @availability_exceptions  = location.availabilityExceptions
     @endpoints                = location.endpoint
+    @extensions               = location.extension
   end
 
   #-----------------------------------------------------------------------------

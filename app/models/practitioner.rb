@@ -13,7 +13,7 @@ class Practitioner < Resource
 
   attr_accessor :id, :meta, :implicit_rules, :language, :text, :identifier,
                 :active, :new_patient, :name, :telecoms, :addresses, :gender, :birthDate,
-                :photo, :qualifications, :communications
+                :photo, :qualifications, :communications, :extensions
 
   #-----------------------------------------------------------------------------
 
@@ -27,6 +27,7 @@ class Practitioner < Resource
     @photo = practitioner.photo
     @qualifications = practitioner.qualification
     @communications = practitioner.communication
+    @extensions = practitioner.extension
     
     if gender.eql?("female")
         @photo = "female-doctor-icon-9.jpg"

@@ -27,7 +27,23 @@
 					<% end %>
 					</td>
         </tr>
-
+        <% @insurance_plan.extensions.each do |extension| %>
+          <tr>
+            <td><%= extension_title(extension.url) %>:</td>
+            <td>
+              <% if extension.extension.present? %>
+              <!-- only going one level deep on extensions -->
+                <% extension.extension.each do |child_extension| %>
+                  <%= extension_title(child_extension.url) %>: <i><%= display_leaf_extension(child_extension) %></i>
+                  <br />
+                <% end %>
+              <% else %>
+                <%= display_leaf_extension(extension) %>
+              <% end %>
+              <br />
+            </td>
+          <tr>
+        <% end %>
        </table>
     <% else %>
       Not available

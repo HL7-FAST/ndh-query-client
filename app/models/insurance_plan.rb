@@ -14,7 +14,7 @@ class InsurancePlan < Resource
   attr_accessor :id, :meta, :implicit_rules, :language, :text, :identifier,
                 :active, :status, :type, :name, :plan_alias, :owned_by,
                 :administered_by, :coverage_areas, :contacts, :endpoints,
-                :networks
+                :networks, :extensions
 
   #-----------------------------------------------------------------------------
 
@@ -30,6 +30,7 @@ class InsurancePlan < Resource
     @contacts = insurance_plan.contact
     @endpoints = insurance_plan.endpoint
     @networks = insurance_plan.network
+    @extensions = insurance_plan.extension
   end
 
   #-----------------------------------------------------------------------------

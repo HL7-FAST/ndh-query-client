@@ -34,7 +34,7 @@ class PractitionerRole < Resource
     @not_availables = practitioner_role.notAvailable
     @availability_exceptions = practitioner_role.availabilityExceptions
     @endpoints = practitioner_role.endpoint
-    @new_patient = resource.new_patient
+    
   end
 
   #-----------------------------------------------------------------------------

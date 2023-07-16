@@ -217,7 +217,7 @@ class ApplicationController < ActionController::Base
     if telecom.try(:system).nil?
       telecom.try(:system) + ': ' + telecom.try(:value)
     else
-      'contact: ' + telecom.try(:value)
+      'contact: ' + format_phone(telecom.try(:value))
     end
   end
 

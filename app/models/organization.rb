@@ -13,7 +13,7 @@ class Organization < Resource
   include ActiveModel::Model
 
   attr_accessor :id, :meta, :implicit_rules, :language, :text, :identifier,
-                :active, :name, :telecoms, :addresses, :contacts, :geolocation, :type
+                :active, :name, :telecoms, :addresses, :contacts, :geolocation, :type, :extensions
 
   #-----------------------------------------------------------------------------
 
@@ -24,6 +24,7 @@ class Organization < Resource
     @addresses = organization.address
     @contacts = organization.contact
     @type = organization.type 
+    @extensions = organization.extension 
     parse_address(organization)
 
   end
