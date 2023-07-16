@@ -284,7 +284,7 @@ end
 def format_phone(phone)
   phone.tr('^0-9', '')  
   if phone.length == 10
-    "#({phone[0..2]}) #{phone[3..5]}-#{phone[6..9]}"
+    "(#{phone[0..2]}) #{phone[3..5]}-#{phone[6..9]}"
   elsif phone.length == 11
     "+#{phone[1]} (#{phone[1..3]}) #{phone[4..6]}-#{phone[7..10]}"
   else
