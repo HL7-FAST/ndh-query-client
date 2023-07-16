@@ -36,6 +36,10 @@ class HealthcareServicesController < ApplicationController
                       sort_by { |code| code[:name] }.
                       collect{|n| [n[:name], n[:value]]}
 
+    @programs  = PROGRAMS.
+                      sort_by { |code| code[:name] }.
+                      collect{|n| [n[:name], n[:value]]}
+
     @categories   = HealthcareService.categories.
                       sort_by { |category| category[:name] }.
                       collect{|c| [c[:name], c[:value]]}
@@ -43,6 +47,21 @@ class HealthcareServicesController < ApplicationController
     @types        = HealthcareService.types.
                       sort_by { |type| type[:name] }.
                       collect{|t| [t[:name], t[:value]]}
+
+    @newpatientoptions  = NEW_PATIENT_OPTIONS.
+                      collect{|n| [n[:name], n[:value]]}
+
+    @insurancestatusoptions  = INSURANCE_STATUS_OPTIONS.
+                      collect{|n| [n[:name], n[:value]]}
+
+    @birthsexoptions  = BIRTH_SEX_OPTIONS.
+                      collect{|n| [n[:name], n[:value]]}
+
+    @veteranstatusoptions = VETERAN_STATUS_OPTIONS.
+                      collect{|n| [n[:name], n[:value]]}
+
+    @employmentstatusoptions = EMPLOYMENT_STATUS_OPTIONS.
+                      collect{|n| [n[:name], n[:value]]}                      
 
     @healthcare_services = [] 
   end
@@ -73,8 +92,8 @@ class HealthcareServicesController < ApplicationController
       query_params = params[:healthcare_service]
 
       # Build the location-based query if zipcode and radius has been specified 
-      modified_params = zip_plus_radius_to_address(query_params) if query_params 
-
+      modified_params = zip_plus_radius_to_address(query_params) if query_params
+      
       # Only include the allowed search parameters...
       filtered_params = HealthcareService.search_params.select { |key, _value| modified_params[key].present? }
 
@@ -82,6 +101,9 @@ class HealthcareServicesController < ApplicationController
       query = filtered_params.each_with_object(base_params) do |(local_key, fhir_key), search_params|
         search_params[fhir_key] = modified_params[local_key]
       end
+
+      
+      
       # Get the matching resources from the FHIR server
       @bundle = @client.search(
         FHIR::HealthcareService,

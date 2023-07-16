@@ -1,5 +1,5 @@
 <div class='container-fluid'>
-  <h3 class='row text-white'>General Search</h3>
+  <h3 class='row text-white'>Healthcare Services Search</h3>
   <div class='row'>
     <div class='col-3'>
       <%= form_for :healthcare_service, url: search_healthcare_services_path, remote: true, method: "get" do |f| %>
@@ -15,10 +15,17 @@
         <%= f.label :specialty %><br />
         <%= f.select :specialty, @specialties, { include_blank: true }, 
                 { class: 'custom-select bg-dark text-white' } %>
-          <%= f.label :type %><br />
-                <%= f.select :type, @types, { include_blank: true }, 
+        <%= f.label :type %><br />
+        <%= f.select :type, @types, { include_blank: true }, 
                 { class: 'custom-select bg-dark text-white' } %>
-       <%= f.label :zip %><br />
+        <%= f.label :program %><br />
+        <%= f.select :program, @programs, { include_blank: true }, 
+                { class: 'custom-select bg-dark text-white' } %>
+
+        <!--<%= f.label :veteran, "Veteran?" %><br />
+        <%= f.check_box :'healthcareservice-program-requirement-va-status', {class: 'form-control bg-dark text-white'}, "true" %>-->
+
+        <%= f.label :zip %><br />
         <%= f.text_field :zip, class: 'form-control bg-dark text-white' %>
         <%= f.label :radius %><br />
         <%= f.text_field :radius, class: 'form-control bg-dark text-white' %>
@@ -28,6 +35,27 @@
         <%= f.text_field :name, class: 'form-control bg-dark text-white' %>
         <%= f.label :organization %><br />
         <%= f.text_field :organization, class: 'form-control bg-dark text-white' %>
+
+        <%= f.label :new_patient %><br />
+        <%= f.select :new_patient, @newpatientoptions, { include_blank: true }, 
+                { class: 'custom-select bg-dark text-white' } %>
+        <h4>Requirements:</h4>
+        <%= f.label :birth_sex %><br />
+        <%= f.select :birth_sex, @birthsexoptions, { include_blank: true }, 
+                { class: 'custom-select bg-dark text-white' } %>
+                
+        <%= f.label :veteran_status %><br />
+        <%= f.select :veteran_status, @veteranstatusoptions, { include_blank: true }, 
+                { class: 'custom-select bg-dark text-white' } %>
+
+        <%= f.label :insurance_status %><br />
+        <%= f.select :insurance_status, @insurancestatusoptions, { include_blank: true }, 
+                { class: 'custom-select bg-dark text-white' } %>
+
+        <%= f.label :employment_status %><br />
+        <%= f.select :employment_status, @employmentstatusoptions, { include_blank: true }, 
+                { class: 'custom-select bg-dark text-white' } %>
+
         <%= f.submit 'Find', class: 'btn btn-outline-success', id: 'healthcare-service-search-button' %>
       <% end %>
     </div>

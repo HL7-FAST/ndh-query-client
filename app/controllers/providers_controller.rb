@@ -23,6 +23,8 @@ class ProvidersController < ApplicationController
   def index
     @params = {}
     @specialties = INDIVIDUAL_AND_GROUP_SPECIALTIES.sort_by { |code| code[:name] }
+    @newpatientoptions = NEW_PATIENT_OPTIONS
+    @programs = PROGRAMS
   end
 
   #-----------------------------------------------------------------------------
@@ -63,7 +65,8 @@ class ProvidersController < ApplicationController
           .each_with_object(base_params) do |(local_key, fhir_key), search_params|
           search_params[fhir_key] = modifiedparams[local_key]
         end
-      # binding.pry
+      
+      #binding.pry
       @bundle = @client.search(
         FHIR::PractitionerRole,
         search: { parameters: query }

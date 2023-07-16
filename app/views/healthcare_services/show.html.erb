@@ -17,10 +17,15 @@
       <td>Specialties:</td> 
       <td><%= display_coding_list(@healthcare_service.specialties) %></td>
     </tr>
+    
         <tr>
           <td>Type:</td> 
           <td><%= display_coding_list(@healthcare_service.type) %></td>
         </tr>
+        <tr>
+      <td>Programs:</td> 
+      <td><%= display_coding_list(@healthcare_service.programs) %></td>
+    </tr>
         <tr>
           <td>Provided by:</td>
           <td><%= display_reference( @healthcare_service.provided_by) %></td>
@@ -48,11 +53,7 @@
         <tr>
           <td>Eligibilities:</td>
           <td><%= display_list(@healthcare_service.eligibilities) %></td>
-        </tr>
-        <tr>
-          <td>Programs:</td> 
-          <td><%= display_list(@healthcare_service.programs) %></td>
-        </tr>
+       
         <tr>
           <td>Characteristics:</td> 
           <td><%= display_list(@healthcare_service.characteristics) %></td>
@@ -82,6 +83,24 @@
           <td>Availability Exceptions:</td> 
           <td><%= sanitize(@healthcare_service.availability_exceptions) %></td>
         </tr>
+        <% @healthcare_service.extensions.each do |extension| %>
+          <tr>
+            <td><%= extension_title(extension.url) %>:</td>
+            <td>
+              <% if extension.extension.present? %>
+              <!-- only going one level deep on extensions -->
+                <% extension.extension.each do |child_extension| %>
+                  <u><%= extension_title(child_extension.url) %>:</u> <i><%= display_leaf_extension(child_extension) %></i>
+                  <br />
+                <% end %>
+              <% else %>
+                <%= display_leaf_extension(extension) %>
+              <% end %>
+                <br />
+              
+            </td>
+          <tr>
+        <% end %>
         <tr>
           <td>Endpoints:</td>
           <td><%= display_list(@healthcare_service.endpoints) %></td>

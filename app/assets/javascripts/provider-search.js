@@ -7,7 +7,7 @@ $(() => {
     updateProviderName({ target: { value: $('#name-input').val() } });
     updateProviderActiveDate({ target: { value: $('#active-input').val() } });
     updateProviderActive({ target: { value: $('#is-active-input').val() } });
-    updateProviderNewPatient({ target: { value: $('#new-patient-input').val() } });
+    updateProviderNewPatient({ target: { value: $('#new_patient-input').val() } });
   }
 });
 
@@ -46,6 +46,7 @@ const updateProviderNetworkList_old = function (event) {
 
 let providerParams = {};
 const updateProviderSearchParam = function(event, param) {
+  console.log("Setting param " + param + " to " + event.target.value);
   providerParams[param] = event.target.value;
 };
 
@@ -79,7 +80,8 @@ const updateProviderActive = function (event) {
 }
 
 const updateProviderNewPatient = function (event) {
-  updateProviderSearchParam(event, 'practitionerrole-new-patient');
+  console.log("New Patient in here!");
+  updateProviderSearchParam(event, 'new_patient');
 }
 
 

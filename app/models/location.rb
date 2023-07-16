@@ -115,7 +115,7 @@ class Location < Resource
       },
       {
         name: 'New Patient',
-        value: 'new-patient'
+        value: 'location-new-patient'
       },
       {
         name: 'Operational Status',

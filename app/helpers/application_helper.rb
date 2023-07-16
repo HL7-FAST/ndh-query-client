@@ -133,6 +133,24 @@ module ApplicationHelper
     sanitize(result)
   end
 
+  def display_CodeableConcept(codeableConcept)
+    if codeableConcept.text.present?
+      result = codeableConcept.text
+    else
+      result = display_coding(codeableConcept.coding[0])
+    end
+    sanitize(result)
+  end
+
+  def display_coding(coding)
+    if coding.display.present?
+      result = coding.display
+    elsif coding.code.present?
+      result = coding.code
+    end
+    sanitize(result)
+  end
+
   #-----------------------------------------------------------------------------
 
   def google_maps(address)
@@ -200,6 +218,42 @@ module ApplicationHelper
     sanitize(list.map { |extension| display_reference(extension.valueReference) }.join(',<br />'))
   end
 
+  def display_leaf_extension(list)
+      if list.valueCodeableConcept.present?
+        result = display_CodeableConcept(list.valueCodeableConcept)
+      elsif list.valueCoding.present?
+          result = display_coding(list.valueCodeableConcept.valueCoding)
+      elsif list.valueIdentifier.present?
+          result = display_identifier(list.valueIdentifier)
+      elsif list.valueString.present?
+          result = list.valueString
+      elsif list.valueCode.present?
+          result = list.valueCode
+      elsif list.valueReference.present?
+          result = display_reference(list.valueReference)
+        elsif list.valueBoolean.present?
+          result = list.valueBoolean
+      end
+  end
+
+  #def get_extension(list, parent_url, child_url = 'None')
+  #  if extensions.present?
+  ##    extensions.each do |extension|
+  #        if extension.url.include?(url)
+  #          if child_url != 'None'
+  #           extension.extension.each do |latlong|
+  #            if latlong.url.include?('latitude')
+  #                lat = latlong.valueDecimal
+  #            end
+  #            if latlong.url.include?('longitude')
+  #              long = latlong.valueDecimal
+  #            end
+  #        end
+  #        @geolocation << {latitude: lat, longitude: long }
+  #    end
+  #end
+
+
   #-----------------------------------------------------------------------------
 
   def display_location_type(list)
@@ -223,3 +277,48 @@ module ApplicationHelper
   end
   
 end
+
+
+
+  #-----------------------------------------------------------------------------
+  # Extension Descriptions - Rather simplistic and prone to collisions with children. Ideally would separate and make smarter.
+  def extension_title(url)
+    titles = {
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-newpatients" => "New Patients",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-delivery-method" => "Delivery Method",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-rating" => "Rating",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-paymentAccepted" => "Payment Accepted",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-requiredDocument" => "Required Document",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-fundingSource" => "Funding Source",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-usage-restriction" => "Useage Restriction",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-verification-status" => "Verification Status",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-network-reference" => "Network",
+      "http://hl7.org/fhir/us/ndh/StructureDefinition/base-ext-service-or-program-requirement" => "Service or Program Requirement",
+      "ratingType" => "Rating type",
+      "ratingValue" => "Rating value",
+      "acceptingPatients" => "Accepting new patients",
+      "fromNetwork" => "Accepting patients from network",
+      "characteristics" => "Characteristics",
+      "deliveryMethodtype" => "Delivery method type",
+      "virtualModalities" => "Virtual modalities",
+      "requiredDocumentId" => "Require document ID",
+      "document" => "Document",
+      "fundingSourceId" => "Funding source ID",
+      "fundingOrganization" => "Funding organization",
+      "fundingSource" => "Funding source",
+      "age-range" => "Age range requirement",
+      "age-group" => "Age group requirement",
+      "birthsex" => "Birth sex requirement",
+      "gender-identity" => "Gender identity requirement",
+      "employment-status" => "Employment status requirement",
+      "insurance-status" => "Insurance status requirement",
+      "va-status" => "VA status requirement",
+      "preferred-language" => "Preferred language requirement"
+    }
+    if titles.key?(url)
+      result = titles[url]
+    else
+      result = url
+    end
+
+  end 

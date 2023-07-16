@@ -13,12 +13,13 @@ class HealthcareService < Resource
   include ActiveModel::Model
 
   attr_accessor :id, :meta, :implicit_rules, :language, :text, :identifier,
-                :active, :provided_by, :categories, :type, :specialties,
+                :active, :provided_by, :categories, :type, :specialties, :programs,
                 :locations, :name, :comment, :telecoms, :coverage_areas,
-                :service_provision_codes, :eligibilities, :programs,
+                :service_provision_codes, :eligibilities, :newpatientoptions, 
+                :insurancestatusoptions, :birthsexoptions, :veteranstatusoptions, :employmentstatusoptions,
                 :characteristics, :communications, :referral_methods,
                 :appointment_required, :available_times, :not_availables,
-                :availability_exceptions, :endpoints
+                :availability_exceptions, :endpoints, :extensions
 
   #-----------------------------------------------------------------------------
 
@@ -28,6 +29,7 @@ class HealthcareService < Resource
     @categories               = healthcare_service.category
     @type                     = healthcare_service.type
     @specialties              = healthcare_service.specialty
+    @programs                 = healthcare_service.program
     @locations                = healthcare_service.location
     @name                     = healthcare_service.name
     @comment                  = healthcare_service.comment
@@ -35,7 +37,6 @@ class HealthcareService < Resource
     @coverage_areas           = healthcare_service.coverageArea
     @service_provision_codes  = healthcare_service.serviceProvisionCode
     @eligibilities            = healthcare_service.eligibility
-    @programs                 = healthcare_service.program
     @characteristics          = healthcare_service.characteristic
     @communications           = healthcare_service.communication
     @referral_methods         = healthcare_service.referralMethod
@@ -44,6 +45,7 @@ class HealthcareService < Resource
     @not_availables           = healthcare_service.notAvailable
     @availability_exceptions  = healthcare_service.availabilityExceptions
     @endpoints                = healthcare_service.endpoint
+    @extensions               = healthcare_service.extension
   end
 
   #-----------------------------------------------------------------------------
@@ -64,6 +66,30 @@ class HealthcareService < Resource
     CATEGORIES
   end
 
+  def self.programs
+    PROGRAMS
+  end
+
+  def self.newpatientoptions
+    NEW_PATIENT_OPTIONS
+  end
+
+  def self.insurancestatusoptions
+    INSURANCE_STATUS_OPTIONS
+  end
+
+  def self.birthsexoptions
+    BIRTH_SEX_OPTIONS
+  end
+
+  def self.veteranstatusoptions
+    VETERAN_STATUS_OPTIONS
+  end
+
+  def self.employmentstatusoptions
+    EMPLOYMENT_STATUS_OPTIONS
+  end
+  
   #-----------------------------------------------------------------------------
   private
   #-----------------------------------------------------------------------------
@@ -74,6 +100,13 @@ class HealthcareService < Resource
     category: 'service-category', 
     type: 'service-type',
     specialty: 'specialty',
+    program: 'program',
+    veteran: 'healthcareservice-program-requirement-va-status',
+    new_patient: 'healthcareservice-new-patient',
+    insurance_status: 'healthcareservice-social-service-insurance-status',
+    birth_sex: 'healthcareservice-social-service-birthsex',
+    veteran_status: 'healthcareservice-social-service-va-status',
+    employment_status: 'healthcareservice-social-service-employment-status',
     address: 'location.address',
     city: 'location.address-city',
     zipcode: 'location.address-postalcode',
@@ -205,5 +238,7 @@ class HealthcareService < Resource
     { value: 'urg', name: 'Urgent Care' },
     { value: 'vis', name: 'Vision' }
   ].freeze
+
+
 
 end
