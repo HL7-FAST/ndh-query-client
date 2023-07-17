@@ -51,7 +51,7 @@ class Network < Resource
       },
       {
         name: 'Coverage Area',
-        value: 'coverage-area'
+        value: 'network-coverage-area'
       },
       {
         name: 'Endpoint',
@@ -60,6 +60,10 @@ class Network < Resource
       {
         name: 'ID',
         value: '_id'
+      },
+      {
+        name: 'Last Updated',
+        value: '_lastUpdated'
       },
       {
         name: 'Identifier',

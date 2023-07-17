@@ -49,10 +49,10 @@ class Organization < Resource
         name: 'Country',
         value: 'address-country'
       },
-      {
-        name: 'Coverage Area',
-        value: 'coverage-area'
-      },
+      #{
+      #  name: 'Coverage Area',
+      #  value: 'coverage-area'
+      #},
       {
         name: 'Endpoint',
         value: 'endpoint'
@@ -60,6 +60,10 @@ class Organization < Resource
       {
         name: 'ID',
         value: '_id'
+      },
+      {
+        name: 'Last Updated',
+        value: '_lastUpdated'
       },
       {
         name: 'Identifier',
@@ -85,42 +89,42 @@ class Organization < Resource
         name: 'Postal Code',
         value: 'address-postalcode'
       },
-      {
-        name: 'Qualification Code',
-        value: 'qualification-code'
-      },
-      {
-        name: 'Qualification Issuer',
-        value: 'qualification-issuer'
-      },
-      {
-        name: 'Qualification Status',
-        value: 'qualification-status'
-      },
-      {
-        name: 'Qualification Where Valid Code',
-        value: 'qualification-wherevalid-code'
-      },
-      {
-        name: 'Qualification Where Valid Location',
-        value: 'qualification-wherevalid-location'
-      },
+      #{
+      #  name: 'Qualification Code',
+      #  value: 'qualification-code'
+      #},
+      #{
+      #  name: 'Qualification Issuer',
+      #  value: 'qualification-issuer'
+      #},
+      #{
+      #  name: 'Qualification Status',
+      #  value: 'qualification-status'
+      #},
+      #{
+      #  name: 'Qualification Where Valid Code',
+      #  value: 'qualification-wherevalid-code'
+      #},
+      #{
+      #  name: 'Qualification Where Valid Location',
+      #  value: 'qualification-wherevalid-location'
+      #},
       {
         name: 'State',
         value: 'address-state'
       },
-      {
-        name: 'Telecom Available Days',
-        value: 'telecom-available-days'
-      },
-      {
-        name: 'Telecom Available End Time',
-        value: 'telecom-available-endtime'
-      },
-      {
-        name: 'Telecom Available Start Time',
-        value: 'telecom-available-start-time'
-      },
+      #{
+      #  name: 'Telecom Available Days',
+      #  value: 'telecom-available-days'
+      #},
+      #{
+      #  name: 'Telecom Available End Time',
+      #  value: 'telecom-available-endtime'
+      #},
+      #{
+      #  name: 'Telecom Available Start Time',
+      # value: 'telecom-available-start-time'
+      #},
       {
         name: 'Type',
         value: 'type'

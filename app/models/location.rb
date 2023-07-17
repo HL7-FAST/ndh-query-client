@@ -54,69 +54,77 @@ class Location < Resource
         name: 'ID',
         value: '_id'
       },
+      {
+        name: 'Last Updated',
+        value: '_lastUpdated'
+      },
       { 
         name: 'Name',
         value: 'name:contains'
       },
       {
         name: 'Accessibility',
-        value: 'accessibility'
+        value: 'location-accessibility'
       },
       {
         name: 'Address',
         value: 'address'
       },
-      {
-        name: 'Available Days (mon,tues...sun)',
-        value: 'available-days'
-      },
-      {
-        name: 'Available End Time',
-        value: 'available-endtime'
-      },
-      {
-        name: 'Available Start Time',
-        value: 'available-start-time'
-      },
+      #{
+      #  name: 'Available Days (mon,tues...sun)',
+      #  value: 'available-days'
+      #},
+      #{
+      #  name: 'Available End Time',
+      #  value: 'available-endtime'
+      #},
+      #{
+      #  name: 'Available Start Time',
+      #  value: 'available-start-time'
+      #},
       {
         name: 'City',
         value: 'address-city'
       },
       {
         name: 'Contains',
-        value: 'contains'
+        value: 'location-contains'
       },
       {
         name: 'Country',
         value: 'address-country'
       },
-      {
-        name: 'Endpoint (identifier)',
-        value: 'Endpoint'
-      },
+      #{
+      #  name: 'Endpoint (identifier)',
+      #  value: 'Endpoint'
+      #},
       {
         name: 'Identifier',
         value: 'identifier'
       },
-      {
-        name: 'Intermediary (identifier)',
-        value: 'via-intermediary'
-      },
-      {
-        name: 'Identifier Assigner (identifier)',
-        value: 'identifier-assigner'
-      },
-      {
-        name: 'New Patient Network (identifier)',
-        value: 'new-patient-network'
-      },
-      {
-        name: 'Radius (in miles from center of zipcode)',
-        value: 'radius'
-      },
+      #{
+      #  name: 'Intermediary (identifier)',
+      #  value: 'via-intermediary'
+      #},
+      #{
+      #  name: 'Identifier Assigner (identifier)',
+      #  value: 'identifier-assigner'
+      #},
+      #{
+      #  name: 'New Patient Network (identifier)',
+      #  value: 'new-patient-network'
+      #},
+      #{
+      #  name: 'Radius (in miles from center of zipcode)',
+      #  value: 'radius'
+      #},
       {
         name: 'New Patient',
         value: 'location-new-patient'
+      },
+      {
+        name: 'New Patient From Network',
+        value: 'location-new-patient-from-network'
       },
       {
         name: 'Operational Status',
@@ -142,18 +150,18 @@ class Location < Resource
         name: 'Status',
         value: 'status'
       },
-      {
-        name: 'Telecom Available Days',
-        value: 'telecom-available-days'
-      },
-      {
-        name: 'Telecom Available End Time',
-        value: 'telecom-available-endtime'
-      },
-      {
-        name: 'Telecom Available Start Time',
-        value: 'telecom-available-start-time'
-      },
+      #{
+      #  name: 'Telecom Available Days',
+      #  value: 'telecom-available-days'
+      #},
+      #{
+      #  name: 'Telecom Available End Time',
+      #  value: 'telecom-available-endtime'
+      #},
+      #{
+      #  name: 'Telecom Available Start Time',
+      #  value: 'telecom-available-start-time'
+      #},
       {
         name: 'Type (try OUTPHARM)',
         value: 'type'
@@ -176,6 +184,7 @@ class Location < Resource
     address: 'address',
     city: 'address-city:contains',
     zipcode: 'address-postalcode:contains',
+    accessibility: 'location-accessibility',
     name: 'name:contains'
   }.freeze
 

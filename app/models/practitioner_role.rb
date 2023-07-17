@@ -45,22 +45,22 @@ class PractitionerRole < Resource
         name: 'Active',
         value: 'active'
       },
-      {
-        name: 'Available Days',
-        value: 'available-days'
-      },
-      {
-        name: 'Available End Time',
-        value: 'available-endtime'
-      },
-      {
-        name: 'Available Start Time',
-        value: 'available-start-time'
-      },
-      {
-        name: 'Date',
-        value: 'date'
-      },
+      #{
+      #  name: 'Available Days',
+      #  value: 'available-days'
+      #},
+      #{
+      #  name: 'Available End Time',
+      #  value: 'available-endtime'
+      #},
+      #{
+      #  name: 'Available Start Time',
+      #  value: 'available-start-time'
+      #},
+      #{
+      #  name: 'Date',
+      #  value: 'date'
+      #},
       {
         name: 'Email',
         value: 'email'
@@ -74,33 +74,41 @@ class PractitionerRole < Resource
         value: '_id'
       },
       {
+        name: 'Last Updated',
+        value: '_lastUpdated'
+      },
+      {
         name: 'Identifier',
         value: 'identifier'
       },
-      {
-        name: 'Identifier Assigner',
-        value: 'identifier-assigner'
-      },
-      {
-        name: 'Intermediary',
-        value: 'intermediary'
-      },
+      #{
+      #  name: 'Identifier Assigner',
+      #  value: 'identifier-assigner'
+      #},
+      #{
+      #  name: 'Intermediary',
+      #  value: 'intermediary'
+      #},
       {
         name: 'Location',
         value: 'location'
       },
       {
-        name: 'practitionerrole-network',
+        name: 'Network',
         value: 'practitionerrole-network'
       },
       {
-        name: 'practitionerrole-new-patient',
+        name: 'New Patient',
         value: 'practitionerrole-new-patient'
       },
       {
-        name: 'New Patient Network',
-        value: 'new-patient-network'
+        name: 'New Patient From Network',
+        value: 'practitionerrole-new-patient-from-network'
       },
+      #{
+      #  name: 'New Patient Network',
+      #  value: 'new-patient-network'
+      #},
       {
         name: 'Organization',
         value: 'organization'
@@ -117,38 +125,38 @@ class PractitionerRole < Resource
         name: 'Telecom',
         value: 'telecom'
       },
-      {
-        name: 'Telecom Available Days',
-        value: 'telecom-available-days'
-      },
-      {
-        name: 'Telecom Available End Time',
-        value: 'telecom-available-endtime'
-      },
-      {
-        name: 'Telecom Available Start Time',
-        value: 'telecom-available-start-time'
-      },
-      {
-        name: 'Qualification Code',
-        value: 'qualification-code'
-      },
-      {
-        name: 'Qualification Issuer',
-        value: 'qualification-issuer'
-      },
-      {
-        name: 'Qualification Status',
-        value: 'qualification-status'
-      },
-      {
-        name: 'Qualification Where Valid Code',
-        value: 'qualification-wherevalid-code'
-      },
-      {
-        name: 'Qualification Where Valid Location',
-        value: 'qualification-wherevalid-location'
-      },
+      #{
+      #  name: 'Telecom Available Days',
+      #  value: 'telecom-available-days'
+      #},
+      #{
+      #  name: 'Telecom Available End Time',
+      #  value: 'telecom-available-endtime'
+      #},
+      #{
+      #  name: 'Telecom Available Start Time',
+      #  value: 'telecom-available-start-time'
+      #},
+      #{
+      #  name: 'Qualification Code',
+      #  value: 'qualification-code'
+      #},
+      #{
+      #  name: 'Qualification Issuer',
+      #  value: 'qualification-issuer'
+      #},
+      #{
+      #  name: 'Qualification Status',
+      #  value: 'qualification-status'
+      #},
+      #{
+      #  name: 'Qualification Where Valid Code',
+      #  value: 'qualification-wherevalid-code'
+      #},
+      #{
+      #  name: 'Qualification Where Valid Location',
+      #  value: 'qualification-wherevalid-location'
+      #},
       {
         name: 'Role',
         value: 'role'

@@ -43,43 +43,47 @@ class InsurancePlan < Resource
       },
       {
         name: 'Coverage Area',
-        value: 'coverage-area'
+        value: 'insuranceplan-coverage-area'
       },
       {
         name: 'Coverage Benefit Type',
-        value: 'coverage-benefit-type'
+        value: 'insuranceplan-coverage-benefit-type'
       },
-      {
-        name: 'Coverage Limit Value',
-        value: 'coverage-limit-value'
-      },
+      #{
+      #  name: 'Coverage Limit Value',
+      #  value: 'coverage-limit-value'
+      #},
       {
         name: 'Coverage Network',
-        value: 'coverage-network'
+        value: 'insuranceplan-coverage-network'
       },
       {
         name: 'Coverage Type',
-        value: 'coverage-type'
+        value: 'insuranceplan-coverage-type'
       },
       {
         name: 'Endpoint',
         value: 'endpoint'
       },
-      {
-        name: 'General Cost Group Size',
-        value: 'general-cost-groupsize'
-      },
-      {
-        name: 'General Cost Type',
-        value: 'general-cost-type'
-      },
-      {
-        name: 'General Cost Value',
-        value: 'general-cost-value'
-      },
+      #{
+      #  name: 'General Cost Group Size',
+      #  value: 'general-cost-groupsize'
+      #},
+      #{
+      #  name: 'General Cost Type',
+      #  value: 'general-cost-type'
+      #},
+      #{
+      #  name: 'General Cost Value',
+      #  value: 'general-cost-value'
+      #},
       {
         name: 'ID',
         value: '_id'
+      },
+      {
+        name: 'Last Updated',
+        value: '_lastUpdated'
       },
       {
         name: 'Identifier',
@@ -91,7 +95,7 @@ class InsurancePlan < Resource
       },
       {
         name: 'Network',
-        value: 'network'
+        value: 'insuranceplan-network'
       },
       {
         name: 'Owned By',
@@ -99,36 +103,36 @@ class InsurancePlan < Resource
       },
       {
         name: 'Plan Coverage Area',
-        value: 'plan-coverage-area'
+        value: 'insuranceplan-coverage-area'
       },
-      {
-        name: 'Plan Identifier',
-        value: 'plan-identifier'
-      },
-      {
-        name: 'Plan Network',
-        value: 'plan-network'
-      },
+      #{
+      #  name: 'Plan Identifier',
+      #  value: 'plan-identifier'
+      #},
+      #{
+      #  name: 'Plan Network',
+      #  value: 'insuranceplan-network'
+      #},
       {
         name: 'Plan Type',
-        value: 'plan-type'
+        value: 'insuranceplan-plan-type'
       },
-      {
-        name: 'Specific Cost Benefit Type',
-        value: 'specific-cost-benefit-type'
-      },
-      {
-        name: 'Specific Cost Category',
-        value: 'specific-cost-category'
-      },
-      {
-        name: 'Specific Cost Type',
-        value: 'specific-cost-type'
-      },
-      {
-        name: 'Specific Cost Value',
-        value: 'specific-cost-value'
-      },
+      #{
+      #  name: 'Specific Cost Benefit Type',
+      #  value: 'specific-cost-benefit-type'
+      #},
+      #{
+      #  name: 'Specific Cost Category',
+      #  value: 'specific-cost-category'
+      #},
+      #{
+      # name: 'Specific Cost Type',
+      # value: 'specific-cost-type'
+      #},
+      #{
+      #  name: 'Specific Cost Value',
+      #  value: 'specific-cost-value'
+      #},
       {
         name: 'Status',
         value: 'status'
@@ -136,6 +140,10 @@ class InsurancePlan < Resource
       {
         name: 'Type',
         value: 'type'
+      },
+      {
+        name: 'Verification Status',
+        value: 'insuranceplan-verification-status'
       }
     ]
   end

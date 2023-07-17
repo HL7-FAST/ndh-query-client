@@ -72,28 +72,36 @@ class Practitioner < Resource
       },
       {
         name: 'Qualification Code',
-        value: 'qualification-code'
+        value: 'practitioner-qualification-code'
       },
       {
         name: 'Qualification Issuer',
-        value: 'qualification-issuer'
+        value: 'practitioner-qualification-issuer'
       },
       {
-        name: 'Qualification Period',
-        value: 'qualification-period'
+        name: 'ID',
+        value: '_id'
       },
       {
-        name: 'Qualification Status',
-        value: 'qualification-status'
+        name: 'Last Updated',
+        value: '_lastUpdated'
       },
-      {
-        name: 'Qualification Where Valid Code',
-        value: 'qualification-wherevalid-code'
-      },
-      {
-        name: 'Qualification Where Valid Location',
-        value: 'qualification-wherevalid-location'
-      }
+      #{
+      #  name: 'Qualification Period',
+      #  value: 'qualification-period'
+      #},
+      #{
+      #  name: 'Qualification Status',
+      #  value: 'qualification-status'
+      #},
+      #{
+      #  name: 'Qualification Where Valid Code',
+      #  value: 'qualification-wherevalid-code'
+      #},
+      #{
+      #  name: 'Qualification Where Valid Location',
+      #  value: 'qualification-wherevalid-location'
+      #}
     ]
   end
 

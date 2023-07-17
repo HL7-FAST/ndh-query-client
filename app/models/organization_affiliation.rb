@@ -41,10 +41,10 @@ class OrganizationAffiliation < Resource
         name: 'Active',
         value: 'active'
       },
-      {
-        name: 'Date',
-        value: 'date'
-      },
+      #{
+      #  name: 'Date',
+      #  value: 'date'
+      #},
       {
         name: 'Email',
         value: 'email'
@@ -58,17 +58,21 @@ class OrganizationAffiliation < Resource
         value: '_id'
       },
       {
+        name: 'Last Updated',
+        value: '_lastUpdated'
+      },
+      {
         name: 'Identifier',
         value: 'identifier'
       },
-      {
-        name: 'Identifier Assigner',
-        value: 'identifier-assigner'
-      },
-      {
-        name: 'Intermediary',
-        value: 'via-intermediary'
-      },
+      #{
+      #  name: 'Identifier Assigner',
+      #  value: 'identifier-assigner'
+      #},
+      #{
+      #  name: 'Intermediary',
+      #  value: 'via-intermediary'
+      #},
       {
         name: 'Location',
         value: 'location'
