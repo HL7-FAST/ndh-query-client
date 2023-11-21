@@ -30,7 +30,7 @@ gem 'leaflet-awesome-markers-rails', '~> 2.0'
                                 # Custom markers for Leaflet
     
 gem 'leaflet-rails'             # Handles Leaflet-based maps
-#gem 'pg'                        # Use Postgres
+gem 'pg'                        # Use Postgres
 gem 'sqlite3'
 gem 'geokit-rails'              # Provides geolocation-based searches
 gem 'dalli'                     # Memcache client
