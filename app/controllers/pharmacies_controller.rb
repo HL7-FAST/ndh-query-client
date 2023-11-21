@@ -16,7 +16,7 @@ require 'dalli'
 class PharmaciesController < ApplicationController
 
   before_action :connect_to_server
-  before_action :setup_dalli
+  # before_action :setup_dalli
 
   #-----------------------------------------------------------------------------
 
@@ -58,11 +58,11 @@ class PharmaciesController < ApplicationController
   
     if params[:page].present?
       # Temporary
-      if Rails.env.production?
-        @locations = Rails.cache.read("pharmacy-locations-#{session.id}")
-      else
-        @locations = @dalli_client.get("pharmacy-locations-#{session.id}")
-      end
+      # if Rails.env.production?
+      @locations = Rails.cache.read("pharmacy-locations-#{session.id}")
+      # else
+      #   @locations = @dalli_client.get("pharmacy-locations-#{session.id}")
+      # end
 
       case params[:page]
       when 'previous'
@@ -153,11 +153,11 @@ class PharmaciesController < ApplicationController
       end
       @locations = @locations.values.select{ |loc| loc.checked }
       # Temporary
-      if Rails.env.production?
-        Rails.cache.write("pharmacy-locations-#{session.id}", @locations)
-      else
-        @dalli_client.set("pharmacy-locations-#{session.id}", @locations) 
-      end
+      # if Rails.env.production?
+      Rails.cache.write("pharmacy-locations-#{session.id}", @locations)
+      # else
+      #   @dalli_client.set("pharmacy-locations-#{session.id}", @locations) 
+      # end
 
       session[:offset] = 0 
 

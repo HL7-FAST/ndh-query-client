@@ -15,25 +15,25 @@
 # gem 'pg'
 
 default: &default
-  adapter: postgresql
+  adapter: sqlite3
   encoding: utf8
   pool: <%= (ENV['EXAMPLE_SERVER_THREADS'].to_i + 2) || 8 %>
   timeout: 5000
+  
 
 development:
   <<: *default
-  database: <%= ENV["DATABASE_URL_DEV"] %>
-  user: postgres
-  password: password
+  database: db/ndh_db_dev.sqlite3 #<%= ENV["DATABASE_URL_DEV"] %>
+  
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV["DATABASE_URL_TEST"] %>
+  database: db/ndh_db_test.sqlite3 #<%= ENV["DATABASE_URL_TEST"] %>
 
 production:
   <<: *default
-  database: <%= ENV["DATABASE_URL"] %>
+  database: db/ndh_db_prod.sqlite3 #<%= ENV["DATABASE_URL"] %>
 

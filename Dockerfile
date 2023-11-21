@@ -1,11 +1,9 @@
-FROM ruby:2.6.10
+FROM ruby:2.6.10-alpine
 
 # Install apt based dependencies required to run Rails as 
 # well as RubyGems. As the Ruby image itself is based on a 
 # Debian image, we use apt-get to install those.
-RUN apt-get update && apt-get install -y \ 
-  build-essential \ 
-  nodejs
+RUN apk --update add build-base nodejs tzdata
 
 # Configure the main working directory. This is the base 
 # directory used in any further RUN, COPY, and ENTRYPOINT 
@@ -31,6 +29,11 @@ EXPOSE 3000
 # Configure an entry point, so we don't need to specify 
 # "bundle exec" for each of our commands.
 ENTRYPOINT ["bundle", "exec"]
+
+# Set up the database
+RUN rake db:create
+RUN rake db:migrate
+RUN ruby db/seed_zipcodes.rb
 
 # The main command to run when the container starts. Also 
 # tell the Rails dev server to bind to all interfaces by 
