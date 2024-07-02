@@ -94,8 +94,8 @@ module ApplicationHelper
   #-----------------------------------------------------------------------------
 
   def display_identifier(identifier)
-    begin
-      sanitize("#{identifier.assigner.display}: ( #{identifier.type.text}, #{identifier.value})")
+    if !identifier.try(:assigner).nil? && !identifier.assigner.try(:display).nil? && !identifier.try(:type).nil? && !identifier.type.try(:text).nil? && !identifier.try(:value).nil?
+      sanitize("#{identifier.assigner.display}: ( #{identifier.type&.text}, #{identifier.value})")
     end
   #    sanitize([identifier.type.text, identifier.value, identifier.assigner.display].join(', '))
   end
