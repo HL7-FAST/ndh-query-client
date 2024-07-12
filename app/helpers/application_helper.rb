@@ -161,7 +161,9 @@ module ApplicationHelper
   #-----------------------------------------------------------------------------
 
   def google_maps(address)
-    'https://www.google.com/maps/search/' + html_escape(address.text)
+    if address.present?
+      'https://www.google.com/maps/search/' + html_escape(address.text)
+    end
   end
 
   #-----------------------------------------------------------------------------
