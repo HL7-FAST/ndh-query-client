@@ -162,7 +162,11 @@ module ApplicationHelper
 
   def google_maps(address)
     if address.present?
-      'https://www.google.com/maps/search/' + html_escape(address.text)
+      if address.text.present?
+        'https://www.google.com/maps/search/' + html_escape(address.text)
+      elsif address.line.present?
+        'https://www.google.com/maps/search/' + html_escape("#{address.line.join(' ')} #{address.city} #{address.state}, #{address.postalCode}")
+      end
     end
   end
 
