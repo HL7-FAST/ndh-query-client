@@ -95,15 +95,15 @@ class PractitionerRole < Resource
       },
       {
         name: 'Network',
-        value: 'practitionerrole-network'
+        value: 'network'
       },
       {
         name: 'New Patient',
-        value: 'practitionerrole-new-patient'
+        value: 'new-patient'
       },
       {
         name: 'New Patient From Network',
-        value: 'practitionerrole-new-patient-from-network'
+        value: 'new-patient-from-network'
       },
       #{
       #  name: 'New Patient Network',

@@ -1134,10 +1134,10 @@ class ApplicationController < ActionController::Base
     
 
   NEW_PATIENT_OPTIONS = [
-    { value: 'http://hl7.org/fhir/us/ndh/CodeSystem/AcceptingPatientsCS|nopt', name: 'Not accepting patients' },
-    { value: 'http://hl7.org/fhir/us/ndh/CodeSystem/AcceptingPatientsCS|newpt', name: 'Accepting patients' },
-    { value: 'http://hl7.org/fhir/us/ndh/CodeSystem/AcceptingPatientsCS|existptonly', name: 'Accepting existing patients' },
-    { value: 'http://hl7.org/fhir/us/ndh/CodeSystem/AcceptingPatientsCS|existptfam', name: 'Accepting existing patients and members of their families' }
+    { value: 'nopt', name: 'Not accepting patients' },
+    { value: 'newpt', name: 'Accepting patients' },
+    { value: 'existptonly', name: 'Accepting existing patients' },
+    { value: 'existptfam', name: 'Accepting existing patients and members of their families' }
   ].freeze 
 
   INSURANCE_STATUS_OPTIONS = [
@@ -1157,8 +1157,11 @@ class ApplicationController < ActionController::Base
   ].freeze 
 
   EMPLOYMENT_STATUS_OPTIONS = [
-    { value: 'http://hl7.org/fhir/us/ndh/CodeSystem/EmploymentStatusCS|employed', name: 'Employed' },
-    { value: 'http://hl7.org/fhir/us/ndh/CodeSystem/EmploymentStatusCS|unemployed', name: 'Unemployed' }
+    { value: 'http://terminology.hl7.org/CodeSystem/v2-0066|1', name: 'Full time employed' },
+    { value: 'http://terminology.hl7.org/CodeSystem/v2-0066|2', name: 'Part time employed' },
+    { value: 'http://terminology.hl7.org/CodeSystem/v2-0066|3', name: 'Unemployed' },
+    { value: 'http://terminology.hl7.org/CodeSystem/v2-0066|4', name: 'Self-employed' },
+    { value: 'http://terminology.hl7.org/CodeSystem/v2-0066|5', name: 'Retired' }
   ].freeze 
 
   
