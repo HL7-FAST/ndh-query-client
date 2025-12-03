@@ -13,7 +13,13 @@ require 'pry'
 class ApplicationController < ActionController::Base
 
   include ERB::Util
-  FHIR.logger.level = Logger::DEBUG
+
+  # Set FHIR logger level based on environment
+  if Rails.env.production?
+    FHIR.logger.level = Logger::WARN
+  else
+    FHIR.logger.level = Logger::DEBUG
+  end
 
   #-----------------------------------------------------------------------------
 

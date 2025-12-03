@@ -1,22 +1,20 @@
 <section class='container'>
-  <section class='row col-12'>
+  <section class='row'>
     <div class='col-12'>
-      <h3 class='float-left text-white'>Locations</h3>
+      <h3 class='page-title'>Locations</h3>
       <%= render 'partials/query' %>
       <%= render 'partials/pagination', resource: :locations %>
     </div>
-    <div class='col-12 search'>
-      <div class="accordion" id="accordionExample">
-        <div class="card">
-          <div class="card-header bg-dark text-white" id="headingOne">
-            <h2 class="mb-0">
-              <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                Search
-              </button>
-            </h2>
-          </div>
-          <div id="collapseOne" class="collapse bg-dark text-white" aria-labelledby="headingOne" data-parent="#accordionExample">
-            <div class="card-body">
+    <div class='col-12'>
+      <div class="accordion mb-4" id="searchAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Search
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#searchAccordion">
+            <div class="accordion-body">
               <%= render 'partials/search_form',
                          query_params: @query_params,
                          search_path: locations_path
@@ -26,68 +24,74 @@
         </div>
       </div>
     </div>
-    <table class='table table-dark'>
-      <tr>
-        <th scope='col'>Name</th>
-        <th scope='col'>Description</th>
-        <th scope='col'>Operational Status</th>
-        <th scope='col'>Mode</th>
-        <th scope='col'>Type</th>
-        <th scope='col'>Phone/Fax</th>
-        <th scope='col'>Address</th>
-        <th scope='col'>Physical Type</th>
-        <th scope='col'>Position</th>
-        <th scope='col'>Managing Organization</th>
-        <th scope='col'>Part Of</th>
-        <th scope='col'>Hours of Operation</th>
-        <th scope='col'>Availability Exceptions</th>
-        <th scope='col'>Endpoints</th>
-      </tr>
-      <% @locations.each do |fhir_location| %>
-        <% location = Location.new(fhir_location) %>
-        <tr>
-          <td><%= link_to sanitize(location.name), location_path(location.id) %></td>
-          <td><%= sanitize(location.description) %></td>
-          <td><%= sanitize(location.operational_status) %></td>
-          <td><%= sanitize(location.mode) %></td>
-          <td><%= display_location_type(location.type) %></td> 
-          <td>
-            <% location.telecoms.each do |telecom| %>
-              <%= display_telecom(telecom) %><br />
-            <% end %>
-          </td>
-          <td>
-            <% if location.address.present? %>
-              <%= link_to google_maps(location.address) do %>
-                <% location.address.line.each do |line| %>
-                  <%= sanitize(line) %><br />
+    <div class='col-12 table-responsive'>
+      <table class='table table-dark table-striped'>
+        <thead>
+          <tr>
+            <th scope='col'>Name</th>
+            <th scope='col'>Description</th>
+            <th scope='col'>Operational Status</th>
+            <th scope='col'>Mode</th>
+            <th scope='col'>Type</th>
+            <th scope='col'>Phone/Fax</th>
+            <th scope='col'>Address</th>
+            <th scope='col'>Physical Type</th>
+            <th scope='col'>Position</th>
+            <th scope='col'>Managing Organization</th>
+            <th scope='col'>Part Of</th>
+            <th scope='col'>Hours of Operation</th>
+            <th scope='col'>Availability Exceptions</th>
+            <th scope='col'>Endpoints</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @locations.each do |fhir_location| %>
+            <% location = Location.new(fhir_location) %>
+            <tr>
+              <td><%= link_to sanitize(location.name), location_path(location.id) %></td>
+              <td><%= sanitize(location.description) %></td>
+              <td><%= sanitize(location.operational_status) %></td>
+              <td><%= sanitize(location.mode) %></td>
+              <td><%= display_location_type(location.type) %></td> 
+              <td>
+                <% location.telecoms.each do |telecom| %>
+                  <%= display_telecom(telecom) %><br />
                 <% end %>
-                <%= sanitize(location.address.city) %>, 
-                <%= sanitize(location.address.state) %> 
-                <%= display_postal_code(location.address.postalCode) %><br />
-              <% end %>
-            <% end %>
-          </td>
-          <td><%= sanitize(location.physical_type) %></td>
-          <td><%= display_position(location.position) %></td>
-          <td><%= display_reference(location.managing_organization) %></td>
-          <td><%= display_reference(location.part_of) %></td>
-          <td>
-            <% location.hours_of_operations.each do |time| %>
-              <%= sanitize(time.daysOfWeek.join(', ')) %>: 
-              <%= sanitize(time.openingTime) %> to 
-              <%= sanitize(time.closingTime) %><br />
-            <% end %>
-          </td>
-          <td><%= sanitize(location.availability_exceptions) || "None" %></td>
-          <td>
-            <% location.endpoints do |endpoint| %>
-              <%= display_reference(endpoint) %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
+              </td>
+              <td>
+                <% if location.address.present? %>
+                  <%= link_to google_maps(location.address) do %>
+                    <% location.address.line.each do |line| %>
+                      <%= sanitize(line) %><br />
+                    <% end %>
+                    <%= sanitize(location.address.city) %>, 
+                    <%= sanitize(location.address.state) %> 
+                    <%= display_postal_code(location.address.postalCode) %><br />
+                  <% end %>
+                <% end %>
+              </td>
+              <td><%= sanitize(location.physical_type) %></td>
+              <td><%= display_position(location.position) %></td>
+              <td><%= display_reference(location.managing_organization) %></td>
+              <td><%= display_reference(location.part_of) %></td>
+              <td>
+                <% location.hours_of_operations.each do |time| %>
+                  <%= sanitize(time.daysOfWeek.join(', ')) %>: 
+                  <%= sanitize(time.openingTime) %> to 
+                  <%= sanitize(time.closingTime) %><br />
+                <% end %>
+              </td>
+              <td><%= sanitize(location.availability_exceptions) || "None" %></td>
+              <td>
+                <% location.endpoints do |endpoint| %>
+                  <%= display_reference(endpoint) %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
     <div class='col-12'>
       <%= render 'partials/pagination', resource: :locations, header: false %>
     </div>

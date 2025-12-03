@@ -10,6 +10,7 @@
 
 require 'json'
 require 'uri'
+require 'cgi'
 require 'pry'
 require 'dalli'
 
@@ -108,7 +109,7 @@ class PharmaciesController < ApplicationController
         search: { parameters: query }
       ).resource
 
-      session[:search] = URI.decode(@bundle.link.select { |l| l.relation === "self"}.first.url) if @bundle.link.first
+      session[:search] = CGI.unescape(@bundle.link.select { |l| l.relation === "self"}.first.url) if @bundle.link.first
 
       @locations = {}
       @orgaffs = []
@@ -165,7 +166,7 @@ class PharmaciesController < ApplicationController
 
       # Prepare the query string for display on the page
       #@search = "<Search String in Returned Bundle is empty>"
-      #@search = URI.decode(@bundle.link.select { |l| l.relation === "self"}.first.url) if @bundle.link.first 
+      #@search = CGI.unescape(@bundle.link.select { |l| l.relation === "self"}.first.url) if @bundle.link.first 
 
       # Prepare the links for the Next and Previous buttons
       # update_bundle_links   # need to sort this out

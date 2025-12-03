@@ -3,16 +3,15 @@
 ## Live Instance
 
 **Live demo instance: https://ndh-query-client.fast.hl7.org**
-The HL7 FAST accelerator autobuilder and image repository: https://hub.docker.com/repository/docker/hlseven/fast-ndh-query-client
+The HL7 FAST accelerator autobuilder and image repository: https://hub.docker.com/r/hlseven/fast-ndh-query-client
 
 
 ## Installation and Deployment
 
 The client reference implementation can installed and run locally on your machine.  Install the following dependencies first:
 
-* [Ruby 2.6+](https://www.ruby-lang.org/en/)
+* [Ruby 3.3+](https://www.ruby-lang.org/en/)
 * [Ruby Bundler](http://bundler.io/)
-* [PostgreSQL](https://www.postgresql.org/)
 
 And run the following commands from the terminal:
 
@@ -22,7 +21,6 @@ git clone https://github.com/HL7-FAST/ndh-query-client
 cd ndh-query-client
 bundle install
 ```
-Start PostgreSQL
 
 Create the zipcode database:
 ```sh
@@ -33,11 +31,6 @@ rake db:migrate
 Initialize the zipcode database once:
 ```sh
 ruby db/seed_zipcodes.rb
-```
-
-Install and start memcached
-```
-instructions
 ```
 
 Now you are ready to start the client.
@@ -53,12 +46,6 @@ If you would like to use a different port it can be specified when calling `rail
 rails s -p 4000
 ```
 
-### Reference Implementation
-
-While it is recommended that users install the client locally, an instance of the client is hosted at **Stay Tuned**.
-
-Users that would like to try out the client before installing locally can use that reference implementation.
-
 ### Docker Container
 
 If you prefer, you can also build the client application within a Docker container.  When you
@@ -70,10 +57,6 @@ cd ndh-query-client
 docker build -t ndh-query-client .
 docker run -itP ndh-query-client
 ```
-
-## Supported Browsers
-
-The client has been tested on the latest versions of Chrome and Safari.  
 
 ## License
 

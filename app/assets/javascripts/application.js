@@ -14,7 +14,7 @@
 //= require activestorage
 //= require jquery3
 //= require popper
-//= require bootstrap-sprockets
+//= require bootstrap
 //= require leaflet
 //= require leaflet.awesome-markers
 //= require_tree .

@@ -1,63 +1,85 @@
 <div class='container-fluid'>
-  <h3 class='row text-white'>Search Providers</h3>
+  <h3 class='page-title'>Search Providers</h3>
   <div class='row'>
-    <div class='col-3'>
-      <label for="name-input">Name</label>
-      <input id="name-input" type="text" class="form-control bg-dark text-white" onkeyup="updateProviderName(event)">
-      <label for="plan-select">Insurance Plan</label>
-      <select id="plan-select" class="custom-select bg-dark text-white"  data-networksByPlan="<%=@networks_by_plan.to_json %>" onchange="updateProviderNetworkList(event)">
-        <option value=""></option>
+    <div class='col-md-3 col-12'>
+      <div class="mb-3">
+        <label for="name-input" class="form-label">Name</label>
+        <input id="name-input" type="text" class="form-control" onkeyup="updateProviderName(event)">
+      </div>
 
-        <% @plans.each do |param| %>
-          <option value="<%= param[:value] %>"><%= param[:name] %></option>
-        <% end %>
-      </select>
-      <label for="network-select">Network</label>
-      <select id="network-select" class="custom-select bg-dark text-white" onchange="updateProviderNetwork(event)"></select>
-        <option value=""></option>
-      </select>
-      <label for="specialty-select">Specialty</label>
-      <select id="specialty-select" class="custom-select bg-dark text-white" onchange="updateProviderSpecialty(event)">
-      <option value=""></option>
-        <% @specialties.each do |param| %>
-          <option value="<%= param[:value] %>"><%= param[:name] %></option>
-        <% end %>
-      </select>
+      <div class="mb-3">
+        <label for="plan-select" class="form-label">Insurance Plan</label>
+        <select id="plan-select" class="form-select" data-networksByPlan="<%=@networks_by_plan.to_json %>" onchange="updateProviderNetworkList(event)">
+          <option value=""></option>
+          <% @plans.each do |param| %>
+            <option value="<%= param[:value] %>"><%= param[:name] %></option>
+          <% end %>
+        </select>
+      </div>
 
-      <label for="zip-input">Zip Code</label>
-      <input id="zip-input" type="text" class="form-control bg-dark text-white" placeholder="06040" onkeyup="updateProviderZip(event)">
-      <label for="radius-input">Radius in Miles</label>
-      <input id="radius-input" type="text" class="form-control bg-dark text-white" placeholder="10 (default)" onkeyup="updateProviderRadius(event)">
-      <label for="city-input">City</label>
-      <input id="city-input" type="text" class="form-control bg-dark text-white" placeholder="Cambridge" onkeyup="updateProviderCity(event)">
-      <label for="active-input">Active On</label>
-      <input id="active-input" type="date" class="form-control bg-dark text-white" onkeyup="updateProviderActiveDate(event)">
-      <label for="is-active-input">Show only currently active plans</label>
-      <input id="is-active-input" type="checkbox" value="true" onclick="updateProviderActive(event)">
-      <label for="new_patient-input">Accepting New Patients</label>
-      <select id="new_patient-select" class="custom-select bg-dark text-white" onchange="updateProviderNewPatient(event)">
-      <option value=""></option>
-        <% @newpatientoptions.each do |param| %>
-          <option value="<%= param[:value] %>"><%= param[:name] %></option>
-        <% end %>
-      </select>
-      <!--TODO, need insurance plans selection that is activated supporting new patients from network - https://build.fhir.org/ig/HL7/fhir-us-ndh/SearchParameter-practitionerrole-new-patient-from-network.html -->
-      <!--<input id="new-patient-input" type="checkbox" value="true" onclick="updateProviderNewPatient(event)"> -->
-      <br>
+      <div class="mb-3">
+        <label for="network-select" class="form-label">Network</label>
+        <select id="network-select" class="form-select" onchange="updateProviderNetwork(event)">
+          <option value=""></option>
+        </select>
+      </div>
 
-      <button id="provider-search-button", class="btn btn-outline-success" onclick="submitProviderSearch(event)">
+      <div class="mb-3">
+        <label for="specialty-select" class="form-label">Specialty</label>
+        <select id="specialty-select" class="form-select" onchange="updateProviderSpecialty(event)">
+          <option value=""></option>
+          <% @specialties.each do |param| %>
+            <option value="<%= param[:value] %>"><%= param[:name] %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="zip-input" class="form-label">Zip Code</label>
+        <input id="zip-input" type="text" class="form-control" placeholder="06040" onkeyup="updateProviderZip(event)">
+      </div>
+
+      <div class="mb-3">
+        <label for="radius-input" class="form-label">Radius in Miles</label>
+        <input id="radius-input" type="text" class="form-control" placeholder="10 (default)" onkeyup="updateProviderRadius(event)">
+      </div>
+
+      <div class="mb-3">
+        <label for="city-input" class="form-label">City</label>
+        <input id="city-input" type="text" class="form-control" placeholder="Cambridge" onkeyup="updateProviderCity(event)">
+      </div>
+
+      <div class="mb-3">
+        <label for="active-input" class="form-label">Active On</label>
+        <input id="active-input" type="date" class="form-control" onkeyup="updateProviderActiveDate(event)">
+      </div>
+
+      <div class="mb-3 form-check">
+        <input id="is-active-input" type="checkbox" class="form-check-input" value="true" onclick="updateProviderActive(event)">
+        <label for="is-active-input" class="form-check-label">Show only currently active plans</label>
+      </div>
+
+      <div class="mb-3">
+        <label for="new_patient-select" class="form-label">Accepting New Patients</label>
+        <select id="new_patient-select" class="form-select" onchange="updateProviderNewPatient(event)">
+          <option value=""></option>
+          <% @newpatientoptions.each do |param| %>
+            <option value="<%= param[:value] %>"><%= param[:name] %></option>
+          <% end %>
+        </select>
+      </div>
+
+      <button id="provider-search-button" class="btn btn-outline-success w-100" onclick="submitProviderSearch(event)">
         Find
       </button>
     </div>
-    <div class='col-9'>
-      <div id="provider-query">
-      </div>
-      <div class='btn-group float-right mt-2' role='group'>
+    <div class='col-md-9 col-12'>
+      <div id="provider-query"></div>
+      <div class='btn-group float-end' role='group'>
         <button id="previous-button" class="btn btn-outline-primary disabled">Previous</button>
         <button id="next-button" class="btn btn-outline-primary disabled">Next</button>
       </div>
-      <table id="providers-table" class="table table-dark">
-      </table>
+      <table id="providers-table" class="table table-dark table-striped"></table>
     </div>
   </div>
 </div>

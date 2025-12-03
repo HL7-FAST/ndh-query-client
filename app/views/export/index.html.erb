@@ -1,12 +1,12 @@
-<h1>Export#index</h1>
 <section class='container'>
+	<h3 class='page-title'>Export</h3>
 	<% if @client %>
-		<p class="text-success m-auto client-connected" style='text-align: center'>
-			Exporting from  <%= cookies[:server_url] -%>
+		<p class="text-success text-center mb-4">
+			Exporting from <%= cookies[:server_url] -%>
 		</p>
-        <%= render 'buttons' %>
+		<%= render 'buttons' %>
 		<%= render 'table' %>
-	<%else%>
-		<p class="text-danger m-auto" style='text-align: center'>No Connection Established</p>
+	<% else %>
+		<p class="text-danger text-center">No Connection Established</p>
 	<% end %>
 </section>

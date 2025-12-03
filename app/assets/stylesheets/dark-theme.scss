@@ -1,0 +1,852 @@
+// =============================================================================
+// Material Design Dark Theme for National Directory
+// Using MDB (Material Design for Bootstrap) Library
+// =============================================================================
+
+// -----------------------------------------------------------------------------
+// CSS Custom Properties (Material Design Dark Theme Tokens)
+// -----------------------------------------------------------------------------
+:root {
+  // Material Design Primary Colors (Lighter for dark theme)
+  --mdb-primary: #90caf9;
+  --mdb-primary-light: #bbdefb;
+  --mdb-primary-dark: #42a5f5;
+  --mdb-primary-container: #1565c0;
+  
+  // Surface Colors (Dark Theme - Material Design 3)
+  --mdb-surface: #1e1e1e;
+  --mdb-surface-variant: #2d2d2d;
+  --mdb-surface-container: #252525;
+  --mdb-surface-container-high: #333333;
+  --mdb-background: #121212;
+  
+  // Text Colors (High contrast for dark theme)
+  --mdb-on-surface: #e1e1e1;
+  --mdb-on-surface-variant: #a0a0a0;
+  --mdb-text-muted: #757575;
+  --mdb-on-primary: #003258;
+  
+  // Elevation Colors (Lighter overlays for dark theme)
+  --mdb-elevation-1: rgba(255, 255, 255, 0.05);
+  --mdb-elevation-2: rgba(255, 255, 255, 0.08);
+  --mdb-elevation-4: rgba(255, 255, 255, 0.12);
+  --mdb-elevation-8: rgba(255, 255, 255, 0.16);
+  
+  // Status Colors (Adjusted for dark theme visibility)
+  --mdb-success: #81c784;
+  --mdb-success-container: #1b5e20;
+  --mdb-error: #ef5350;
+  --mdb-error-container: #b71c1c;
+  --mdb-warning: #ffb74d;
+  --mdb-warning-container: #e65100;
+  --mdb-info: #64b5f6;
+  --mdb-info-container: #0d47a1;
+  
+  // Border & Divider
+  --mdb-divider: rgba(255, 255, 255, 0.12);
+  --mdb-border: rgba(255, 255, 255, 0.16);
+  --mdb-outline: rgba(255, 255, 255, 0.24);
+  
+  // Spacing
+  --mdb-spacing-1: 0.25rem;
+  --mdb-spacing-2: 0.5rem;
+  --mdb-spacing-3: 1rem;
+  --mdb-spacing-4: 1.5rem;
+  --mdb-spacing-5: 2rem;
+  
+  // Border Radius (Material Design 3)
+  --mdb-radius-xs: 4px;
+  --mdb-radius-sm: 8px;
+  --mdb-radius-md: 12px;
+  --mdb-radius-lg: 16px;
+  --mdb-radius-xl: 28px;
+  
+  // Transitions
+  --mdb-transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// -----------------------------------------------------------------------------
+// Base Styles
+// -----------------------------------------------------------------------------
+body {
+  font-family: 'Roboto', system-ui, -apple-system, sans-serif;
+  background-color: var(--mdb-background);
+  color: var(--mdb-on-surface);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Typography
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  color: var(--mdb-on-surface);
+  margin-bottom: var(--mdb-spacing-3);
+}
+
+.page-title {
+  font-size: 1.75rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-bottom: var(--mdb-spacing-4);
+  padding-bottom: var(--mdb-spacing-2);
+  border-bottom: 1px solid var(--mdb-divider);
+}
+
+a {
+  color: var(--mdb-primary);
+  text-decoration: none;
+  transition: color var(--mdb-transition);
+  
+  &:hover {
+    color: var(--mdb-primary-dark);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Layout & Containers
+// -----------------------------------------------------------------------------
+.container,
+.container-fluid {
+  margin-top: var(--mdb-spacing-2);
+  margin-bottom: var(--mdb-spacing-2);
+}
+
+.container-fluid {
+  padding-left: var(--mdb-spacing-4);
+  padding-right: var(--mdb-spacing-4);
+}
+
+@media (min-width: 768px) {
+  .container-fluid {
+    padding-left: var(--mdb-spacing-5);
+    padding-right: var(--mdb-spacing-5);
+  }
+}
+
+// Main content area
+main {
+  min-height: calc(100vh - 180px);
+}
+
+// -----------------------------------------------------------------------------
+// Navigation Enhancements
+// -----------------------------------------------------------------------------
+.navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  
+  .navbar-brand {
+    font-weight: 500;
+    font-size: 1.25rem;
+    letter-spacing: 0.25px;
+  }
+  
+  .nav-link {
+    font-weight: 400;
+    font-size: 0.875rem;
+    letter-spacing: 0.25px;
+    padding: 0.5rem 1rem !important;
+    border-radius: var(--mdb-radius-xs);
+    transition: background-color var(--mdb-transition);
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+  
+  .dropdown-menu {
+    border-radius: var(--mdb-radius-sm);
+    border: 1px solid var(--mdb-border);
+    padding: var(--mdb-spacing-2) 0;
+    min-width: 220px;
+    background-color: var(--mdb-surface-container-high);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    
+    .dropdown-item {
+      padding: var(--mdb-spacing-2) var(--mdb-spacing-3);
+      font-size: 0.875rem;
+      border-radius: 0;
+      transition: background-color var(--mdb-transition);
+      color: var(--mdb-on-surface);
+      
+      &:hover {
+        background-color: var(--mdb-elevation-2);
+        color: var(--mdb-primary);
+      }
+      
+      .material-icons {
+        color: var(--mdb-on-surface-variant);
+      }
+    }
+    
+    .dropdown-divider {
+      margin: var(--mdb-spacing-1) 0;
+      border-color: var(--mdb-divider);
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Cards (Material Design 3 Dark Style)
+// -----------------------------------------------------------------------------
+.card {
+  background-color: var(--mdb-surface-container);
+  border: 1px solid var(--mdb-border);
+  border-radius: var(--mdb-radius-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: box-shadow var(--mdb-transition), border-color var(--mdb-transition);
+  overflow: hidden;
+  
+  &:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    border-color: var(--mdb-outline);
+  }
+  
+  .card-header {
+    background-color: var(--mdb-surface-container-high);
+    border-bottom: 1px solid var(--mdb-divider);
+    padding: var(--mdb-spacing-3) var(--mdb-spacing-4);
+    font-weight: 500;
+    color: var(--mdb-on-surface);
+  }
+  
+  .card-body {
+    padding: var(--mdb-spacing-4);
+  }
+  
+  .card-footer {
+    background-color: var(--mdb-surface-container-high);
+    border-top: 1px solid var(--mdb-divider);
+    padding: var(--mdb-spacing-3) var(--mdb-spacing-4);
+  }
+}
+
+// Dashboard Cards for Welcome Page
+.dashboard-card {
+  background: linear-gradient(135deg, var(--mdb-primary-container) 0%, #0d47a1 100%);
+  color: var(--mdb-primary-light);
+  border-radius: var(--mdb-radius-md);
+  padding: var(--mdb-spacing-4);
+  text-align: center;
+  transition: transform var(--mdb-transition), box-shadow var(--mdb-transition);
+  border: 1px solid var(--mdb-border);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border-color: var(--mdb-primary);
+  }
+  
+  .dashboard-count {
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: var(--mdb-spacing-2);
+  }
+  
+  .dashboard-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+  }
+  
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Forms (Material Design Style)
+// -----------------------------------------------------------------------------
+.form-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--mdb-on-surface-variant);
+  margin-bottom: var(--mdb-spacing-1);
+}
+
+.form-control,
+.form-select {
+  background-color: var(--mdb-surface-container);
+  border: 1px solid var(--mdb-border);
+  border-radius: var(--mdb-radius-xs);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: var(--mdb-on-surface);
+  transition: all var(--mdb-transition);
+  
+  &:focus {
+    border-color: var(--mdb-primary);
+    box-shadow: 0 0 0 2px rgba(144, 202, 249, 0.3);
+    outline: none;
+    background-color: var(--mdb-surface-container-high);
+    color: var(--mdb-on-surface);
+  }
+  
+  &::placeholder {
+    color: var(--mdb-text-muted);
+  }
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23a0a0a0' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+  padding-right: 2.5rem;
+}
+
+// Form group spacing
+.mb-3 {
+  margin-bottom: var(--mdb-spacing-3) !important;
+}
+
+// Checkboxes
+.form-check-input {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid var(--mdb-on-surface-variant);
+  border-radius: 2px;
+  transition: all var(--mdb-transition);
+  
+  &:checked {
+    background-color: var(--mdb-primary);
+    border-color: var(--mdb-primary);
+  }
+  
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+  }
+}
+
+.form-check-label {
+  font-size: 0.875rem;
+  color: var(--mdb-on-surface);
+}
+
+// -----------------------------------------------------------------------------
+// Buttons (Material Design 3)
+// -----------------------------------------------------------------------------
+.btn {
+  font-weight: 500;
+  font-size: 0.875rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: var(--mdb-radius-xl);
+  padding: 0.625rem 1.5rem;
+  transition: all var(--mdb-transition);
+  border: none;
+  
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.3);
+  }
+}
+
+.btn-primary {
+  background-color: var(--mdb-primary-container);
+  color: var(--mdb-primary-light);
+  
+  &:hover {
+    background-color: #1976d2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  color: var(--mdb-primary);
+  border: 1px solid var(--mdb-primary);
+  
+  &:hover:not(.disabled) {
+    background-color: rgba(144, 202, 249, 0.15);
+    color: var(--mdb-primary-light);
+    border-color: var(--mdb-primary-light);
+  }
+  
+  &.disabled {
+    opacity: 0.38;
+    pointer-events: none;
+  }
+}
+
+.btn-outline-success {
+  background-color: transparent;
+  color: var(--mdb-success);
+  border: 1px solid var(--mdb-success);
+  
+  &:hover {
+    background-color: var(--mdb-success);
+    color: white;
+  }
+}
+
+.btn-outline-secondary {
+  background-color: transparent;
+  color: var(--mdb-on-surface-variant);
+  border: 1px solid var(--mdb-border);
+  
+  &:hover {
+    background-color: var(--mdb-elevation-1);
+    color: var(--mdb-on-surface);
+  }
+}
+
+// Button Groups
+.btn-group {
+  margin-bottom: var(--mdb-spacing-3);
+  
+  .btn {
+    border-radius: 0;
+    
+    &:first-child {
+      border-top-left-radius: var(--mdb-radius-xl);
+      border-bottom-left-radius: var(--mdb-radius-xl);
+    }
+    
+    &:last-child {
+      border-top-right-radius: var(--mdb-radius-xl);
+      border-bottom-right-radius: var(--mdb-radius-xl);
+    }
+  }
+}
+
+// FAB Style for search button
+[id$="-search-button"],
+#search-button {
+  margin-top: var(--mdb-spacing-3);
+}
+
+// -----------------------------------------------------------------------------
+// Tables (Material Design Dark)
+// -----------------------------------------------------------------------------
+.table {
+  background-color: var(--mdb-surface-container);
+  border-radius: var(--mdb-radius-md);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin-top: var(--mdb-spacing-3);
+  
+  th {
+    background-color: var(--mdb-surface-container-high);
+    color: var(--mdb-on-surface-variant);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: var(--mdb-spacing-3);
+    border-bottom: 2px solid var(--mdb-divider);
+    white-space: nowrap;
+  }
+  
+  td {
+    padding: var(--mdb-spacing-3);
+    border-bottom: 1px solid var(--mdb-divider);
+    vertical-align: middle;
+    color: var(--mdb-on-surface);
+    line-height: 1.5;
+  }
+  
+  tr {
+    transition: background-color var(--mdb-transition);
+    
+    &:last-child td {
+      border-bottom: none;
+    }
+  }
+  
+  a {
+    color: var(--mdb-primary);
+    font-weight: 500;
+  }
+}
+
+// Dark table styling
+.table-dark {
+  --bs-table-bg: var(--mdb-surface-container);
+  --bs-table-color: var(--mdb-on-surface);
+  --bs-table-border-color: var(--mdb-divider);
+  --bs-table-striped-bg: var(--mdb-surface-container-high);
+  --bs-table-striped-color: var(--mdb-on-surface);
+  --bs-table-hover-bg: var(--mdb-elevation-2);
+  --bs-table-hover-color: var(--mdb-on-surface);
+  
+  th {
+    background-color: var(--mdb-surface-container-high);
+    color: var(--mdb-on-surface-variant);
+  }
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  background-color: var(--mdb-surface-container);
+}
+
+// Responsive tables
+.table-responsive {
+  border-radius: var(--mdb-radius-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--mdb-border);
+}
+
+// -----------------------------------------------------------------------------
+// Accordions (Material Design Dark)
+// -----------------------------------------------------------------------------
+.accordion {
+  margin-bottom: var(--mdb-spacing-4);
+  
+  .accordion-item {
+    background-color: var(--mdb-surface-container);
+    border: 1px solid var(--mdb-border);
+    border-radius: var(--mdb-radius-md) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: var(--mdb-spacing-2);
+    overflow: hidden;
+  }
+  
+  .accordion-header {
+    margin-bottom: 0;
+  }
+  
+  .accordion-button {
+    background-color: var(--mdb-surface-container);
+    color: var(--mdb-on-surface);
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.25px;
+    padding: var(--mdb-spacing-3) var(--mdb-spacing-4);
+    border: none;
+    box-shadow: none;
+    
+    &:not(.collapsed) {
+      background-color: var(--mdb-surface-container-high);
+      color: var(--mdb-primary);
+      box-shadow: none;
+    }
+    
+    &:hover {
+      background-color: var(--mdb-elevation-2);
+    }
+    
+    &:focus {
+      box-shadow: none;
+    }
+    
+    &::after {
+      filter: brightness(0) saturate(100%) invert(70%);
+    }
+  }
+  
+  .accordion-collapse {
+    background-color: var(--mdb-surface-container);
+  }
+  
+  .accordion-body {
+    padding: var(--mdb-spacing-4);
+    background-color: var(--mdb-surface-container);
+    border-top: 1px solid var(--mdb-divider);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Query Display (Code Block Style - Dark)
+// -----------------------------------------------------------------------------
+.query,
+[id$="-query"] {
+  background-color: var(--mdb-surface-container-high);
+  border: 1px solid var(--mdb-border);
+  border-radius: var(--mdb-radius-sm);
+  padding: var(--mdb-spacing-3);
+  margin-bottom: var(--mdb-spacing-3);
+  font-family: 'Roboto Mono', 'SF Mono', Monaco, monospace;
+  font-size: 0.8125rem;
+  color: var(--mdb-primary-light);
+  word-wrap: break-word;
+  word-break: break-all;
+  line-height: 1.6;
+  
+  &:empty {
+    display: none;
+  }
+  
+  p {
+    margin: 0;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Alerts (Material Design)
+// -----------------------------------------------------------------------------
+.alert {
+  border-radius: var(--mdb-radius-sm);
+  border: none;
+  padding: var(--mdb-spacing-3) var(--mdb-spacing-4);
+  display: flex;
+  align-items: center;
+  
+  .material-icons {
+    margin-right: var(--mdb-spacing-2);
+  }
+  
+  .btn-close {
+    padding: var(--mdb-spacing-2);
+  }
+}
+
+.alert-info {
+  background-color: var(--mdb-info-container);
+  color: var(--mdb-info);
+  border: 1px solid rgba(100, 181, 246, 0.3);
+}
+
+.alert-success {
+  background-color: var(--mdb-success-container);
+  color: var(--mdb-success);
+  border: 1px solid rgba(129, 199, 132, 0.3);
+}
+
+.alert-danger {
+  background-color: var(--mdb-error-container);
+  color: var(--mdb-error);
+  border: 1px solid rgba(239, 83, 80, 0.3);
+}
+
+.alert-warning {
+  background-color: var(--mdb-warning-container);
+  color: var(--mdb-warning);
+  border: 1px solid rgba(255, 183, 77, 0.3);
+}
+
+// -----------------------------------------------------------------------------
+// Map Container (Dark)
+// -----------------------------------------------------------------------------
+#map {
+  border-radius: var(--mdb-radius-md);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  height: 400px;
+  width: 100%;
+  border: 1px solid var(--mdb-border);
+}
+
+img.olTileImage {
+  max-width: none;
+}
+
+// -----------------------------------------------------------------------------
+// Status Badges (Material Design Chips)
+// -----------------------------------------------------------------------------
+.badge {
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.25px;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--mdb-radius-xl);
+}
+
+.appointment_required,
+.step-therapy,
+.quantity-limit {
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--mdb-radius-xl);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.appointment_required {
+  background-color: var(--mdb-error);
+  color: white;
+}
+
+.step-therapy {
+  background-color: var(--mdb-success);
+  color: white;
+}
+
+.quantity-limit {
+  background-color: var(--mdb-primary);
+  color: white;
+}
+
+// -----------------------------------------------------------------------------
+// Footer (Dark)
+// -----------------------------------------------------------------------------
+footer {
+  background-color: var(--mdb-surface-container);
+  border-top: 1px solid var(--mdb-border);
+  
+  p {
+    margin: 0;
+    color: var(--mdb-on-surface-variant);
+  }
+  
+  a {
+    transition: color var(--mdb-transition);
+    
+    &:hover {
+      color: var(--mdb-primary-light);
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Server Form (Welcome Page - Dark)
+// -----------------------------------------------------------------------------
+#server-form {
+  max-width: 700px;
+  margin: var(--mdb-spacing-5) auto;
+  
+  .form-control {
+    flex: 1;
+    border-radius: var(--mdb-radius-xl) 0 0 var(--mdb-radius-xl);
+    background-color: var(--mdb-surface-container-high);
+    border-color: var(--mdb-border);
+    
+    &:focus {
+      background-color: var(--mdb-surface-container-high);
+      border-color: var(--mdb-primary);
+    }
+  }
+  
+  .btn {
+    border-radius: 0 var(--mdb-radius-xl) var(--mdb-radius-xl) 0;
+    padding-left: var(--mdb-spacing-4);
+    padding-right: var(--mdb-spacing-4);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Search Form Enhancements
+// -----------------------------------------------------------------------------
+#search-params {
+  .input-group {
+    .form-select {
+      border-radius: var(--mdb-radius-xs) 0 0 var(--mdb-radius-xs);
+      border-right: none;
+    }
+    
+    .form-control {
+      border-radius: 0;
+    }
+    
+    .btn {
+      border-radius: 0 var(--mdb-radius-xs) var(--mdb-radius-xs) 0;
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Photos & Images (Dark)
+// -----------------------------------------------------------------------------
+.profile-photo,
+.list-photo {
+  background-color: var(--mdb-surface-container-high);
+  border-radius: var(--mdb-radius-md);
+  padding: var(--mdb-spacing-3);
+  object-fit: cover;
+  border: 1px solid var(--mdb-border);
+}
+
+.list-photo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: var(--mdb-spacing-2);
+}
+
+// -----------------------------------------------------------------------------
+// Utilities
+// -----------------------------------------------------------------------------
+.text-success {
+  color: var(--mdb-success) !important;
+}
+
+.text-danger {
+  color: var(--mdb-error) !important;
+}
+
+.text-primary {
+  color: var(--mdb-primary) !important;
+}
+
+.text-muted {
+  color: var(--mdb-text-muted) !important;
+}
+
+.float-end,
+.float-right {
+  float: right !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.shadow-1 {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+.shadow-2 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+.shadow-4 {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+// -----------------------------------------------------------------------------
+// Responsive Adjustments
+// -----------------------------------------------------------------------------
+@media (max-width: 767px) {
+  .container,
+  .container-fluid {
+    padding-top: calc(var(--mdb-spacing-4) + 56px);
+    padding-left: var(--mdb-spacing-3);
+    padding-right: var(--mdb-spacing-3);
+  }
+  
+  #server-form {
+    flex-direction: column;
+    gap: var(--mdb-spacing-2);
+    
+    .form-control,
+    .btn {
+      width: 100%;
+      border-radius: var(--mdb-radius-xl);
+    }
+  }
+  
+  .btn-group {
+    float: none !important;
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--mdb-spacing-3);
+  }
+  
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .table {
+    font-size: 0.875rem;
+    
+    th, td {
+      padding: var(--mdb-spacing-2);
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Drug Tier Specific
+// -----------------------------------------------------------------------------
+.drug-tier-select {
+  width: 100% !important;
+}
+
+.drug {
+  margin-bottom: var(--mdb-spacing-2);
+}

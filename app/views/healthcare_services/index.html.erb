@@ -1,71 +1,90 @@
 <div class='container-fluid'>
-  <h3 class='row text-white'>Healthcare Services Search</h3>
+  <h3 class='page-title'>Healthcare Services Search</h3>
   <div class='row'>
-    <div class='col-3'>
+    <div class='col-md-3 col-12'>
       <%= form_for :healthcare_service, url: search_healthcare_services_path, remote: true, method: "get" do |f| %>
-        <!--<%= f.label :insurance_plan %><br />
-        <%= f.select :insurance_plan, @plans, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
-        <%= f.label :network %><br />
-        <%= f.select :network, grouped_options_for_select(@networks), { include_blank: true },
-                { class: 'custom-select bg-dark text-white' } %>-->
-         <%= f.label :category %><br />
-        <%= f.select :category, @categories, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
-        <%= f.label :specialty %><br />
-        <%= f.select :specialty, @specialties, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
-        <%= f.label :type %><br />
-        <%= f.select :type, @types, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
-        <%= f.label :program %><br />
-        <%= f.select :program, @programs, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
+        <div class="mb-3">
+          <%= f.label :category, class: "form-label" %>
+          <%= f.select :category, @categories, { include_blank: true }, { class: 'form-select' } %>
+        </div>
 
-        <!--<%= f.label :veteran, "Veteran?" %><br />
-        <%= f.check_box :'healthcareservice-program-requirement-va-status', {class: 'form-control bg-dark text-white'}, "true" %>-->
+        <div class="mb-3">
+          <%= f.label :specialty, class: "form-label" %>
+          <%= f.select :specialty, @specialties, { include_blank: true }, { class: 'form-select' } %>
+        </div>
 
-        <%= f.label :zip %><br />
-        <%= f.text_field :zip, class: 'form-control bg-dark text-white' %>
-        <%= f.label :radius %><br />
-        <%= f.text_field :radius, class: 'form-control bg-dark text-white' %>
-        <%= f.label :city %><br />
-        <%= f.text_field :city, class: 'form-control bg-dark text-white' %>
-        <%= f.label :name %><br />
-        <%= f.text_field :name, class: 'form-control bg-dark text-white' %>
-        <%= f.label :organization %><br />
-        <%= f.text_field :organization, class: 'form-control bg-dark text-white' %>
+        <div class="mb-3">
+          <%= f.label :type, class: "form-label" %>
+          <%= f.select :type, @types, { include_blank: true }, { class: 'form-select' } %>
+        </div>
 
-        <%= f.label :new_patient %><br />
-        <%= f.select :new_patient, @newpatientoptions, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
+        <div class="mb-3">
+          <%= f.label :program, class: "form-label" %>
+          <%= f.select :program, @programs, { include_blank: true }, { class: 'form-select' } %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :zip, class: "form-label" %>
+          <%= f.text_field :zip, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :radius, class: "form-label" %>
+          <%= f.text_field :radius, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :city, class: "form-label" %>
+          <%= f.text_field :city, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :name, class: "form-label" %>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :organization, class: "form-label" %>
+          <%= f.text_field :organization, class: 'form-control' %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :new_patient, class: "form-label" %>
+          <%= f.select :new_patient, @newpatientoptions, { include_blank: true }, { class: 'form-select' } %>
+        </div>
+
         <h4>Requirements:</h4>
-        <%= f.label :birth_sex %><br />
-        <%= f.select :birth_sex, @birthsexoptions, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
-                
-        <%= f.label :veteran_status %><br />
-        <%= f.select :veteran_status, @veteranstatusoptions, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
 
-        <%= f.label :insurance_status %><br />
-        <%= f.select :insurance_status, @insurancestatusoptions, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
+        <div class="mb-3">
+          <%= f.label :birth_sex, class: "form-label" %>
+          <%= f.select :birth_sex, @birthsexoptions, { include_blank: true }, { class: 'form-select' } %>
+        </div>
 
-        <%= f.label :employment_status %><br />
-        <%= f.select :employment_status, @employmentstatusoptions, { include_blank: true }, 
-                { class: 'custom-select bg-dark text-white' } %>
+        <div class="mb-3">
+          <%= f.label :veteran_status, class: "form-label" %>
+          <%= f.select :veteran_status, @veteranstatusoptions, { include_blank: true }, { class: 'form-select' } %>
+        </div>
 
-        <%= f.submit 'Find', class: 'btn btn-outline-success', id: 'healthcare-service-search-button' %>
+        <div class="mb-3">
+          <%= f.label :insurance_status, class: "form-label" %>
+          <%= f.select :insurance_status, @insurancestatusoptions, { include_blank: true }, { class: 'form-select' } %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :employment_status, class: "form-label" %>
+          <%= f.select :employment_status, @employmentstatusoptions, { include_blank: true }, { class: 'form-select' } %>
+        </div>
+
+        <%= f.submit 'Find', class: 'btn btn-outline-success w-100', id: 'healthcare-service-search-button' %>
       <% end %>
     </div>
-    <div class='col-9'>
-      <div id="healthcare-service-query">
+    <div class='col-md-9 col-12'>
+      <div id="healthcare-service-query"></div>
+      <div class='btn-group float-end' role='group'>
+        <button id="previous-button" class="btn btn-outline-primary disabled">Previous</button>
+        <button id="next-button" class="btn btn-outline-primary disabled">Next</button>
       </div>
-      <div id="pagination">
-      </div>
-      <table id="healthcare-services-table" class="table table-dark">
-      </table>
+      <table id="healthcare-services-table" class="table table-dark table-striped"></table>
     </div>
   </div>
 </div>

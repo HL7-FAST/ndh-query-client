@@ -3,58 +3,52 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.10'
+ruby '3.3.10'
 
-gem 'puma', '~> 3.11'           # Use Puma as the app server
-gem 'rails', '~> 5.2.3'         # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'sass-rails', '~> 5.0'      # Use SCSS for stylesheets
-gem 'uglifier', '>= 1.3.0'      # Use Uglifier as compressor for JavaScript assets
-gem 'httparty', '>=  0.17.1'    # use httparty for geocoder access
+gem 'dartsass-rails', '~> 0.5'  # Use Dart Sass for stylesheets (replaces sass-rails)
+gem 'httparty', '~> 0.22'       # use httparty for geocoder access
+gem 'puma', '~> 7.1'            # Use Puma as the app server
+gem 'rails', '~> 8.1.0'         # Latest Rails version
+gem 'sprockets-rails', '~> 3.5' # Asset pipeline for Rails (for compatibility)
+gem 'terser', '~> 1.2'          # Use Terser as compressor for JavaScript assets (replaces uglifier)
 
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby    # Minimal embedded v8 engine for Ruby
-
-gem 'coffee-rails', '~> 4.2'    # Use CoffeeScript for .coffee assets and views
-gem 'jbuilder', '~> 2.5'        # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.13'       # Build JSON APIs with ease
 
 # gem 'redis', '~> 4.0'         # Use Redis adapter to run Action Cable in production
 # gem 'bcrypt', '~> 3.1.7'      # Use ActiveModel has_secure_password
 # gem 'mini_magick', '~> 4.8'   # Use ActiveStorage variant
 
-gem 'bootsnap', '>= 1.1.0', require: false # Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '~> 1.18', require: false # Reduces boot times through caching; required in config/boot.rb
 
-gem 'bootstrap', '~> 4.3.1'     # Integrates Bootstrap HTML, CSS, and JavaScript framework
-gem 'fhir_client'               # Handles FHIR client requests
-gem 'jquery-rails'              # Automate using jQuery with Rails
-gem 'leaflet-awesome-markers-rails', '~> 2.0'  
-                                # Custom markers for Leaflet
-    
-gem 'leaflet-rails'             # Handles Leaflet-based maps
-gem 'pg'                        # Use Postgres
-gem 'sqlite3'
-gem 'geokit-rails'              # Provides geolocation-based searches
-gem 'dalli'                     # Memcache client
+gem 'bootstrap', '~> 5.3'       # Integrates Bootstrap HTML, CSS, and JavaScript framework
+gem 'fhir_client', '~> 6.0'     # Handles FHIR client requests
+gem 'jquery-rails', '~> 4.6'    # Automate using jQuery with Rails
+gem 'leaflet-awesome-markers-rails', '~> 2.0'
+gem 'sassc', '~> 2.4'           # Sass compiler (required by bootstrap)
+# Custom markers for Leaflet
+
+gem 'dalli', '~> 3.2'           # Memcache client
+gem 'geokit-rails', '~> 2.5'    # Provides geolocation-based searches
+gem 'leaflet-rails', '~> 1.9'   # Handles Leaflet-based maps
+gem 'sqlite3', '~> 2.4'         # Use SQLite for database
 
 group :development, :test do
-  gem 'byebug', platforms: %i[mri mingw x64_mingw] # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'rubocop'
-  gem 'seed_dump'
+  gem 'debug', '~> 1.9', platforms: %i[mri mingw x64_mingw] # Ruby debugger (replaces byebug)
+  gem 'rubocop', '~> 1.70' # Ruby linter
+  gem 'rubocop-rails', '~> 2.27' # Rails-specific rubocop rules
+  gem 'seed_dump', '~> 3.3'     # Seed data dumper
 end
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'   # Listens to file modifications and notifies you about the changes
-  gem 'spring'                        # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'       # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  # gem 'capistrano-rails'            # Use Capistrano for deployment
+  gem 'web-console', '~> 4.2'   # Access an interactive console on exception pages
+  # gem 'capistrano-rails'      # Use Capistrano for deployment
 end
 
 group :test do
-  gem 'capybara', '>= 2.15'     # Adds support for Capybara system testing and selenium driver
-  gem 'chromedriver-helper'     # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'selenium-webdriver'      # WebDriver JavaScript bindings from the Selenium project
+  gem 'capybara', '~> 3.40' # Adds support for Capybara system testing and selenium driver
+  gem 'selenium-webdriver', '~> 4.27' # WebDriver JavaScript bindings from the Selenium project
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 
-gem "pry", "~> 0.12.2"
+gem 'pry', '~> 0.14'
