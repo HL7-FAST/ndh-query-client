@@ -1,4 +1,5 @@
 <section class='container'>
+  <% if @client %>
   <section class='row'>
     <% unless @practitioner.nil? %>
       <div class='col-12'>
@@ -66,4 +67,7 @@
       Not Found
     <% end %>
   </section>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </section>

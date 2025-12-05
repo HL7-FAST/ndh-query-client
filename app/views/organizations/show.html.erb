@@ -1,4 +1,5 @@
 <section class='container'>
+  <% if @client %>
   <section class='row'>
     <% unless @organization.nil? %>
       <div class='col-12'>
@@ -84,4 +85,7 @@
 
   </section>
 </section>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 

@@ -1,4 +1,5 @@
 <section class='container'>
+  <% if @client %>
   <section class='row col-12'>
     <% unless @insurance_plan.nil? %>
       <h2><%= sanitize(@insurance_plan.name) %></h2>
@@ -50,4 +51,7 @@
     <% end %>
   </section>
 </section>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 

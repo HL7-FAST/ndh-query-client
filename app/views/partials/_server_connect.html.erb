@@ -1,0 +1,20 @@
+<div class="row justify-content-center">
+	<div class="col-md-8 col-lg-6">
+		<div class="card">
+			<div class="card-header bg-primary text-white">
+				<h5 class="mb-0">Connect to FHIR Server</h5>
+			</div>
+			<div class="card-body">
+				<p class="text-muted mb-3">Please connect to a FHIR server to continue.</p>
+				<%= form_tag root_path, method: 'get', class: 'd-flex gap-2', id: 'server-form' do %>
+					<div class='flex-grow-1'>
+						<%= text_field_tag :server_url, (cookies[:server_url] || 'https://ndh-server.fast.hl7.org/fhir'), class: 'form-control', placeholder: 'Enter FHIR server URL' %>
+					</div>
+					<%= button_tag class: 'btn btn-primary', id: 'server-url' do %>
+						Connect
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

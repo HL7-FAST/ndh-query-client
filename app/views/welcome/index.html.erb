@@ -1,4 +1,6 @@
 <section class='container'>
+	<h3 class='page-title'>NDH Query Client</h3>
+
 	<% if @client %>
 		<p class="text-success client-connected text-center mb-4">
 			Connected to <%= cookies[:server_url] -%>
@@ -23,16 +25,18 @@
 			</tbody>
 		</table>
 	<% else %>
-		<p class="text-danger text-center mb-4">No Connection Established</p>
+		<p class="text-warning client-not-connected text-center mb-4">
+			Connect to a FHIR server to begin querying data.
+		</p>
 	<% end %>
-	
-	<section class='row justify-content-center'>
+
+	<section class='row justify-content-center mt-4'>
 		<%= form_tag root_path, method: 'get', class: 'd-flex gap-2', id: 'server-form' do %>
 			<div class='flex-grow-1'>
 				<%= text_field_tag :server_url, (cookies[:server_url] or 'https://ndh-server.fast.hl7.org/fhir'), class: 'form-control', placeholder: 'https://ndh-server.fast.hl7.org/fhir' %>
 			</div>
 			<%= button_tag class: 'btn btn-primary', id: 'server-url' do %>
-				Lookup
+				Connect
 			<% end %>
 		<% end %>
 	</section>

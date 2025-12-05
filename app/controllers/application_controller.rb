@@ -143,11 +143,13 @@ class ApplicationController < ActionController::Base
   # Fetch all plans, and remember their resources, names, and networks
 
   def fetch_plans (id = nil)
+    return unless @client
+
     @plans = []
     parameters = {}
     @networks_by_plan = {}
 
-    #parameters[:_profile] = 'http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/plannet-InsurancePlan' 
+    #parameters[:_profile] = 'http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/plannet-InsurancePlan'
     parameters[:_count] = 100
     if (id.present?)
       parameters[:_id] = id

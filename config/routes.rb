@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  get 'export/index'
-  get 'export/export'
-  get 'export/pollexport'
-  get 'export/cancel'
+  # FHIR Bulk Export routes
+  get 'export', to: 'export#index', as: 'export'
+  post 'export/start', to: 'export#start', as: 'start_export'
+  get 'export/status', to: 'export#status', as: 'export_status'
+  delete 'export/cancel', to: 'export#cancel', as: 'cancel_export'
   get 'pharmacymix/index'
   get 'controllername/pharmacymix'
   get 'controllername/index'

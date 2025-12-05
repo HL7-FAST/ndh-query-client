@@ -20,6 +20,8 @@ class PractitionerRolesController < ApplicationController
   # GET /practitioner_roles
 
   def index
+    return unless @client
+
     if params[:page].present?
       update_page(params[:page])
     else
@@ -60,7 +62,9 @@ class PractitionerRolesController < ApplicationController
   # GET /practitioner_roles/[id]
 
   def show
-  reply = @client.read(FHIR::PractitionerRole, params[:id])
+    return unless @client
+
+    reply = @client.read(FHIR::PractitionerRole, params[:id])
   fhir_practitioner_role = reply.resource
   @practitioner_role = PractitionerRole.new(fhir_practitioner_role) unless fhir_practitioner_role.nil?
   end

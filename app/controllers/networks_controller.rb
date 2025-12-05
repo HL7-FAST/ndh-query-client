@@ -20,6 +20,8 @@ class NetworksController < ApplicationController
   # GET /networks
 
   def index
+    return unless @client
+
     if params[:page].present?
       update_page(params[:page])
     else
@@ -62,6 +64,8 @@ class NetworksController < ApplicationController
   # GET /network/[id]
 
   def show
+    return unless @client
+
     reply = @client.read(FHIR::Organization, params[:id])
     fhir_network = reply.resource
     #binding.pry 

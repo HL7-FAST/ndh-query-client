@@ -1,4 +1,5 @@
 <section class='container'>
+  <% if @client %>
   <section class='row col-12'>
     <% unless @endpoint.nil? %>
       <h2><%= sanitize(@endpoint.name) %></h2>
@@ -57,4 +58,7 @@
       Not available
     <% end %>
   </section>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </section>

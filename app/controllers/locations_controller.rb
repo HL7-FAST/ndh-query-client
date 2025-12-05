@@ -20,12 +20,14 @@ class LocationsController < ApplicationController
   # GET /locations
 
   def index
+    return unless @client
+
     if params[:page].present?
       update_page(params[:page])
     else
       if params[:query_string].present?
         query_params = query_hash_from_string(params[:query_string])
-        modifiedparams = zip_plus_radius_to_address(query_params) if query_params 
+        modifiedparams = zip_plus_radius_to_address(query_params) if query_params
         reply = @client.search(
           FHIR::Location,
           search: {
@@ -61,6 +63,8 @@ class LocationsController < ApplicationController
   # GET /locations/[id]
 
   def show
+    return unless @client
+
     reply = @client.read(FHIR::Location, params[:id])
     fhir_location = reply.resource
     @location = Location.new(fhir_location) unless fhir_location.nil?

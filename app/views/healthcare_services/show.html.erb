@@ -1,4 +1,5 @@
 <section class='container'>
+  <% if @client %>
   <section class='row col-12'>
   <h2>HealthcareService:</h2>
     <% unless @healthcare_service.nil? %>
@@ -110,4 +111,7 @@
       Not available
     <% end %>
   </section>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </section>

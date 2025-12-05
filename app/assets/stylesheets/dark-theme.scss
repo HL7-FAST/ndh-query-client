@@ -68,6 +68,10 @@
 // -----------------------------------------------------------------------------
 // Base Styles
 // -----------------------------------------------------------------------------
+html {
+  height: 100%;
+}
+
 body {
   font-family: 'Roboto', system-ui, -apple-system, sans-serif;
   background-color: var(--mdb-background);
@@ -75,6 +79,9 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 // Typography
@@ -106,6 +113,12 @@ a {
 // -----------------------------------------------------------------------------
 // Layout & Containers
 // -----------------------------------------------------------------------------
+#content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .container,
 .container-fluid {
   margin-top: var(--mdb-spacing-2);
@@ -126,7 +139,7 @@ a {
 
 // Main content area
 main {
-  min-height: calc(100vh - 180px);
+  flex: 1;
 }
 
 // -----------------------------------------------------------------------------
@@ -430,7 +443,6 @@ main {
   border-radius: var(--mdb-radius-md);
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  margin-top: var(--mdb-spacing-3);
   
   th {
     background-color: var(--mdb-surface-container-high);
@@ -463,6 +475,7 @@ main {
   a {
     color: var(--mdb-primary);
     font-weight: 500;
+    padding: 0.5rem 0;
   }
 }
 
@@ -679,15 +692,16 @@ img.olTileImage {
 footer {
   background-color: var(--mdb-surface-container);
   border-top: 1px solid var(--mdb-border);
-  
+  margin-top: auto;
+
   p {
     margin: 0;
     color: var(--mdb-on-surface-variant);
   }
-  
+
   a {
     transition: color var(--mdb-transition);
-    
+
     &:hover {
       color: var(--mdb-primary-light);
     }

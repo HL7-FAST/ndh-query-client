@@ -19,6 +19,8 @@ class HealthcareServicesController < ApplicationController
   # GET /healthcare_services
 
   def index
+    return unless @client
+
     fetch_plans
 
     @params = {}
@@ -72,7 +74,9 @@ class HealthcareServicesController < ApplicationController
   # GET /healthcare_services/[id]
 
   def show
-  reply = @client.read(FHIR::HealthcareService, params[:id])
+    return unless @client
+
+    reply = @client.read(FHIR::HealthcareService, params[:id])
   fhir_healthcare_service = reply.resource
   @healthcare_service = HealthcareService.new(fhir_healthcare_service) unless fhir_healthcare_service.nil?
   end

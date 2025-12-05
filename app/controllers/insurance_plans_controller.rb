@@ -45,6 +45,8 @@ class InsurancePlansController < ApplicationController
   # GET /insurance_plans
   
   def index
+    return unless @client
+
     if params[:page].present?
       update_page(params[:page])
     else
@@ -87,6 +89,8 @@ class InsurancePlansController < ApplicationController
   # GET /insurance_plans/[id]
 
   def show
+    return unless @client
+
     reply = @client.read(FHIR::InsurancePlan, params[:id])
     fhir_insurance_plan = reply.resource
     @insurance_plan = InsurancePlan.new(fhir_insurance_plan) unless fhir_insurance_plan.nil?

@@ -1,10 +1,12 @@
 <section class='container'>
+  <h3 class='page-title'>
+    Practitioners
+    <%= ("named '" + sanitize(@params[:name]) + "'") unless @params.nil? || @params[:name].nil? %>
+  </h3>
+
+  <% if @client %>
   <section class='row'>
     <div class='col-12'>
-      <h3 class='page-title'>
-        Practitioners
-        <%= ("named '" + sanitize(@params[:name]) + "'") unless @params[:name].nil? %>
-      </h3>
       <%= render 'partials/query' %>
       <%= render 'partials/pagination', resource: :practitioners %>
     </div>
@@ -76,4 +78,7 @@
       <%= render 'partials/pagination', resource: :practitioners, header: false %>
     </div>
   </section>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </section>

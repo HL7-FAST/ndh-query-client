@@ -1,5 +1,6 @@
 <div class='container-fluid'>
-  <h3 class='page-title'>Healthcare Services Search</h3>
+  <h3 class='page-title'>Healthcare Services</h3>
+  <% if @client %>
   <div class='row'>
     <div class='col-md-3 col-12'>
       <%= form_for :healthcare_service, url: search_healthcare_services_path, remote: true, method: "get" do |f| %>
@@ -87,4 +88,7 @@
       <table id="healthcare-services-table" class="table table-dark table-striped"></table>
     </div>
   </div>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </div>

@@ -12,36 +12,17 @@ $(() => {
 });
 
 const updateProviderNetworkList = function (event) {
-  updateProviderSearchParam(event, 'practitionerrole-network');
   if(event.target.value === '') {
-    $('#plan-select').html('');
+    $('#network-select').html('');
+    updateProviderNetwork({ target: { value: '' } });
   } else {
     networksByPlan = JSON.parse(event.target.getAttribute("data-networksByPlan"))
-      htmlString = networksByPlan[event.target.value]
-          .map(network => `<option value="${network.reference}">${network.display}</option>`).join('\n');
+      htmlString = '<option value=""></option>' +
+        networksByPlan[event.target.value]
+          .map(network => `<option value="${network.reference}">${network.display || network.reference}</option>`).join('\n');
         $('#network-select').html(htmlString);
         updateProviderNetwork({ target: { value: $('#network-select').val() } });
       }
-};
-
-
-const updateProviderNetworkList_old = function (event) {
-  updateProviderSearchParam(event, 'network');
-
-  if(event.target.value === '') {
-    $('#network-select').html('');
-  } else {
-     fetch(`/providers/networks.json?payer_id=${event.target.value}`)
-      .then(response => response.json())
-      .then(networks => {
-        const htmlString = networks
-              .map(network => `<option value="${network.value}">${network.name}</option>`)
-              .join('\n');
-
-        $('#network-select').html(htmlString);
-        updateProviderNetwork({ target: { value: $('#network-select').val() } });
-      });
-  }
 };
 
 let providerParams = {};
@@ -51,7 +32,7 @@ const updateProviderSearchParam = function(event, param) {
 };
 
 const updateProviderNetwork = function (event) {
-  updateProviderSearchParam(event, 'practitionerrole-network');
+  updateProviderSearchParam(event, 'network');
 };
 
 const updateProviderZip = function (event) {
@@ -171,7 +152,7 @@ const providerRows = function (providers) {
             </a>
           </td>
           <td>${provider.telecom.join('<br>')}</td>
-          <td><a href="${provider.gaddress}">${provider.address[0]} </a></td>
+          <td>${provider.address[0]}</td>
           <td>${provider.specialty.join('<br>')}</td>
         </tr>
       `;

@@ -1,7 +1,9 @@
 <section class='container'>
+  <h3 class='page-title'>Organization Affiliations</h3>
+
+  <% if @client %>
   <section class='row'>
     <div class='col-12'>
-      <h3 class='page-title'>Organization Affiliations</h3>
       <%= render 'partials/query' %>
       <%= render 'partials/pagination', resource: :organization_affiliations %>
     </div>
@@ -72,4 +74,7 @@
       <%= render 'partials/pagination', resource: :organization_affiliations, header: false %>
     </div>
   </section>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </section>

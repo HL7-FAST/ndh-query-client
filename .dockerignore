@@ -1,7 +1,73 @@
+# Git
+.git
 .git*
-db/*.sqlite3
-db/*.sqlite3-journal
+.gitignore
+.gitattributes
+
+# Documentation
+README.md
+README.rdoc
+*.md
+doc/
+docs/
+
+# Logs and temporary files
 log/*
 tmp/*
+*.log
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.*
+
+# Docker files
+.dockerignore
 Dockerfile
-README.rdoc
+docker-compose.yml
+docker-compose*.yml
+
+# Node modules
+node_modules/
+bower_components/
+
+# Test and coverage
+coverage/
+.rspec
+spec/
+test/
+features/
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-*
+.project
+.DS_Store
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+circle.yml
+
+# Build artifacts
+*.gem
+*.rbc
+.bundle
+vendor/bundle
+app/assets/builds/*
+public/assets/*
+
+# Database files (SQLite)
+*.sqlite3
+*.sqlite3-journal
+db/*.sqlite3
+db/*.sqlite3-journal
+
+# Compiled files
+*.o
+*.so
+*.a

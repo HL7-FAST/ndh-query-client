@@ -20,7 +20,9 @@ class OrganizationsController < ApplicationController
   # GET /organizations
 
   def index
-    typecodes = 'fac,bus,prvgrp,payer,atyprv' 
+    return unless @client
+
+    typecodes = 'fac,bus,prvgrp,payer,atyprv'
     if params[:page].present?
       update_page(params[:page])
     else
@@ -66,6 +68,8 @@ class OrganizationsController < ApplicationController
   # GET /organizations/[id]
 
   def show
+    return unless @client
+
     reply = @client.read(FHIR::Organization, params[:id])
     fhir_organization = reply.resource
     @organization = Organization.new(fhir_organization) unless fhir_organization.nil?

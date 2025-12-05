@@ -19,6 +19,8 @@ class EndpointsController < ApplicationController
   # GET /endpoints
 
   def index
+    return unless @client
+
     if params[:page].present?
       update_page(params[:page])
     else
@@ -59,6 +61,8 @@ class EndpointsController < ApplicationController
   # GET /endpoints/[id]
 
   def show
+    return unless @client
+
     reply = @client.read(FHIR::Endpoint, params[:id])
     fhir_endpoint = reply.resource
     @endpoint = Endpoint.new(fhir_endpoint) unless fhir_endpoint.nil?

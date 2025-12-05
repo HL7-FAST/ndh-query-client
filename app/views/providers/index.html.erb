@@ -1,5 +1,7 @@
 <div class='container-fluid'>
-  <h3 class='page-title'>Search Providers</h3>
+  <h3 class='page-title'>Providers</h3>
+
+  <% if @client %>
   <div class='row'>
     <div class='col-md-3 col-12'>
       <div class="mb-3">
@@ -82,4 +84,7 @@
       <table id="providers-table" class="table table-dark table-striped"></table>
     </div>
   </div>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </div>

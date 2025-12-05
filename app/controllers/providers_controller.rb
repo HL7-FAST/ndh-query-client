@@ -22,6 +22,8 @@ class ProvidersController < ApplicationController
   # GET /providers
 
   def index
+    return unless @client
+
     @params = {}
     @specialties = INDIVIDUAL_AND_GROUP_SPECIALTIES.sort_by { |code| code[:name] }
     @newpatientoptions = NEW_PATIENT_OPTIONS

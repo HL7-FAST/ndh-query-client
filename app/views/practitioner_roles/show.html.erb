@@ -1,2 +1,6 @@
 <section class='container'>
+  <% if @client %>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </section>

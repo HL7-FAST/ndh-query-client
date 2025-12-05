@@ -3,6 +3,8 @@ class PharmacymixesController < ApplicationController
 
    # GET /pharmacymixes
    def index
+    return unless @client
+
     fetch_plans
 
     @params = {}

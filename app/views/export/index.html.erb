@@ -1,12 +1,151 @@
-<section class='container'>
-	<h3 class='page-title'>Export</h3>
+<section class='container py-4'>
+	<h3 class='page-title mb-4'>FHIR Bulk Data Export</h3>
+
 	<% if @client %>
-		<p class="text-success text-center mb-4">
-			Exporting from <%= cookies[:server_url] -%>
-		</p>
-		<%= render 'buttons' %>
-		<%= render 'table' %>
+		<!-- Export Configuration Form -->
+		<div class="card mb-4">
+			<div class="card-header">
+				<h5 class="mb-0">Export Configuration</h5>
+			</div>
+			<div class="card-body">
+				<form id="export-form">
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+					<!-- Resource Types Selection -->
+					<div class="mb-4">
+						<label class="form-label fw-bold">
+							Resource Types
+							<small class="text-muted">(_type parameter - leave empty for all resources)</small>
+						</label>
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="Endpoint" id="type-endpoint">
+									<label class="form-check-label" for="type-endpoint">Endpoint</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="HealthcareService" id="type-healthcareservice">
+									<label class="form-check-label" for="type-healthcareservice">HealthcareService</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="InsurancePlan" id="type-insuranceplan">
+									<label class="form-check-label" for="type-insuranceplan">InsurancePlan</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="Location" id="type-location">
+									<label class="form-check-label" for="type-location">Location</label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="Network" id="type-network">
+									<label class="form-check-label" for="type-network">Network</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="Organization" id="type-organization">
+									<label class="form-check-label" for="type-organization">Organization</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="OrganizationAffiliation" id="type-orgaffiliation">
+									<label class="form-check-label" for="type-orgaffiliation">OrganizationAffiliation</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="Practitioner" id="type-practitioner">
+									<label class="form-check-label" for="type-practitioner">Practitioner</label>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="PractitionerRole" id="type-practitionerrole">
+									<label class="form-check-label" for="type-practitionerrole">PractitionerRole</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="Verification" id="type-verification">
+									<label class="form-check-label" for="type-verification">Verification</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="resource_types[]" value="VerificationResult" id="type-verificationresult">
+									<label class="form-check-label" for="type-verificationresult">VerificationResult</label>
+								</div>
+							</div>
+						</div>
+						<small class="text-muted">
+							Selected: <span id="selected-resources-count">0</span> resource type(s)
+						</small>
+					</div>
+
+					<!-- Date Range -->
+					<div class="row mb-4">
+						<div class="col-md-6">
+							<label for="since-date" class="form-label fw-bold">
+								Since Date
+								<small class="text-muted d-block mt-1">(_since parameter - resources modified after this date)</small>
+							</label>
+							<input type="date" class="form-control form-control-lg" id="since-date" name="since">
+						</div>
+						<div class="col-md-6">
+							<label for="until-date" class="form-label fw-bold">
+								Until Date
+								<small class="text-muted d-block mt-1">(_until parameter - resources modified before this date)</small>
+							</label>
+							<input type="date" class="form-control form-control-lg" id="until-date" name="until">
+						</div>
+					</div>
+
+					<!-- Advanced Options (Collapsible) -->
+					<div class="mb-3">
+						<button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#advanced-options">
+							Advanced Options
+						</button>
+					</div>
+
+					<div class="collapse" id="advanced-options">
+						<div class="card card-body mb-3">
+							<!-- Type Filter -->
+							<div class="mb-3">
+								<label for="type-filter" class="form-label">
+									Type Filter
+									<small class="text-muted">(_typeFilter parameter - e.g., "Organization?_id=1,2,3")</small>
+								</label>
+								<textarea class="form-control" id="type-filter" name="type_filter" rows="2" placeholder="Organization?_id=1,2,3&#10;Location?address-city=Boston"></textarea>
+								<small class="text-muted">One filter per line</small>
+							</div>
+
+							<!-- Elements -->
+							<div class="mb-3">
+								<label for="elements" class="form-label">
+									Elements
+									<small class="text-muted">(_elements parameter - comma-separated list of elements to include)</small>
+								</label>
+								<input type="text" class="form-control" id="elements" name="elements" placeholder="id,name,address,telecom">
+							</div>
+						</div>
+					</div>
+
+					<!-- Action Buttons -->
+					<div class="row">
+						<div class="col-md-6">
+							<button type="submit" id="start-export-btn" class="btn btn-primary btn-lg w-100">
+								Start Export
+							</button>
+						</div>
+						<div class="col-md-6">
+							<button type="button" id="cancel-export-btn" class="btn btn-danger btn-lg w-100" disabled>
+								Cancel Export
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<!-- Status Display -->
+		<div id="export-status"></div>
+
+		<!-- Results Display -->
+		<div id="export-results"></div>
+
 	<% else %>
-		<p class="text-danger text-center">No Connection Established</p>
+		<%= render 'partials/server_connect' %>
 	<% end %>
 </section>

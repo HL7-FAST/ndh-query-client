@@ -1,5 +1,7 @@
 <div class='container-fluid'>
-  <h3 class='row text-white'>Pharmacy Mix</h3>
+  <h3 class='page-title'>Pharmacy Mix</h3>
+
+  <% if @client %>
   <div class='row'>
     <div class='col-3'>
       <%= form_for :pharmacymix, url: search_pharmacymixes_path, remote: true, method: "get" do |f| %>
@@ -14,4 +16,7 @@
         </table>
     </div>
   </div>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </div>

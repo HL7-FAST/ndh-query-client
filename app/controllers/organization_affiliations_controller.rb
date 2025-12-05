@@ -20,6 +20,8 @@ class OrganizationAffiliationsController < ApplicationController
   # GET /organization_affiliations
 
   def index
+    return unless @client
+
     if params[:page].present?
       update_page(params[:page])
     else
@@ -67,6 +69,8 @@ class OrganizationAffiliationsController < ApplicationController
   # GET /organization_affiliations/[id]
 
   def show
+    return unless @client
+
     reply = @client.search(FHIR::OrganizationAffiliation,
                            search: { parameters: { id: params[:id] } })
 

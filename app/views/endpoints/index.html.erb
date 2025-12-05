@@ -1,7 +1,9 @@
 <section class='container'>
+  <h3 class='page-title'>Endpoints</h3>
+
+  <% if @client %>
   <section class='row'>
     <div class='col-12'>
-      <h3 class='page-title'>Endpoints</h3>
       <%= render 'partials/query' %>
       <%= render 'partials/pagination', resource: :endpoints %>
     </div>
@@ -63,4 +65,7 @@
       <%= render 'partials/pagination', resource: :endpoints, header: false %>
     </div>
   </section>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </section>

@@ -21,6 +21,8 @@ class PractitionersController < ApplicationController
   # GET /practitioners
 
   def index
+    return unless @client
+
     if params[:page].present?
       update_page(params[:page])
     else
@@ -62,6 +64,8 @@ class PractitionersController < ApplicationController
   # GET /practitioners/[id]
 
   def show
+    return unless @client
+
     reply = @client.read(FHIR::Practitioner, params[:id])
     fhir_practitioner = reply.resource
     @practitioner = Practitioner.new(fhir_practitioner) unless fhir_practitioner.nil?

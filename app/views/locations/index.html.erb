@@ -1,7 +1,9 @@
 <section class='container'>
+  <h3 class='page-title mb-4'>Locations</h3>
+
+  <% if @client %>
   <section class='row'>
     <div class='col-12'>
-      <h3 class='page-title'>Locations</h3>
       <%= render 'partials/query' %>
       <%= render 'partials/pagination', resource: :locations %>
     </div>
@@ -96,6 +98,9 @@
       <%= render 'partials/pagination', resource: :locations, header: false %>
     </div>
   </section>
+  <% else %>
+    <%= render 'partials/server_connect' %>
+  <% end %>
 </section>
 
 
