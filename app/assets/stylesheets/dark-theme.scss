@@ -443,6 +443,7 @@ main {
   border-radius: var(--mdb-radius-md);
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin: var(--mdb-spacing-3) 0;
   
   th {
     background-color: var(--mdb-surface-container-high);

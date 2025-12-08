@@ -1,5 +1,116 @@
+<section class='container'>
+  <% if @client %>
+  <section class='row'>
+    <% unless @organization_affiliation.nil? %>
+      <div class='col-12'>
+        <h2>Organization Affiliation</h2>
+      </div>
 
+      <div class='col-12'>
+        <table class='table table-dark'>
+          <tr>
+            <td>ID:</td>
+            <td><%= sanitize(@organization_affiliation.id) %></td>
+          </tr>
+          <tr>
+            <td>Identifiers:</td>
+            <td>
+              <% if @organization_affiliation.identifiers.present? %>
+                <% @organization_affiliation.identifiers.each do |identifier| %>
+                  <%= display_identifier(identifier) %><br />
+                <% end %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Primary Organization:</td>
+            <td><%= display_reference(@organization_affiliation.organization) %></td>
+          </tr>
+          <tr>
+            <td>Participating Organization:</td>
+            <td><%= display_reference(@organization_affiliation.participating_organization) %></td>
+          </tr>
+          <tr>
+            <td>Networks:</td>
+            <td>
+              <% if @organization_affiliation.networks.present? %>
+                <%= display_reference_list(@organization_affiliation.networks, use_controller: 'networks') %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Roles:</td>
+            <td>
+              <% if @organization_affiliation.codes.present? %>
+                <%= display_coding_list(@organization_affiliation.codes) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Specialties:</td>
+            <td>
+              <% if @organization_affiliation.specialties.present? %>
+                <%= display_coding_list(@organization_affiliation.specialties) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Locations:</td>
+            <td>
+              <% if @organization_affiliation.locations.present? %>
+                <%= display_reference_list(@organization_affiliation.locations) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Healthcare Services:</td>
+            <td>
+              <% if @organization_affiliation.healthcare_services.present? %>
+                <%= display_reference_list(@organization_affiliation.healthcare_services) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Phone/Fax:</td>
+            <td>
+              <% if @organization_affiliation.telecoms.present? %>
+                <% @organization_affiliation.telecoms.each do |telecom| %>
+                  <%= display_telecom(telecom) %><br />
+                <% end %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Endpoints:</td>
+            <td>
+              <% if @organization_affiliation.endpoints.present? %>
+                <%= display_reference_list(@organization_affiliation.endpoints) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    <% else %>
+      Not available
+    <% end %>
+  </section>
   <% else %>
     <%= render 'partials/server_connect' %>
   <% end %>
-<% if @client %>
+</section>

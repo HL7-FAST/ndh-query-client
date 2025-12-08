@@ -22,9 +22,35 @@ module PractitionerHelper
 
   #-----------------------------------------------------------------------------
 
-  def display_period(period)
-    period.present? ?
-            sanitize('Effective ' + period.start + ' to ' + period.end) : ''
+  def display_period(period, include_label: true)
+    return '' unless period.present?
+
+    start_date = format_period_date(period.start)
+    end_date = format_period_date(period.end)
+
+    result = if start_date.present? && end_date.present?
+               "#{start_date} to #{end_date}"
+             elsif start_date.present?
+               "#{start_date} onwards"
+             elsif end_date.present?
+               "until #{end_date}"
+             else
+               ''
+             end
+
+    return '' if result.blank?
+
+    result = "Effective #{result}" if include_label
+    sanitize(result)
+  end
+
+  def format_period_date(date_string)
+    return nil if date_string.blank?
+
+    # Parse ISO 8601 date and format as YYYY-MM-DD
+    Date.parse(date_string).strftime('%Y-%m-%d')
+  rescue ArgumentError
+    date_string
   end
 
   #-----------------------------------------------------------------------------

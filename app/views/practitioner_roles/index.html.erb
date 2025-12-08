@@ -30,6 +30,7 @@
       <table class='table table-dark table-striped'>
         <thead>
           <tr>
+            <th scope='col'>ID</th>
             <th scope='col'>Period</th>
             <th scope='col'>Practitioner</th>
             <th scope='col'>Organization</th>
@@ -47,11 +48,8 @@
           <% @practitioner_roles.each do |fhir_practitioner_role| %>
             <% practitioner_role = PractitionerRole.new(fhir_practitioner_role) %>
             <tr>
-              <td>
-                <% if practitioner_role.period != nil %>
-                  <%= practitioner_role.period.start %> <%= practitioner_role.period.end %>
-                <% end %>
-              </td>
+              <td><%= link_to practitioner_role.id, practitioner_role_path(practitioner_role.id) %></td>
+              <td><%= display_period(practitioner_role.period, include_label: false) %></td>
               <td><%= display_reference(practitioner_role.practitioner) %></td>
               <td><%= display_reference(practitioner_role.organization) %></td>
               <td><%= display_coding_list(practitioner_role.specialties) %></td>

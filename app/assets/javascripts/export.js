@@ -62,7 +62,7 @@ class BulkExportManager {
       const data = await response.json();
 
       if (data.status === 'initiated') {
-        this.showStatus('in_progress', data.message, { poll_url: data.poll_url });
+        this.showStatus('in_progress', data.message, { poll_url: data.poll_url, request_url: data.request_url });
         this.pollAttempts = 0;
         this.startPolling(data.retry_after || 5);
       } else if (data.status === 'error') {
@@ -116,7 +116,8 @@ class BulkExportManager {
         this.showStatus('in_progress', data.message || 'Export in progress...', {
           progress: data.progress,
           attempts: this.pollAttempts,
-          poll_url: data.poll_url
+          poll_url: data.poll_url,
+          request_url: data.request_url
         });
         this.startPolling(data.retry_after || 5);
       } else if (data.status === 'complete') {
@@ -223,6 +224,10 @@ class BulkExportManager {
       html += `<p class="mb-2"><strong>Poll attempt:</strong> ${extra.attempts}</p>`;
     }
 
+    if (extra.request_url) {
+      html += `<div class="mt-3"><strong>Request URL:</strong><br><code class="d-block mt-2 p-2 bg-dark text-light rounded small">${this.escapeHtml(extra.request_url)}</code></div>`;
+    }
+
     if (extra.poll_url) {
       html += `<div class="mt-3"><strong>Polling URL:</strong><br><code class="d-block mt-2 p-2 bg-dark text-light rounded small">${this.escapeHtml(extra.poll_url)}</code></div>`;
     }
@@ -284,11 +289,11 @@ class BulkExportManager {
     }
 
     if (data.request_url) {
-      html += '<tr><td>Request URL</td><td><code>' + this.escapeHtml(data.request_url) + '</code></td></tr>';
+      html += '<tr><td>Request URL</td><td><code style="word-break: break-all;">' + this.escapeHtml(data.request_url) + '</code></td></tr>';
     }
 
     if (data.poll_url) {
-      html += '<tr><td>Polling URL</td><td><code>' + this.escapeHtml(data.poll_url) + '</code></td></tr>';
+      html += '<tr><td>Polling URL</td><td><code style="word-break: break-all;">' + this.escapeHtml(data.poll_url) + '</code></td></tr>';
     }
 
     if (data.requires_access_token !== undefined) {

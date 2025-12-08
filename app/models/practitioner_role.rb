@@ -16,7 +16,7 @@ class PractitionerRole < Resource
                 :active, :new_patient, :period, :practitioner, :organization, :code,
                 :specialties, :locations, :healthcare_services, :telecoms,
                 :available_times, :not_availables, :availability_exceptions,
-                :endpoints
+                :endpoints, :extensions
 
   #-----------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ class PractitionerRole < Resource
     @not_availables = practitioner_role.notAvailable
     @availability_exceptions = practitioner_role.availabilityExceptions
     @endpoints = practitioner_role.endpoint
-    
+    @extensions = practitioner_role.extension
   end
 
   #-----------------------------------------------------------------------------

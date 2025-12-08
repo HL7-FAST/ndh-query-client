@@ -1,5 +1,143 @@
 <section class='container'>
   <% if @client %>
+  <section class='row'>
+    <% unless @practitioner_role.nil? %>
+      <div class='col-12'>
+        <h2>Practitioner Role</h2>
+      </div>
+
+      <div class='col-12'>
+        <table class='table table-dark'>
+          <tr>
+            <td>ID:</td>
+            <td><%= sanitize(@practitioner_role.id) %></td>
+          </tr>
+          <tr>
+            <td>Period:</td>
+            <td><%= display_period(@practitioner_role.period, include_label: false).presence || 'None' %></td>
+          </tr>
+          <tr>
+            <td>Practitioner:</td>
+            <td><%= display_reference(@practitioner_role.practitioner) %></td>
+          </tr>
+          <tr>
+            <td>Organization:</td>
+            <td><%= display_reference(@practitioner_role.organization) %></td>
+          </tr>
+          <tr>
+            <td>Roles:</td>
+            <td>
+              <% if @practitioner_role.code.present? %>
+                <%= display_coding_list(@practitioner_role.code) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Specialties:</td>
+            <td>
+              <% if @practitioner_role.specialties.present? %>
+                <%= display_coding_list(@practitioner_role.specialties) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Locations:</td>
+            <td>
+              <% if @practitioner_role.locations.present? %>
+                <%= display_reference_list(@practitioner_role.locations) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Healthcare Services:</td>
+            <td>
+              <% if @practitioner_role.healthcare_services.present? %>
+                <%= display_reference_list(@practitioner_role.healthcare_services) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Phone/Fax:</td>
+            <td>
+              <% if @practitioner_role.telecoms.present? %>
+                <% @practitioner_role.telecoms.each do |telecom| %>
+                  <%= display_telecom(telecom) %><br />
+                <% end %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Available Times:</td>
+            <td>
+              <% if @practitioner_role.available_times.present? %>
+                <% @practitioner_role.available_times.each do |time| %>
+                  <%= sanitize(time.daysOfWeek.join(', ')) %>:
+                  <%= sanitize(time.availableStartTime) %> to
+                  <%= sanitize(time.availableEndTime) %><br />
+                <% end %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Not Available:</td>
+            <td>
+              <% if @practitioner_role.not_availables.present? %>
+                <%= display_list(@practitioner_role.not_availables) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>Availability Exceptions:</td>
+            <td><%= sanitize(@practitioner_role.availability_exceptions) || "None" %></td>
+          </tr>
+          <tr>
+            <td>Endpoints:</td>
+            <td>
+              <% if @practitioner_role.endpoints.present? %>
+                <%= display_reference_list(@practitioner_role.endpoints) %>
+              <% else %>
+                None
+              <% end %>
+            </td>
+          </tr>
+          <% if @practitioner_role.extensions.present? %>
+            <% @practitioner_role.extensions.each do |extension| %>
+            <tr>
+              <td><%= extension_title(extension.url) %>:</td>
+              <td>
+                <% if extension.extension.present? %>
+                <!-- only going one level deep on extensions -->
+                  <% extension.extension.each do |child_extension| %>
+                    <%= extension_title(child_extension.url) %>: <i><%= display_leaf_extension(child_extension) %></i>
+                    <br />
+                  <% end %>
+                <% else %>
+                  <%= display_leaf_extension(extension) %>
+                <% end %>
+              </td>
+            </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
+    <% else %>
+      Not available
+    <% end %>
+  </section>
   <% else %>
     <%= render 'partials/server_connect' %>
   <% end %>

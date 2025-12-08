@@ -48,7 +48,7 @@
             <% organization_affiliation = OrganizationAffiliation.new(fhir_organization_affiliation) %>
             <tr>
               <td>
-                <a href="#" data-bs-toggle="tooltip" title="<%= organization_affiliation.id %>"><%= organization_affiliation.id.split('-').last %></a>
+                <a href="organization_affiliations/<%= organization_affiliation.id %>" data-bs-toggle="tooltip" title="<%= organization_affiliation.id %>"><%= organization_affiliation.id.split('-').last %></a>
               </td>
               <td><%= display_reference(organization_affiliation.organization) %></td>
               <td><%= display_reference_list(organization_affiliation.networks, use_controller: "networks") %></td>
