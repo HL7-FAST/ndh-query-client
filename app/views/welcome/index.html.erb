@@ -24,6 +24,34 @@
 				</tr>
 			</tbody>
 		</table>
+
+		<div class="card mt-4">
+			<div class="card-header">
+				<h5 class="mb-0">Example Queries</h5>
+			</div>
+			<ul class="list-group list-group-flush">
+				<li class="list-group-item">
+					<%= link_to "Practitioners with an MD qualification", practitioners_path(query_string: 'qualification-code=MD') %>
+					<div><small class="text-muted"><code>qualification-code=MD</code></small></div>
+				</li>
+				<li class="list-group-item">
+					<%= link_to "Practitioner roles accepting new patients (with practitioners included)", practitioner_roles_path(query_string: 'new-patient=newpt&_include=PractitionerRole:practitioner') %>
+					<div><small class="text-muted"><code>new-patient=newpt&amp;_include=PractitionerRole:practitioner</code></small></div>
+				</li>
+				<li class="list-group-item">
+					<%= link_to "Endpoints with complete verification", endpoints_path(query_string: 'verification-status=complete') %>
+					<div><small class="text-muted"><code>verification-status=complete</code></small></div>
+				</li>
+				<li class="list-group-item">
+					<%= link_to "Locations within 20 miles of Helena, MT (59601)", locations_path(query_string: 'address-postalcode=59601&radius=20') %>
+					<div><small class="text-muted"><code>address-postalcode=59601&amp;radius=20</code></small></div>
+				</li>
+				<li class="list-group-item">
+					<%= link_to "Organizations in Connecticut", organizations_path(query_string: 'address-state=CT') %>
+					<div><small class="text-muted"><code>address-state=CT</code></small></div>
+				</li>
+			</ul>
+		</div>
 	<% else %>
 		<p class="text-warning client-not-connected text-center mb-4">
 			Connect to a FHIR server to begin querying data.

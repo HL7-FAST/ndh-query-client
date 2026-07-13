@@ -467,6 +467,7 @@ DEPENDENCIES
   pry (~> 0.14)
   puma (~> 7.1)
   rails (~> 8.1.0)
+  rest-client
   rubocop (~> 1.70)
   rubocop-rails (~> 2.27)
   sassc (~> 2.4)

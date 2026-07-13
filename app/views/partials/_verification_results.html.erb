@@ -1,0 +1,33 @@
+<div class='col-12 mt-4'>
+  <h4>Verification</h4>
+  <% if @verification_results.blank? %>
+    <p class='text-muted'>No verification results for this resource.</p>
+  <% else %>
+    <table class='table table-dark'>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Status Date</th>
+          <th>Last Performed</th>
+          <th>Primary Source</th>
+          <th>Validation Status</th>
+          <th>Attestation Source</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @verification_results.each do |verification_result| %>
+          <% primary_source = verification_result.primarySource&.first %>
+          <% attestation = verification_result.attestation %>
+          <tr>
+            <td><%= sanitize(verification_result.status) %></td>
+            <td><%= sanitize(verification_result.statusDate) %></td>
+            <td><%= sanitize(verification_result.lastPerformed) %></td>
+            <td><%= sanitize(primary_source&.who&.display || primary_source&.who&.reference) %></td>
+            <td><%= sanitize(primary_source&.validationStatus&.coding&.first&.code) %></td>
+            <td><%= sanitize(attestation&.who&.display || attestation&.who&.reference) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

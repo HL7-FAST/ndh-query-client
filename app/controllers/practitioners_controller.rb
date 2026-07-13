@@ -55,7 +55,7 @@ class PractitionersController < ApplicationController
     update_bundle_links
 
     @query_params = Practitioner.query_params
-    @practitioners = @bundle.present? ? @bundle.entry.map(&:resource) : []
+    @practitioners = @bundle.present? ? @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::Practitioner) } : []
     @params = params
   end
 
@@ -69,6 +69,7 @@ class PractitionersController < ApplicationController
     reply = @client.read(FHIR::Practitioner, params[:id])
     fhir_practitioner = reply.resource
     @practitioner = Practitioner.new(fhir_practitioner) unless fhir_practitioner.nil?
+    @verification_results = fetch_verification_results("Practitioner/#{params[:id]}")
   end
 
 end

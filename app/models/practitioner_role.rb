@@ -168,6 +168,18 @@ class PractitionerRole < Resource
       {
         name: 'Specialty',
         value: 'specialty'
+      },
+      {
+        name: 'Verification Status',
+        value: 'verification-status'
+      },
+      {
+        name: 'Include',
+        value: '_include'
+      },
+      {
+        name: 'Reverse Include',
+        value: '_revinclude'
       }
     ]
   end

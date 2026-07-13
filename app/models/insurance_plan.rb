@@ -43,11 +43,11 @@ class InsurancePlan < Resource
       },
       {
         name: 'Coverage Area',
-        value: 'insuranceplan-coverage-area'
+        value: 'coverage-area'
       },
       {
         name: 'Coverage Benefit Type',
-        value: 'insuranceplan-coverage-benefit-type'
+        value: 'coverage-benefit-type'
       },
       #{
       #  name: 'Coverage Limit Value',
@@ -55,11 +55,11 @@ class InsurancePlan < Resource
       #},
       {
         name: 'Coverage Network',
-        value: 'insuranceplan-coverage-network'
+        value: 'coverage-network'
       },
       {
         name: 'Coverage Type',
-        value: 'insuranceplan-coverage-type'
+        value: 'coverage-type'
       },
       {
         name: 'Endpoint',
@@ -95,27 +95,23 @@ class InsurancePlan < Resource
       },
       {
         name: 'Network',
-        value: 'insuranceplan-network'
+        value: 'network'
       },
       {
         name: 'Owned By',
         value: 'owned-by'
       },
-      {
-        name: 'Plan Coverage Area',
-        value: 'insuranceplan-coverage-area'
-      },
       #{
       #  name: 'Plan Identifier',
       #  value: 'plan-identifier'
       #},
-      #{
-      #  name: 'Plan Network',
-      #  value: 'insuranceplan-network'
-      #},
+      {
+        name: 'Plan Network',
+        value: 'plan-network'
+      },
       {
         name: 'Plan Type',
-        value: 'insuranceplan-plan-type'
+        value: 'plan-type'
       },
       #{
       #  name: 'Specific Cost Benefit Type',
@@ -143,7 +139,15 @@ class InsurancePlan < Resource
       },
       {
         name: 'Verification Status',
-        value: 'insuranceplan-verification-status'
+        value: 'verification-status'
+      },
+      {
+        name: 'Include',
+        value: '_include'
+      },
+      {
+        name: 'Reverse Include',
+        value: '_revinclude'
       }
     ]
   end

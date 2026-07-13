@@ -51,7 +51,7 @@ class Network < Resource
       },
       {
         name: 'Coverage Area',
-        value: 'network-coverage-area'
+        value: 'coverage-area'
       },
       {
         name: 'Endpoint',
@@ -69,10 +69,10 @@ class Network < Resource
         name: 'Identifier',
         value: 'identifier'
       },
-      {
-        name: 'Identifier Assigner',
-        value: 'identifier-assigner'
-      },
+      #{
+      #  name: 'Identifier Assigner',
+      #  value: 'identifier-assigner'
+      #},
       {
         name: 'Name',
         value: 'name:contains'
@@ -92,6 +92,18 @@ class Network < Resource
       {
         name: 'Type',
         value: 'type'
+      },
+      {
+        name: 'Verification Status',
+        value: 'verification-status'
+      },
+      {
+        name: 'Include',
+        value: '_include'
+      },
+      {
+        name: 'Reverse Include',
+        value: '_revinclude'
       }
     ]
   end

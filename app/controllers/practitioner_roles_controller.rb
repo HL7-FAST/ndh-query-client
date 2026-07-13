@@ -54,7 +54,7 @@ class PractitionerRolesController < ApplicationController
     update_bundle_links
 
     @query_params = PractitionerRole.query_params
-    @practitioner_roles = @bundle.entry.map(&:resource)
+    @practitioner_roles = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::PractitionerRole) }
   end
 
   #-----------------------------------------------------------------------------
@@ -67,6 +67,7 @@ class PractitionerRolesController < ApplicationController
     reply = @client.read(FHIR::PractitionerRole, params[:id])
   fhir_practitioner_role = reply.resource
   @practitioner_role = PractitionerRole.new(fhir_practitioner_role) unless fhir_practitioner_role.nil?
+  @verification_results = fetch_verification_results("PractitionerRole/#{params[:id]}")
   end
 
 end

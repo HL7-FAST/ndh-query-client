@@ -79,6 +79,7 @@ class HealthcareServicesController < ApplicationController
     reply = @client.read(FHIR::HealthcareService, params[:id])
   fhir_healthcare_service = reply.resource
   @healthcare_service = HealthcareService.new(fhir_healthcare_service) unless fhir_healthcare_service.nil?
+  @verification_results = fetch_verification_results("HealthcareService/#{params[:id]}")
   end
 
   #-----------------------------------------------------------------------------

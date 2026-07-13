@@ -80,7 +80,7 @@ class InsurancePlansController < ApplicationController
 
     @query_params = InsurancePlan.query_params
     @insurance_plans = []
-    @insurance_plans = @bundle.entry.map(&:resource) if @bundle 
+    @insurance_plans = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::InsurancePlan) } if @bundle
   
   end
 
@@ -94,6 +94,7 @@ class InsurancePlansController < ApplicationController
     reply = @client.read(FHIR::InsurancePlan, params[:id])
     fhir_insurance_plan = reply.resource
     @insurance_plan = InsurancePlan.new(fhir_insurance_plan) unless fhir_insurance_plan.nil?
+    @verification_results = fetch_verification_results("InsurancePlan/#{params[:id]}")
   end
 
 end

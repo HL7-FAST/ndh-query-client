@@ -64,7 +64,7 @@ class Location < Resource
       },
       {
         name: 'Accessibility',
-        value: 'location-accessibility'
+        value: 'accessibility'
       },
       {
         name: 'Address',
@@ -88,7 +88,7 @@ class Location < Resource
       },
       {
         name: 'Contains',
-        value: 'location-contains'
+        value: 'contains'
       },
       {
         name: 'Country',
@@ -114,17 +114,13 @@ class Location < Resource
       #  name: 'New Patient Network (identifier)',
       #  value: 'new-patient-network'
       #},
-      #{
-      #  name: 'Radius (in miles from center of zipcode)',
-      #  value: 'radius'
-      #},
       {
-        name: 'New Patient',
-        value: 'location-new-patient'
+        name: 'Radius in miles (use with Postal Code)',
+        value: 'radius'
       },
       {
-        name: 'New Patient From Network',
-        value: 'location-new-patient-from-network'
+        name: 'Near (lat|lng|radius|mi)',
+        value: 'near'
       },
       {
         name: 'Operational Status',
@@ -169,6 +165,18 @@ class Location < Resource
       {
         name: 'Use',
         value: 'address-use'
+      },
+      {
+        name: 'Verification Status',
+        value: 'verification-status'
+      },
+      {
+        name: 'Include',
+        value: '_include'
+      },
+      {
+        name: 'Reverse Include',
+        value: '_revinclude'
       }
     ]
   end

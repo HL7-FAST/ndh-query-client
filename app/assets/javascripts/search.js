@@ -25,10 +25,10 @@ let searchField;
 const getSearchField = function () {
   if (!searchField) {
     searchField = $('#search-params > div').first().clone();
-    searchField.children('div > div').prepend(
+    searchField.append(
       '<button class="btn btn-outline-secondary" type="button" onclick="removeSearchField(event)">-</button>'
     );
-    searchField.children('div > input')[0].value = '';
+    searchField.find('input').val('');
   }
 };
 
@@ -37,7 +37,7 @@ const addSearchField = function (_event) {
 };
 
 const removeSearchField = function(event) {
-  $(event.target).parent().parent().remove();
+  $(event.target).closest('.input-group').remove();
   updateQueryString();
 };
 

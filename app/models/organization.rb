@@ -49,10 +49,10 @@ class Organization < Resource
         name: 'Country',
         value: 'address-country'
       },
-      #{
-      #  name: 'Coverage Area',
-      #  value: 'coverage-area'
-      #},
+      {
+        name: 'Coverage Area',
+        value: 'coverage-area'
+      },
       {
         name: 'Endpoint',
         value: 'endpoint'
@@ -69,14 +69,14 @@ class Organization < Resource
         name: 'Identifier',
         value: 'identifier'
       },
-      {
-        name: 'Identifier Assigner',
-        value: 'identifier-assigner'
-      },
-      {
-        name: 'Intermediary',
-        value: 'via-intermediary'
-      },
+      #{
+      #  name: 'Identifier Assigner',
+      #  value: 'identifier-assigner'
+      #},
+      #{
+      #  name: 'Intermediary',
+      #  value: 'via-intermediary'
+      #},
       {
         name: 'Name',
         value: 'name:contains'
@@ -128,6 +128,18 @@ class Organization < Resource
       {
         name: 'Type',
         value: 'type'
+      },
+      {
+        name: 'Verification Status',
+        value: 'verification-status'
+      },
+      {
+        name: 'Include',
+        value: '_include'
+      },
+      {
+        name: 'Reverse Include',
+        value: '_revinclude'
       }
     ]
   end

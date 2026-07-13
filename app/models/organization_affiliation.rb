@@ -108,6 +108,18 @@ class OrganizationAffiliation < Resource
       {
         name: 'Telecom',
         value: 'telecom'
+      },
+      {
+        name: 'Verification Status',
+        value: 'verification-status'
+      },
+      {
+        name: 'Include',
+        value: '_include'
+      },
+      {
+        name: 'Reverse Include',
+        value: '_revinclude'
       }
     ]
   end

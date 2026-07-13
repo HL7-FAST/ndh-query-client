@@ -37,10 +37,10 @@
 			</ul>
 			<ul class="navbar-nav ms-auto">
 				<li class="nav-item">
-					<% if cookies[:server_url].present? %>
-						<span class="navbar-text text-success">
-							<strong>Connected:</strong> <%= cookies[:server_url] %>
-						</span>
+					<% if session[:server_url].present? %>
+						<%= link_to root_path, class: 'navbar-text text-success', title: 'Change server' do %>
+							<strong>Connected:</strong> <%= session[:server_url] %>
+						<% end %>
 					<% else %>
 						<span class="navbar-text text-warning">
 							<strong>Not Connected to FHIR Server</strong>

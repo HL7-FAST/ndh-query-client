@@ -60,7 +60,7 @@ class OrganizationsController < ApplicationController
 
     @query_params = Organization.query_params
     @organizations = []
-    @organizations = @bundle.entry.map(&:resource) if @bundle
+    @organizations = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::Organization) } if @bundle
   end
 
   #-----------------------------------------------------------------------------
@@ -73,6 +73,7 @@ class OrganizationsController < ApplicationController
     reply = @client.read(FHIR::Organization, params[:id])
     fhir_organization = reply.resource
     @organization = Organization.new(fhir_organization) unless fhir_organization.nil?
+    @verification_results = fetch_verification_results("Organization/#{params[:id]}")
   end
 
 end

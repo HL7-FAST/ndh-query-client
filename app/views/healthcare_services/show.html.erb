@@ -107,6 +107,7 @@
           <td><%= display_list(@healthcare_service.endpoints) %></td>
         </tr>
       </table>
+      <%= render 'partials/verification_results' %>
     <% else %>
       Not available
     <% end %>

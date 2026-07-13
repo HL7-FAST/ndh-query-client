@@ -22,6 +22,7 @@ gem 'bootsnap', '~> 1.18', require: false # Reduces boot times through caching; 
 
 gem 'bootstrap', '~> 5.3'       # Integrates Bootstrap HTML, CSS, and JavaScript framework
 gem 'fhir_client', '~> 6.0'     # Handles FHIR client requests
+gem 'rest-client'               # Used directly for bulk export and resource counts
 gem 'jquery-rails', '~> 4.6'    # Automate using jQuery with Rails
 gem 'leaflet-awesome-markers-rails', '~> 2.0'
 gem 'sassc', '~> 2.4'           # Sass compiler (required by bootstrap)

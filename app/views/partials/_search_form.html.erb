@@ -1,13 +1,13 @@
 <div id="search-params">
   <div class="input-group mb-3">
-    <select class="form-select" onchange="updateQueryString(event)">
+    <select class="form-select" aria-label="Search parameter" onchange="updateQueryString(event)">
       <% if query_params.present? %>
         <% query_params.each do |param| %>
           <option value="<%= param[:value] %>"><%= param[:name] %></option>
         <% end %>
       <% end %>
     </select>
-    <input type="text" class="form-control" onkeyup="updateQueryString(event)">
+    <input type="text" class="form-control" aria-label="Search value" onkeyup="updateQueryString(event)">
     <button class="btn btn-outline-secondary" type="button" onclick="addSearchField(event)">+</button>
   </div>
 </div>

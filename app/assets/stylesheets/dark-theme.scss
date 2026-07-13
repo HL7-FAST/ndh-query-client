@@ -125,6 +125,19 @@ a {
   margin-bottom: var(--mdb-spacing-2);
 }
 
+// Bootstrap caps containers at 1320px; the resource tables need more room
+@media (min-width: 1400px) {
+  .container {
+    width: 96%;
+    max-width: 1900px;
+  }
+}
+
+// Keep address lines intact in resource tables; the markup breaks lines with <br>
+td a[href^="https://www.google.com/maps"] {
+  white-space: nowrap;
+}
+
 .container-fluid {
   padding-left: var(--mdb-spacing-4);
   padding-right: var(--mdb-spacing-4);
@@ -236,6 +249,17 @@ main {
     border-top: 1px solid var(--mdb-divider);
     padding: var(--mdb-spacing-3) var(--mdb-spacing-4);
   }
+}
+
+// List groups (match card surfaces)
+.list-group {
+  --bs-list-group-bg: var(--mdb-surface-container);
+  --bs-list-group-color: var(--mdb-on-surface);
+  --bs-list-group-border-color: var(--mdb-divider);
+  --bs-list-group-action-hover-bg: var(--mdb-surface-container-high);
+  --bs-list-group-action-hover-color: var(--mdb-on-surface);
+  --bs-list-group-action-active-bg: var(--mdb-elevation-2);
+  --bs-list-group-action-active-color: var(--mdb-on-surface);
 }
 
 // Dashboard Cards for Welcome Page

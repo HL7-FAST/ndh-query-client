@@ -53,7 +53,7 @@ class EndpointsController < ApplicationController
     update_bundle_links
 
     @query_params = Endpoint.query_params
-    @endpoints = @bundle.entry.map(&:resource)
+    @endpoints = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::Endpoint) }
   end
 
   #-----------------------------------------------------------------------------
@@ -66,6 +66,7 @@ class EndpointsController < ApplicationController
     reply = @client.read(FHIR::Endpoint, params[:id])
     fhir_endpoint = reply.resource
     @endpoint = Endpoint.new(fhir_endpoint) unless fhir_endpoint.nil?
+    @verification_results = fetch_verification_results("Endpoint/#{params[:id]}")
   end
 
 end

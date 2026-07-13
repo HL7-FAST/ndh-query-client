@@ -61,7 +61,7 @@ class OrganizationAffiliationsController < ApplicationController
     update_bundle_links
 
     @query_params = OrganizationAffiliation.query_params
-    @organization_affiliations = @bundle.entry.map(&:resource)
+    @organization_affiliations = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::OrganizationAffiliation) }
   end
 
   #-----------------------------------------------------------------------------
@@ -76,7 +76,8 @@ class OrganizationAffiliationsController < ApplicationController
 
 reply = @client.read(FHIR::OrganizationAffiliation, params[:id])
 fhir_organization_affiliation = reply.resource
-@organization_affiliation = OrganizationAffiliation.new(fhir_organization_affiliation) unless fhir_organization_affiliation.nil?                       
+@organization_affiliation = OrganizationAffiliation.new(fhir_organization_affiliation) unless fhir_organization_affiliation.nil?
+@verification_results = fetch_verification_results("OrganizationAffiliation/#{params[:id]}")
   end
 
 end

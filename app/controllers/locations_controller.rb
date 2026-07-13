@@ -27,7 +27,7 @@ class LocationsController < ApplicationController
     else
       if params[:query_string].present?
         query_params = query_hash_from_string(params[:query_string])
-        modifiedparams = zip_plus_radius_to_address(query_params) if query_params
+        modifiedparams = zip_plus_radius_to_near(query_params) if query_params
         reply = @client.search(
           FHIR::Location,
           search: {
@@ -55,7 +55,7 @@ class LocationsController < ApplicationController
     update_bundle_links
 
     @query_params = Location.query_params
-    @locations = @bundle.entry.map(&:resource)
+    @locations = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::Location) }
   end
 
   #-----------------------------------------------------------------------------
@@ -68,25 +68,19 @@ class LocationsController < ApplicationController
     reply = @client.read(FHIR::Location, params[:id])
     fhir_location = reply.resource
     @location = Location.new(fhir_location) unless fhir_location.nil?
+    @verification_results = fetch_verification_results("Location/#{params[:id]}")
   end
 
   #-----------------------------------------------------------------------------
 
-  # This version is different than the one in the other two controllers, since it uses "address-postalcode" instead of "zip" and it uses "zip" and not :zip
+  # This version is different than the one in the other two controllers, since it uses "address-postalcode" instead of "zip" and string keys instead of symbols
   def zip_plus_radius_to_near(params)
-    #  Convert zipcode + radius to  lat/long+radius in lat|long|radius|units format
-    if params["address-postalcode"].present?   # delete zip and radius params and replace with near
-      radius = 25
-      zip = params["address-postalcode"]
-      params.delete("address-postalcode")
-      if params["radius"].present?
-        radius = params["radius"]
-        params.delete("radius")
-      end
-      # get coordinate
-      coords = get_zip_coords(zip)
-      near = "#{coords["lat"]}|#{coords["lng"]}|#{radius}|mi"
-      params[:near]=near 
+    #  Convert zipcode + radius to lat/long+radius in the FHIR near format (lat|long|radius|units)
+    if params['radius'].present?
+      radius = params.delete('radius')
+      zip = params.delete('address-postalcode')
+      zipcode = Zipcode.find_by_zip(zip) if zip.present?
+      params['near'] = "#{zipcode.latitude}|#{zipcode.longitude}|#{radius}|[mi_us]" if zipcode
     end
     params
   end

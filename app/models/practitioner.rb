@@ -54,10 +54,10 @@ class Practitioner < Resource
         name: 'Given name',
         value: 'given:contains'
       },
-      {
-        name: 'Identfier Assigner',
-        value: 'identifier-assigner'
-      },
+      #{
+      #  name: 'Identfier Assigner',
+      #  value: 'identifier-assigner'
+      #},
       {
         name: 'Identifier',
         value: 'identifier'
@@ -72,11 +72,11 @@ class Practitioner < Resource
       },
       {
         name: 'Qualification Code',
-        value: 'practitioner-qualification-code'
+        value: 'qualification-code'
       },
       {
         name: 'Qualification Issuer',
-        value: 'practitioner-qualification-issuer'
+        value: 'qualification-issuer'
       },
       {
         name: 'ID',
@@ -101,7 +101,27 @@ class Practitioner < Resource
       #{
       #  name: 'Qualification Where Valid Location',
       #  value: 'qualification-wherevalid-location'
-      #}
+      #},
+      {
+        name: 'Active',
+        value: 'active'
+      },
+      {
+        name: 'Gender',
+        value: 'gender'
+      },
+      {
+        name: 'Verification Status',
+        value: 'verification-status'
+      },
+      {
+        name: 'Include',
+        value: '_include'
+      },
+      {
+        name: 'Reverse Include',
+        value: '_revinclude'
+      }
     ]
   end
 

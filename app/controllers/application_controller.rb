@@ -275,6 +275,17 @@ class ApplicationController < ActionController::Base
 
   #-----------------------------------------------------------------------------
 
+  # Retrieves VerificationResult resources that attest to the given target
+  # resource, e.g. "Organization/123".
+
+  def fetch_verification_results(target_reference)
+    reply = @client.search(FHIR::VerificationResult, search: { parameters: { target: target_reference } })
+    reply&.resource&.entry&.map(&:resource) || []
+  rescue StandardError
+    []
+  end
+
+  #-----------------------------------------------------------------------------
 
 
   #-----------------------------------------------------------------------------

@@ -83,36 +83,24 @@ class Endpoint < Resource
       #},
 
       {
-        name: 'Use Case Type',
-        value: 'endpoint-usecase-type'
-      },
-      {
-        name: 'Non-FHIR Use Case Type',
-        value: 'endpoint-nonfhir-usecase-type'
-      },
-      {
         name: 'Trust Framework Type',
-        value: 'endpoint-trust-framework-type'
+        value: 'security-details'
       },
       {
         name: 'Dynamic Registration Trust Profile',
-        value: 'endpoint-dynamic-registration-trust-profile'
+        value: 'dynamic-registration-trust-profile'
       },
       {
         name: 'Access Control Mechanism',
-        value: 'endpoint-access-control-mechanism'
-      },
-      {
-        name: 'Connection Type Version',
-        value: 'endpoint-connection-type-version'
+        value: 'access-control-mechanism'
       },
       {
         name: 'IHE Connection Type',
-        value: 'endpoint-ihe-connection-type'
+        value: 'ihe-connection-type'
       },
       {
         name: 'Verification Status',
-        value: 'endpoint-verification-status'
+        value: 'verification-status'
       },
       {
         name: 'Organization',
@@ -127,8 +115,12 @@ class Endpoint < Resource
         value: 'status'
       },
       {
-        name: 'Use Case Standard',
-        value: 'endpoint-usecase-standard'
+        name: 'Include',
+        value: '_include'
+      },
+      {
+        name: 'Reverse Include',
+        value: '_revinclude'
       }
     ]
   end

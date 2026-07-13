@@ -11,7 +11,7 @@
       <div class="accordion mb-4" id="searchAccordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
               Search
             </button>
           </h2>
@@ -41,6 +41,9 @@
           </tr>
         </thead>
         <tbody>
+          <% if @endpoints.blank? %>
+            <tr><td colspan="8" class="text-center">No results found</td></tr>
+          <% end %>
           <% @endpoints.each do |fhir_endpoint| %>
             <% endpoint = Endpoint.new(fhir_endpoint) %>
             <tr>

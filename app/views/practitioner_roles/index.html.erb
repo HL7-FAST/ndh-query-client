@@ -11,7 +11,7 @@
       <div class="accordion mb-4" id="searchAccordion">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
               Search
             </button>
           </h2>
@@ -45,6 +45,9 @@
           </tr>
         </thead>
         <tbody>
+          <% if @practitioner_roles.blank? %>
+            <tr><td colspan="12" class="text-center">No results found</td></tr>
+          <% end %>
           <% @practitioner_roles.each do |fhir_practitioner_role| %>
             <% practitioner_role = PractitionerRole.new(fhir_practitioner_role) %>
             <tr>
@@ -78,8 +81,8 @@
               <td><%= display_list(practitioner_role.not_availables) %></td>
               <td><%= sanitize(practitioner_role.availability_exceptions) || "None" %></td>
               <td>
-                <% practitioner_role.endpoints do |endpoint| %>
-                  <%= display_reference(endpoint) %>
+                <% practitioner_role.endpoints.each do |endpoint| %>
+                  <%= display_reference(endpoint) %><br />
                 <% end %>
               </td>
             </tr>

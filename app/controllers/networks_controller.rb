@@ -56,7 +56,7 @@ class NetworksController < ApplicationController
     update_bundle_links
 
     @query_params = Network.query_params
-    @networks = @bundle.entry.map(&:resource)
+    @networks = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::Organization) }
   end
 
   #-----------------------------------------------------------------------------
@@ -70,7 +70,8 @@ class NetworksController < ApplicationController
     fhir_network = reply.resource
     #binding.pry 
     @network = Network.new(fhir_network) unless fhir_network.nil?
-    @organization = @network 
+    @organization = @network
+    @verification_results = fetch_verification_results("Organization/#{params[:id]}")
   end
 
 end

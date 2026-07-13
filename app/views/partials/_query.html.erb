@@ -1,6 +1,15 @@
 <% if @search %>
-  <div class="row col-12 query">
-    <p style="float:left;">Query to server: </p>
-    <p style="float:left;"><%= @search %></p>
+  <%# Tomcat rejects raw |, [, ] and spaces in URLs, so the link and clipboard copy use an encoded form %>
+  <% encoded_search = @search.gsub(' ', '%20').gsub('|', '%7C').gsub('[', '%5B').gsub(']', '%5D') %>
+  <div class="row col-12">
+    <div class="d-flex align-items-center gap-2 flex-wrap">
+      <span>Query to server: <span class="query"><%= @search %></span></span>
+      <% if @bundle&.total %>
+        <span class="badge text-bg-secondary"><%= pluralize(@bundle.total, 'match') %></span>
+      <% end %>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-url="<%= encoded_search %>"
+              onclick="navigator.clipboard.writeText(this.dataset.url).then(() => { this.textContent = 'Copied'; setTimeout(() => this.textContent = 'Copy', 1500) })">Copy</button>
+      <%= link_to 'Open', encoded_search, target: '_blank', rel: 'noopener', class: 'btn btn-sm btn-outline-secondary' %>
+    </div>
   </div>
 <% end %>
