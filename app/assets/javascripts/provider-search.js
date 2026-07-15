@@ -172,7 +172,7 @@ const updateProviderQuery = function (query){
 };
 
 const providerQuery = function (query) {
-  if(query.length > 0){
+  if(query && query.length > 0){
     return `
       <p>Query to server</p>
       <p class="query">

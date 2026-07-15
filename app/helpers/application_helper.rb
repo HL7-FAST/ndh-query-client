@@ -19,6 +19,8 @@ module ApplicationHelper
       css_class = 'alert-info'
     when 'success'
       css_class = 'alert-success'
+    when 'warning'
+      css_class = 'alert-warning'
     when 'error'
       css_class = 'alert-danger'
     when 'alert'

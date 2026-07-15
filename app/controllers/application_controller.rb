@@ -60,6 +60,25 @@ class ApplicationController < ActionController::Base
 
   #-----------------------------------------------------------------------------
 
+  # Resolves the search query text to display: the request URL this client
+  # sent to the server. Also captures the server's reported "self" link in
+  # @self_link so views can show how the server restated the query, and sets
+  # @self_link_missing when the server omitted it, since the FHIR search
+  # spec requires servers to return that link.
+
+  def search_query_for_display(bundle = @bundle)
+    return if bundle.nil?
+
+    self_url = bundle.link&.find { |link| link.relation == 'self' }&.url
+    @self_link_missing = self_url.blank?
+    @self_link = CGI.unescape(self_url) unless @self_link_missing
+
+    sent_url = @client&.reply&.request&.dig(:url)
+    sent_url.present? ? CGI.unescape(sent_url) : @self_link
+  end
+
+  #-----------------------------------------------------------------------------
+
   def update_bundle_links
     session[:next_bundle] = @bundle&.next_link&.url
     session[:previous_bundle] = @bundle&.previous_link&.url

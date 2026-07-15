@@ -3,13 +3,23 @@
   <% encoded_search = @search.gsub(' ', '%20').gsub('|', '%7C').gsub('[', '%5B').gsub(']', '%5D') %>
   <div class="row col-12">
     <div class="d-flex align-items-center gap-2 flex-wrap">
-      <span>Query to server: <span class="query"><%= @search %></span></span>
+      <span class="query-label">Query</span>
+      <span class="query flex-grow-1"><%= @search %></span>
       <% if @bundle&.total %>
         <span class="badge text-bg-secondary"><%= pluralize(@bundle.total, 'match') %></span>
+      <% end %>
+      <% if @self_link_missing %>
+        <span class="badge text-bg-warning" title='FHIR search responses are required to include a "self" link showing the query the server executed; this server did not return one, so the URL shown is the request this client sent.'>no self link</span>
       <% end %>
       <button type="button" class="btn btn-sm btn-outline-secondary" data-url="<%= encoded_search %>"
               onclick="navigator.clipboard.writeText(this.dataset.url).then(() => { this.textContent = 'Copied'; setTimeout(() => this.textContent = 'Copy', 1500) })">Copy</button>
       <%= link_to 'Open', encoded_search, target: '_blank', rel: 'noopener', class: 'btn btn-sm btn-outline-secondary' %>
     </div>
+    <% if @self_link.present? && @self_link != @search %>
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <span class="query-label">Self link</span>
+        <span class="query flex-grow-1"><%= @self_link %></span>
+      </div>
+    <% end %>
   </div>
 <% end %>

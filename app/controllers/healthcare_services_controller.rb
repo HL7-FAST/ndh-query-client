@@ -120,8 +120,7 @@ class HealthcareServicesController < ApplicationController
     @healthcare_services ||= @bundle.entry.select { |entry| entry.resource.instance_of? FHIR::HealthcareService }.map(&:resource)
 
     # Prepare the query string for display on the page
-    @search = "<Search String in Returned Bundle is empty>"
-    @search = CGI.unescape(@bundle.link.select { |l| l.relation === "self"}.first.url) if @bundle.link.first 
+    @search = search_query_for_display
 
     # Prepare the links for the Next and Previous buttons
     update_bundle_links

@@ -114,7 +114,7 @@ class PharmaciesController < ApplicationController
         search: { parameters: query }
       ).resource
 
-      session[:search] = CGI.unescape(@bundle.link.select { |l| l.relation === 'self' }.first.url) if @bundle.link.first
+      session[:search] = search_query_for_display
 
       @locations = {}
       @orgaffs = []

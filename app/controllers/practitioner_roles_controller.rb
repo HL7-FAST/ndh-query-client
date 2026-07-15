@@ -47,8 +47,7 @@ class PractitionerRolesController < ApplicationController
       end
 
       @bundle = reply.resource
-      @search = "<Search String in Returned Bundle is empty>"
-      @search = CGI.unescape(@bundle.link.select { |l| l.relation === "self"}.first.url) if @bundle.link.first 
+      @search = search_query_for_display
    end
 
     update_bundle_links

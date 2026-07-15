@@ -51,9 +51,8 @@ class OrganizationsController < ApplicationController
       end
     
       @bundle = reply.resource
-      @search = "<Search String in Returned Bundle is empty>"
       #binding.pry 
-      @search = CGI.unescape(@bundle.link.select { |l| l.relation === "self"}.first.url) if @bundle && @bundle.link && @bundle.link.first 
+      @search = search_query_for_display
     end
 
     update_bundle_links
