@@ -1,7 +1,7 @@
 <% if @search %>
   <%# Tomcat rejects raw |, [, ] and spaces in URLs, so the link and clipboard copy use an encoded form %>
   <% encoded_search = @search.gsub(' ', '%20').gsub('|', '%7C').gsub('[', '%5B').gsub(']', '%5D') %>
-  <div class="row col-12">
+  <div class="mb-3">
     <div class="d-flex align-items-center gap-2 flex-wrap">
       <span class="query-label">Query</span>
       <span class="query flex-grow-1"><%= @search %></span>

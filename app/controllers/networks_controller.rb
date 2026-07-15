@@ -24,6 +24,7 @@ class NetworksController < ApplicationController
 
     if params[:page].present?
       update_page(params[:page])
+      @search = search_query_for_display
     else
       if params[:query_string].present?
         parameters = query_hash_from_string(params[:query_string])
@@ -55,7 +56,7 @@ class NetworksController < ApplicationController
     update_bundle_links
 
     @query_params = Network.query_params
-    @networks = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::Organization) }
+    @networks = (@bundle&.entry || []).map(&:resource).select { |r| r.is_a?(FHIR::Organization) }
   end
 
   #-----------------------------------------------------------------------------

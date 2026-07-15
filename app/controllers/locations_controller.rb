@@ -24,6 +24,7 @@ class LocationsController < ApplicationController
 
     if params[:page].present?
       update_page(params[:page])
+      @search = search_query_for_display
     else
       if params[:query_string].present?
         query_params = query_hash_from_string(params[:query_string])
@@ -54,7 +55,7 @@ class LocationsController < ApplicationController
     update_bundle_links
 
     @query_params = Location.query_params
-    @locations = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::Location) }
+    @locations = (@bundle&.entry || []).map(&:resource).select { |r| r.is_a?(FHIR::Location) }
   end
 
   #-----------------------------------------------------------------------------

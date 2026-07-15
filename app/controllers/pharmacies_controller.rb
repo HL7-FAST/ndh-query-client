@@ -121,8 +121,13 @@ class PharmaciesController < ApplicationController
 
       # Build the Ruby models to represent all of the FHIR data
       loop do
-        fhir_locations = filter(@bundle.entry.map(&:resource), 'Location')
-        fhir_orgaffs = filter(@bundle.entry.map(&:resource), 'OrganizationAffiliation')
+        if @bundle.nil?
+          flash_fhir_error('Fetching additional result pages')
+          break
+        end
+
+        fhir_locations = filter((@bundle&.entry || []).map(&:resource), 'Location')
+        fhir_orgaffs = filter((@bundle&.entry || []).map(&:resource), 'OrganizationAffiliation')
 
         fhir_locations.map do |fhir_location|
           # build a hash, and then convert to array

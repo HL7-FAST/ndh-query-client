@@ -25,6 +25,7 @@ class PractitionersController < ApplicationController
 
     if params[:page].present?
       update_page(params[:page])
+      @search = search_query_for_display
     else
       if params[:query_string].present?
         parameters = query_hash_from_string(params[:query_string])
@@ -54,7 +55,7 @@ class PractitionersController < ApplicationController
     update_bundle_links
 
     @query_params = Practitioner.query_params
-    @practitioners = @bundle.present? ? @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::Practitioner) } : []
+    @practitioners = @bundle.present? ? (@bundle&.entry || []).map(&:resource).select { |r| r.is_a?(FHIR::Practitioner) } : []
     @params = params
   end
 

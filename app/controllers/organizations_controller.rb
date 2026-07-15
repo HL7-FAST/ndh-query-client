@@ -25,6 +25,7 @@ class OrganizationsController < ApplicationController
     typecodes = 'fac,bus,prvgrp,payer,atyprv'
     if params[:page].present?
       update_page(params[:page])
+      @search = search_query_for_display
     else
       if params[:query_string].present?
         parameters = query_hash_from_string(params[:query_string])
@@ -59,7 +60,7 @@ class OrganizationsController < ApplicationController
 
     @query_params = Organization.query_params
     @organizations = []
-    @organizations = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::Organization) } if @bundle
+    @organizations = (@bundle&.entry || []).map(&:resource).select { |r| r.is_a?(FHIR::Organization) } if @bundle
   end
 
   #-----------------------------------------------------------------------------

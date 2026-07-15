@@ -67,7 +67,12 @@ class ApplicationController < ActionController::Base
   # spec requires servers to return that link.
 
   def search_query_for_display(bundle = @bundle)
-    return if bundle.nil?
+    if bundle.nil?
+      flash_fhir_error('Search')
+      return
+    end
+
+    flash_bundle_outcomes(bundle)
 
     self_url = bundle.link&.find { |link| link.relation == 'self' }&.url
     @self_link_missing = self_url.blank?
@@ -75,6 +80,67 @@ class ApplicationController < ActionController::Base
 
     sent_url = @client&.reply&.request&.dig(:url)
     sent_url.present? ? CGI.unescape(sent_url) : @self_link
+  end
+
+  #-----------------------------------------------------------------------------
+
+  # Servers can include OperationOutcome entries (search mode "outcome") in
+  # a searchset bundle to report non-fatal problems with the search, such as
+  # an ignored search parameter. Surface them as a warning so users know the
+  # results may not reflect the full query.
+
+  def flash_bundle_outcomes(bundle)
+    issues = bundle.entry.to_a
+                   .map(&:resource)
+                   .select { |resource| resource&.resourceType == 'OperationOutcome' }
+                   .map { |outcome| outcome_issue_text(outcome) }
+                   .reject(&:blank?)
+    return if issues.empty?
+
+    flash.now[:warning] = "The server reported an issue processing this search: #{issues.join('; ')}"
+  end
+
+  #-----------------------------------------------------------------------------
+
+  # Surfaces the most recent failed FHIR response as an on-page error,
+  # including the requested URL and the server's OperationOutcome
+  # diagnostics when it returned one. Does nothing if the last response
+  # was successful.
+
+  def flash_fhir_error(context)
+    reply = @client&.reply
+    return if reply.nil?
+
+    code = reply.response[:code].to_i
+    return if good_response(code)
+
+    message = "#{context} failed: the server returned HTTP #{code}."
+    message += "\nRequested: #{reply.request[:url]}"
+    details = operation_outcome_diagnostics(reply)
+    message += "\nServer reported: #{details}" if details.present?
+    flash.now[:error] = message
+  end
+
+  #-----------------------------------------------------------------------------
+
+  # Extracts human-readable issue text from an OperationOutcome response
+  # body, or nil if the body is not an OperationOutcome.
+
+  def operation_outcome_diagnostics(reply)
+    return if reply.body.blank?
+
+    outcome = FHIR.from_contents(reply.body)
+    return unless outcome&.resourceType == 'OperationOutcome'
+
+    outcome_issue_text(outcome)
+  rescue StandardError
+    nil
+  end
+
+  #-----------------------------------------------------------------------------
+
+  def outcome_issue_text(outcome)
+    outcome.issue.map { |issue| issue.diagnostics.presence || issue.details&.text }.compact.join('; ')
   end
 
   #-----------------------------------------------------------------------------
@@ -154,7 +220,9 @@ class ApplicationController < ActionController::Base
     end
     
   rescue => exception
-    redirect_to root_path, flash: { error: 'Please specify a plan network server (fetch_payers)' }
+    @payers = []
+    flash_fhir_error('Retrieving payer organizations')
+    flash.now[:error] ||= "Retrieving payer organizations failed: #{exception.message}"
   end
 
   #-----------------------------------------------------------------------------
@@ -189,9 +257,7 @@ class ApplicationController < ActionController::Base
 
       @plans.sort_by! { |hsh| hsh[:name] }
     else
-      redirect_to root_path, 
-          flash: { error: "Could not retrieve insurance plans from the server (fetch_plans, " + 
-                        insurance_plans.response[:code].to_s + ")" }
+      flash_fhir_error('Retrieving insurance plans')
     end
   end
 
@@ -202,7 +268,7 @@ class ApplicationController < ActionController::Base
   def networks
     id = params[:_id]
     fetch_plans(id)
-    networks = @networks_by_plan[id]
+    networks = @networks_by_plan[id] || []
     network_list = networks.map do |entry|
       {
         value: entry.reference,

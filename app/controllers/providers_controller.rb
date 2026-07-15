@@ -54,6 +54,7 @@ class ProvidersController < ApplicationController
   def search
     if params[:page].present?
       update_page(params[:page])
+      @search = search_query_for_display
     else
       base_params = {
         _include: ['PractitionerRole:practitioner', 'PractitionerRole:location'],
@@ -111,7 +112,7 @@ class ProvidersController < ApplicationController
   #-----------------------------------------------------------------------------
 
   def practitioners
-    @practitioners ||= @bundle.entry.select { |entry| entry.resource.instance_of? FHIR::Practitioner }.map(&:resource)
+    @practitioners ||= (@bundle&.entry || []).select { |entry| entry.resource.instance_of? FHIR::Practitioner }.map(&:resource)
   end
 
   #-----------------------------------------------------------------------------
@@ -129,13 +130,13 @@ class ProvidersController < ApplicationController
   #-----------------------------------------------------------------------------
 
   def locations
-    @locations ||= @bundle.entry.select { |entry| entry.resource.instance_of? FHIR::Location }.map(&:resource)
+    @locations ||= (@bundle&.entry || []).select { |entry| entry.resource.instance_of? FHIR::Location }.map(&:resource)
   end
 
   #-----------------------------------------------------------------------------
 
   def roles
-    @roles ||= @bundle.entry.select { |entry| entry.resource.instance_of? FHIR::PractitionerRole }.map(&:resource)
+    @roles ||= (@bundle&.entry || []).select { |entry| entry.resource.instance_of? FHIR::PractitionerRole }.map(&:resource)
   end
 
   #-----------------------------------------------------------------------------

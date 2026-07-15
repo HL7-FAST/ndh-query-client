@@ -89,6 +89,7 @@ class HealthcareServicesController < ApplicationController
   def search
     if params[:page].present?
       update_page(params[:page])
+      @search = search_query_for_display
     else
       base_params = {
         _include: ['HealthcareService:organization', 'HealthcareService:location']
@@ -117,7 +118,7 @@ class HealthcareServicesController < ApplicationController
       ).resource
     end
 
-    @healthcare_services ||= @bundle.entry.select { |entry| entry.resource.instance_of? FHIR::HealthcareService }.map(&:resource)
+    @healthcare_services ||= (@bundle&.entry || []).select { |entry| entry.resource.instance_of? FHIR::HealthcareService }.map(&:resource)
 
     # Prepare the query string for display on the page
     @search = search_query_for_display

@@ -33,14 +33,16 @@
   --mdb-elevation-8: rgba(255, 255, 255, 0.16);
   
   // Status Colors (Adjusted for dark theme visibility)
+  // Containers are low-luminance tints of the status color so alert text
+  // stays readable against the dark surfaces.
   --mdb-success: #81c784;
-  --mdb-success-container: #1b5e20;
+  --mdb-success-container: rgba(129, 199, 132, 0.12);
   --mdb-error: #ef5350;
-  --mdb-error-container: #b71c1c;
+  --mdb-error-container: rgba(239, 83, 80, 0.12);
   --mdb-warning: #ffb74d;
-  --mdb-warning-container: #e65100;
+  --mdb-warning-container: rgba(255, 183, 77, 0.12);
   --mdb-info: #64b5f6;
-  --mdb-info-container: #0d47a1;
+  --mdb-info-container: rgba(100, 181, 246, 0.12);
   
   // Border & Divider
   --mdb-divider: rgba(255, 255, 255, 0.12);
@@ -642,13 +644,20 @@ main {
   padding: var(--mdb-spacing-3) var(--mdb-spacing-4);
   display: flex;
   align-items: center;
-  
+  overflow-wrap: anywhere;
+  min-width: 0;
+
+  .alert-text {
+    white-space: pre-line;
+  }
+
   .material-icons {
     margin-right: var(--mdb-spacing-2);
   }
-  
+
   .btn-close {
     padding: var(--mdb-spacing-2);
+    filter: invert(1) grayscale(1);
   }
 }
 

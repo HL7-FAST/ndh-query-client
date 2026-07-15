@@ -49,6 +49,7 @@ class InsurancePlansController < ApplicationController
 
     if params[:page].present?
       update_page(params[:page])
+      @search = search_query_for_display
     else
       if params[:query_string].present?
         parameters = query_hash_from_string(params[:query_string])
@@ -79,7 +80,7 @@ class InsurancePlansController < ApplicationController
 
     @query_params = InsurancePlan.query_params
     @insurance_plans = []
-    @insurance_plans = @bundle.entry.map(&:resource).select { |r| r.is_a?(FHIR::InsurancePlan) } if @bundle
+    @insurance_plans = (@bundle&.entry || []).map(&:resource).select { |r| r.is_a?(FHIR::InsurancePlan) } if @bundle
   
   end
 
