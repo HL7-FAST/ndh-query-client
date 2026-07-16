@@ -11,63 +11,66 @@
 require 'json'
 
 class WelcomeController < ApplicationController
+  COUNTABLE_TYPES = %w[
+    Endpoint HealthcareService InsurancePlan Location Organization
+    OrganizationAffiliation Practitioner PractitionerRole
+  ].freeze
+
   # GET /
 
   def index
     connect_to_server
-    get_resource_counts
   end
 
-  def get_resource_counts
-    @endpoints = 0
-    @healthCareServices = 0
-    @insurancePlans = 0
-    @locations = 0
-    @networks = 0
-    @organizations = 0
-    @organizationAffiliations = 0
-    @practitioners = 0
-    @practitionerRoles = 0
+  # GET /resource_counts
+  #
+  # Returns all counts at once via the non-standard $get-resource-counts
+  # operation (fast on HAPI-based servers). Returns null counts if the server
+  # does not support the operation; the front page then falls back to
+  # per-type _summary=count requests.
 
-    response = RestClient::Request.new(method: :get, url: server_url + '/$get-resource-counts').execute
-    results = JSON.parse(response.to_str)
-    results['parameter'].each do |param|
-      case param['name']
-      when 'Endpoint'
-        @endpoints = param['valueInteger']
-      when 'HealthcareService'
-        @healthCareServices = param['valueInteger']
-      when 'InsurancePlan'
-        @insurancePlans = param['valueInteger']
-      when 'Location'
-        @locations = param['valueInteger']
-      # when "Network"
-      #   @networks = param["valueInteger"]
-      when 'Organization'
-        @organizations = param['valueInteger']
-      when 'OrganizationAffiliation'
-        @organizationAffiliations = param['valueInteger']
-      when 'Practitioner'
-        @practitioners = param['valueInteger']
-      when 'PractitionerRole'
-        @practitionerRoles = param['valueInteger']
-      end
-    end
+  def counts
+    return head :bad_request unless server_url.present?
 
-    # Network isn't a resource so we will query for its count separately
-    response = RestClient::Request.new(method: :get,
-                                       url: "#{server_url}/Organization?type=ntwk&_total=accurate").execute
-    results = JSON.parse(response.to_str)
-    @networks = results['total']
+    response = RestClient::Request.new(
+      method: :get,
+      url: "#{server_url}/$get-resource-counts",
+      headers: { accept: 'application/fhir+json' },
+      timeout: 15
+    ).execute
+    parameters = JSON.parse(response.to_str)['parameter']
+    render json: { counts: parameters.to_h { |p| [p['name'], p['valueInteger']] } }
+  rescue StandardError
+    render json: { counts: nil }
+  end
+
+  # GET /resource_count?type=Location
+  #
+  # Returns the total for a single resource type using a standard
+  # _summary=count search. Used as the fallback when $get-resource-counts is
+  # unavailable, and always for Network (the operation does not report it).
+  # A null count with an error means the request failed; a null count without
+  # one means the server responded but omitted Bundle.total (it is optional).
+
+  def count
+    query = if params[:type] == 'Network'
+              'Organization?type=ntwk&_summary=count'
+            elsif COUNTABLE_TYPES.include?(params[:type])
+              "#{params[:type]}?_summary=count"
+            end
+    return head :bad_request unless query && server_url.present?
+
+    response = RestClient::Request.new(
+      method: :get,
+      url: "#{server_url}/#{query}",
+      headers: { accept: 'application/fhir+json' },
+      timeout: 15
+    ).execute
+    render json: { count: JSON.parse(response.to_str)['total'] }
+  rescue RestClient::ExceptionWithResponse => e
+    details = operation_outcome_diagnostics(e.response)
+    render json: { count: nil, error: ["HTTP #{e.http_code}", details].compact_blank.join(': ') }
   rescue StandardError => e
-    @endpoints = 0
-    @healthCareServices = 0
-    @insurancePlans = 0
-    @locations = 0
-    @networks = 0
-    @organizations = 0
-    @organizationAffiliations = 0
-    @practitioners = 0
-    @practitionerRoles = 0
+    render json: { count: nil, error: e.message }
   end
 end

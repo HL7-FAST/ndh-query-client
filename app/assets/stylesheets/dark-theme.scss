@@ -597,6 +597,17 @@ main {
 }
 
 // -----------------------------------------------------------------------------
+// Front Page Resource Counts
+// -----------------------------------------------------------------------------
+// Fixed-width right-aligned slot so the resource type labels line up in each
+// column regardless of how many digits the count has.
+.resource-count {
+  display: inline-block;
+  min-width: 7em;
+  text-align: right;
+}
+
+// -----------------------------------------------------------------------------
 // Query Display (Code Block Style - Dark)
 // -----------------------------------------------------------------------------
 .query-label {

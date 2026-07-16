@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#index'
+  get 'resource_count', to: 'welcome#count'
+  get 'resource_counts', to: 'welcome#counts'
 
   resources :healthcare_services, only: [:index, :show] do
     get 'search', on: :collection
