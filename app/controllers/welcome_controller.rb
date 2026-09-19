@@ -32,12 +32,7 @@ class WelcomeController < ApplicationController
   def counts
     return head :bad_request unless server_url.present?
 
-    response = RestClient::Request.new(
-      method: :get,
-      url: "#{server_url}/$get-resource-counts",
-      headers: { accept: 'application/fhir+json' },
-      timeout: 15
-    ).execute
+    response = fhir_request(:get, "#{server_url}/$get-resource-counts")
     parameters = JSON.parse(response.to_str)['parameter']
     render json: { counts: parameters.to_h { |p| [p['name'], p['valueInteger']] } }
   rescue StandardError
@@ -60,12 +55,7 @@ class WelcomeController < ApplicationController
             end
     return head :bad_request unless query && server_url.present?
 
-    response = RestClient::Request.new(
-      method: :get,
-      url: "#{server_url}/#{query}",
-      headers: { accept: 'application/fhir+json' },
-      timeout: 15
-    ).execute
+    response = fhir_request(:get, "#{server_url}/#{query}")
     render json: { count: JSON.parse(response.to_str)['total'] }
   rescue RestClient::ExceptionWithResponse => e
     details = operation_outcome_diagnostics(e.response)

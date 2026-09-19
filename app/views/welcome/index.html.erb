@@ -91,13 +91,6 @@
 	<% end %>
 
 	<section class='row justify-content-center mt-4'>
-		<%= form_tag root_path, method: 'get', class: 'd-flex gap-2', id: 'server-form' do %>
-			<div class='flex-grow-1'>
-				<%= text_field_tag :server_url, (cookies[:server_url] or 'https://ndh-server.fast.hl7.org/fhir'), class: 'form-control', placeholder: 'https://ndh-server.fast.hl7.org/fhir' %>
-			</div>
-			<%= button_tag class: 'btn btn-primary', id: 'server-url' do %>
-				Connect
-			<% end %>
-		<% end %>
+		<%= render 'partials/server_form' %>
 	</section>
 </section>

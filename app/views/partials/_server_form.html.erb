@@ -1,0 +1,15 @@
+<%= form_tag root_path, method: 'get', id: 'server-form' do %>
+	<div class='d-flex gap-2'>
+		<div class='flex-grow-1'>
+			<%= text_field_tag :server_url, (cookies[:server_url] || default_server_url), class: 'form-control', placeholder: default_server_url %>
+		</div>
+		<%= button_tag class: 'btn btn-primary', id: 'server-url' do %>
+			Connect
+		<% end %>
+	</div>
+	<details class='mt-2' <%= 'open' if session[:server_headers].present? %>>
+		<summary class='text-muted small'>Custom request headers</summary>
+		<%= text_area_tag :server_headers, server_headers_text, class: 'form-control mt-2 font-monospace', rows: 3, placeholder: "One per line, for example:\nAuthorization: Bearer <token>" %>
+		<div class='form-text text-muted'>Sent with every request to the server for this browser session.</div>
+	</details>
+<% end %>

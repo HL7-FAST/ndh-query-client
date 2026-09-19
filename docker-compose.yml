@@ -7,3 +7,5 @@ services:
       - .:/ndh-query-client
     ports:
       - "3000:3000"
+    environment:
+      DEFAULT_FHIR_SERVER_URL: https://ndh-server.fast.hl7.org/fhir

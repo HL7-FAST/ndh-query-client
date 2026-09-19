@@ -43,3 +43,7 @@
 
 
 *.sqlite*
+
+# Ignore compiled Dart Sass output
+/app/assets/builds/*
+!/app/assets/builds/.keep

@@ -31,6 +31,42 @@ class ApplicationController < ActionController::Base
 
   #-----------------------------------------------------------------------------
 
+  # Custom headers the user asked to send with every request to the FHIR
+  # server. A connect submission (params[:server_url] present) replaces the
+  # stored set; an empty field clears it. Between submissions the set lives
+  # in the session so it is scoped to this user's browser session.
+
+  def custom_headers
+    session[:server_headers] = parse_headers(params[:server_headers]) if params[:server_url].present?
+    session[:server_headers] || {}
+  end
+
+  # Parses "Name: Value" lines into a hash. Lines without a colon are ignored.
+  def parse_headers(text)
+    text.to_s.each_line.filter_map do |line|
+      name, value = line.split(':', 2)
+      [name.strip, value.strip] if value && name.strip.present?
+    end.to_h
+  end
+
+  #-----------------------------------------------------------------------------
+
+  # Single entry point for requests to the FHIR server that bypass the
+  # FHIR client (operations, bulk export). Applies the user's custom headers
+  # so they never have to be repeated at call sites.
+
+  def fhir_request(method, url, headers: {}, **options)
+    RestClient::Request.execute(
+      method: method,
+      url: url,
+      headers: { 'Accept' => 'application/fhir+json' }.merge(custom_headers).merge(headers),
+      timeout: 15,
+      **options
+    )
+  end
+
+  #-----------------------------------------------------------------------------
+
   def setup_dalli
     unless Rails.env.production?
       options = { :namespace => "ndh-query-client", :compress => true }
@@ -47,8 +83,10 @@ class ApplicationController < ActionController::Base
     if server_url.present?
       @client = FHIR::Client.new(server_url)
       @client.use_r4
-      @client.additional_headers = { 'Accept-Encoding' => 'identity' }  # 
-      @client.set_basic_auth("fhiruser","change-password")
+      @client.additional_headers = { 'Accept-Encoding' => 'identity' }.merge(custom_headers)
+      # The client merges basic auth last, so it would override a
+      # user-supplied Authorization header unless skipped here.
+      @client.set_basic_auth("fhiruser","change-password") unless custom_headers.key?('Authorization')
       cookies[:server_url] = server_url
       session[:server_url] = server_url      
     end

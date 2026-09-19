@@ -10,6 +10,24 @@
 require 'httparty'
 
 module ApplicationHelper
+  # The FHIR server offered in the connect form before the user picks one.
+  # Set DEFAULT_FHIR_SERVER_URL in the environment to change it per deployment.
+
+  def default_server_url
+    ENV.fetch('DEFAULT_FHIR_SERVER_URL', 'https://ndh-server.fast.hl7.org/fhir')
+  end
+
+  #-----------------------------------------------------------------------------
+
+  # Custom headers stored for this session, rendered one "Name: Value" per
+  # line for the connect form.
+
+  def server_headers_text
+    (session[:server_headers] || {}).map { |name, value| "#{name}: #{value}" }.join("\n")
+  end
+
+  #-----------------------------------------------------------------------------
+
   # Determines the CSS class of the flash message for display from the
   # specified level.
 

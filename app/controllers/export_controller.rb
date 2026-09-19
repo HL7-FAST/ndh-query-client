@@ -68,7 +68,7 @@ class ExportController < ApplicationController
 
     if poll_url.present?
       begin
-        RestClient::Request.execute(method: :delete, url: poll_url, headers: headers_for_request)
+        fhir_request(:delete, poll_url)
       rescue StandardError => e
         Rails.logger.error "Error canceling export: #{e.message}"
       end
@@ -108,33 +108,12 @@ class ExportController < ApplicationController
 
   # Initiate the export request
   def initiate_export(export_url)
-    RestClient::Request.execute(
-      method: :get,
-      url: export_url,
-      headers: headers_for_export
-    )
+    fhir_request(:get, export_url, headers: { 'Prefer' => 'respond-async' })
   end
 
   # Poll the export status
   def poll_export_status(poll_url)
-    RestClient::Request.execute(
-      method: :get,
-      url: poll_url,
-      headers: headers_for_request
-    )
-  end
-
-  # Headers for initiating export
-  def headers_for_export
-    {
-      'Accept' => 'application/fhir+json',
-      'Prefer' => 'respond-async'
-    }
-  end
-
-  # Headers for status polling
-  def headers_for_request
-    { 'Accept' => 'application/fhir+json' }
+    fhir_request(:get, poll_url)
   end
 
   # Handle successful export initiation
