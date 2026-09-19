@@ -23,8 +23,7 @@ def client
   server_url = 'https://ndh-server.fast.hl7.org/fhir/'
   client = FHIR::Client.new(server_url)
   client.use_r4
-  client.additional_headers = { 'Accept-Encoding' => 'identity' } #
-  client.set_basic_auth('fhiruser', 'change-password')
+  client.additional_headers = { 'Accept-Encoding' => 'identity' }
   client
 end
 
